@@ -11,8 +11,8 @@
           class="btn btn-primary"
           data-toggle="modal"
           data-target="#exampleModal"
-          ><i class="fa fa-plus"></i
-        > Agregar</a>
+          ><i class="fa fa-plus"></i> Agregar</a
+        >
       </div>
 
       <div class="card-body">
@@ -248,6 +248,7 @@ export default {
 
   mounted() {
     this.getUsers();
+    this.getRoles();
   },
 
   data() {
@@ -345,7 +346,6 @@ export default {
       this.errors = [];
       this.isActionNew = false;
       this.isLoading = false;
-      this.getRoles();
       this.user.name = data.name;
       this.user.email = data.email;
       this.user.status = data.status;

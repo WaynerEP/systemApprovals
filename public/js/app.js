@@ -3151,6 +3151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.getUsers();
+    this.getRoles();
   },
   data: function data() {
     return {
@@ -3265,7 +3266,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.errors = [];
       this.isActionNew = false;
       this.isLoading = false;
-      this.getRoles();
       this.user.name = data.name;
       this.user.email = data.email;
       this.user.status = data.status;
@@ -62521,7 +62521,7 @@ var render = function () {
                     _c("span", { staticClass: "tx-danger" }, [_vm._v("*")]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "form-row" }, [
                     _c(
                       "label",
                       { staticClass: "col-sm-4 form-control-label" },

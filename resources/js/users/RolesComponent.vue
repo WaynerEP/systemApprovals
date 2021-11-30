@@ -75,7 +75,7 @@
             <label for=""
               >Permisos de rol <span class="tx-danger">*</span></label
             >
-            <div class="row">
+            <div class="form-row">
               <label class="col-sm-4 form-control-label"
                 >Acceso de administrador <span class="tx-danger">*</span></label
               >
