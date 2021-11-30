@@ -55,67 +55,65 @@
         {{ isActionNew ? "Nuevo" : "Actualizar" }}
       </template>
       <template #body>
-          <div class="form-group">
-            <label class="form-control-label" for="inputAutocomplete"
-              >Nombre de Rol <span class="tx-danger">*</span></label
+        <div class="form-group">
+          <label class="form-control-label" for="inputAutocomplete"
+            >Nombre de Rol <span class="tx-danger">*</span></label
+          >
+          <input
+            type="text"
+            v-model="role.name"
+            class="form-control"
+            :class="{ 'is-invalid': errors && errors.name }"
+            id="inputAutocomplete"
+            placeholder="Escriba un nombre de rol"
+          />
+          <div class="invalid-feedback d-block" v-if="errors && errors.name">
+            {{ errors.name[0] }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">Permisos de rol <span class="tx-danger">*</span></label>
+          <div class="form-row">
+            <label class="col-sm-4 form-control-label"
+              >Acceso de administrador <span class="tx-danger">*</span></label
             >
-            <input
-              type="text"
-              v-model="role.name"
-              class="form-control"
-              :class="{ 'is-invalid': errors && errors.name }"
-              id="inputAutocomplete"
-              placeholder="Escriba un nombre de rol"
-            />
-            <div class="invalid-feedback d-block" v-if="errors && errors.name">
-              {{ errors.name[0] }}
+            <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+              <label class="ckbox">
+                <input
+                  type="checkbox"
+                  v-model="checked"
+                  id="gridCheck"
+                  @change="onChange($event)"
+                /><span>Seleccionar todo</span>
+              </label>
             </div>
           </div>
-          <div class="form-group">
-            <label for=""
-              >Permisos de rol <span class="tx-danger">*</span></label
-            >
-            <div class="form-row">
-              <label class="col-sm-4 form-control-label"
-                >Acceso de administrador <span class="tx-danger">*</span></label
-              >
-              <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                <label class="ckbox">
-                  <input
-                    type="checkbox"
-                    v-model="checked"
-                    id="gridCheck"
-                    @change="onChange($event)"
-                  /><span>Seleccionar todo</span>
-                </label>
-              </div>
-            </div>
-          </div>
+        </div>
 
-          <div class="form-group">
-            <label for="" class="form-control-label"
-              >Permisos de rol <span class="tx-danger">*</span></label
-            >
-            <div class="form-group row">
-              <div class="col-sm-3" v-for="p in permissions" :key="p.id">
-                <label class="ckbox" :for="'gridCheck' + p.id">
-                  <input
-                    type="checkbox"
-                    :value="p.id"
-                    v-model="role.permissions"
-                    :id="'gridCheck' + p.id"
-                    :disabled="isCheckedDisabled"
-                  /><span>{{ p.name }}</span>
-                </label>
-              </div>
-            </div>
-            <div
-              class="invalid-feedback d-block"
-              v-if="errors && errors.permissions"
-            >
-              {{ errors.permissions[0] }}
+        <div class="form-group">
+          <label for="" class="form-control-label"
+            >Permisos de rol <span class="tx-danger">*</span></label
+          >
+          <div class="form-group row">
+            <div class="col-sm-3" v-for="p in permissions" :key="p.id">
+              <label class="ckbox" :for="'gridCheck' + p.id">
+                <input
+                  type="checkbox"
+                  :value="p.id"
+                  v-model="role.permissions"
+                  :id="'gridCheck' + p.id"
+                  :disabled="isCheckedDisabled"
+                /><span>{{ p.name }}</span>
+              </label>
             </div>
           </div>
+          <div
+            class="invalid-feedback d-block"
+            v-if="errors && errors.permissions"
+          >
+            {{ errors.permissions[0] }}
+          </div>
+        </div>
       </template>
       <template #footer>
         <button
@@ -157,6 +155,7 @@ export default {
 
   mounted() {
     this.getRoles();
+    this.getPermisos();
   },
 
   data() {
@@ -233,15 +232,14 @@ export default {
       }
     },
 
-    async editForm(data) {
-      const res = await axios.get("/roles/permissions");
-      this.permissions = res.data;
+    editForm(data) {
+      // const res = await axios.get("/roles/permissions");
       this.errors = [];
       let n = data.permissions.length;
-      let size = res.data.length;
+      let size = this.permissions.length;
       if (size == n) {
         this.checked = "checked";
-        this.formPermissions(size, res.data);
+        this.formPermissions(size, this.permissions);
         this.isCheckedDisabled = true;
       } else {
         this.formPermissions(n, data.permissions);
@@ -261,7 +259,6 @@ export default {
 
     openModal() {
       this.resetForm();
-      this.getPermisos();
     },
 
     existsErrors(e) {

@@ -2381,7 +2381,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -2676,8 +2675,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 
@@ -2693,6 +2690,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.getRoles();
+    this.getPermisos();
   },
   data: function data() {
     return {
@@ -2807,46 +2805,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     editForm: function editForm(data) {
-      var _this4 = this;
+      // const res = await axios.get("/roles/permissions");
+      this.errors = [];
+      var n = data.permissions.length;
+      var size = this.permissions.length;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var res, n, size;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return axios.get("/roles/permissions");
+      if (size == n) {
+        this.checked = "checked";
+        this.formPermissions(size, this.permissions);
+        this.isCheckedDisabled = true;
+      } else {
+        this.formPermissions(n, data.permissions);
+      }
 
-              case 2:
-                res = _context3.sent;
-                _this4.permissions = res.data;
-                _this4.errors = [];
-                n = data.permissions.length;
-                size = res.data.length;
-
-                if (size == n) {
-                  _this4.checked = "checked";
-
-                  _this4.formPermissions(size, res.data);
-
-                  _this4.isCheckedDisabled = true;
-                } else {
-                  _this4.formPermissions(n, data.permissions);
-                }
-
-                _this4.isActionNew = false;
-                _this4.role.name = data.name;
-                _this4.selected_id = data.id;
-                $("#exampleModal").modal("show");
-
-              case 12:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
+      this.isActionNew = false;
+      this.role.name = data.name;
+      this.selected_id = data.id;
+      $("#exampleModal").modal("show");
     },
     formPermissions: function formPermissions(size, data) {
       for (var index = 0; index < size; index++) {
@@ -2856,7 +2831,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     openModal: function openModal() {
       this.resetForm();
-      this.getPermisos();
     },
     existsErrors: function existsErrors(e) {
       if (e.response.status === 422) {
@@ -62090,7 +62064,7 @@ var render = function () {
             _c(
               "a",
               {
-                staticClass: "btn btn-primary",
+                staticClass: "btn btn-outline-primary",
                 attrs: {
                   href: "",
                   "data-toggle": "modal",
@@ -62248,9 +62222,9 @@ var render = function () {
                   _vm.errors && _vm.errors.name
                     ? _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v(
-                          "\n            " +
+                          "\n          " +
                             _vm._s(_vm.errors.name[0]) +
-                            "\n          "
+                            "\n        "
                         ),
                       ])
                     : _vm._e(),
@@ -62507,9 +62481,9 @@ var render = function () {
                   _vm.errors && _vm.errors.name
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
                         _vm._v(
-                          "\n            " +
+                          "\n          " +
                             _vm._s(_vm.errors.name[0]) +
-                            "\n          "
+                            "\n        "
                         ),
                       ])
                     : _vm._e(),
@@ -62665,9 +62639,9 @@ var render = function () {
                   _vm.errors && _vm.errors.permissions
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
                         _vm._v(
-                          "\n            " +
+                          "\n          " +
                             _vm._s(_vm.errors.permissions[0]) +
-                            "\n          "
+                            "\n        "
                         ),
                       ])
                     : _vm._e(),
@@ -62789,7 +62763,7 @@ var render = function () {
             _c(
               "a",
               {
-                staticClass: "btn btn-primary",
+                staticClass: "btn btn-outline-primary",
                 attrs: {
                   href: "",
                   "data-toggle": "modal",
