@@ -7,6 +7,17 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+import VueAWN from "vue-awesome-notifications"
+
+// Your custom options
+let options = {
+    labels: {
+        success: "Exito!",
+        confirm: "Confirmación requerida",
+    }
+}
+
+Vue.use(VueAWN, options)
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +31,15 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// Management Users
+Vue.component('users-component', require('./users/UsersComponent.vue').default);
+
+//Managemente Roles
+Vue.component('roles-component', require('./users/RolesComponent.vue').default);
+
+//Management Permissions
+Vue.component('permissions-component', require('./users/PermissionsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -1,0 +1,7 @@
+<template>
+  <span
+    class="spinner-border spinner-border-sm mr-1"
+    role="status"
+    aria-hidden="true"
+  ></span>
+</template>
