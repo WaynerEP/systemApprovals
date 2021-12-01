@@ -8,11 +8,11 @@
         <a
           @click="resetForm"
           href=""
-          class="btn btn-primary"
+          class="btn btn-outline-primary"
           data-toggle="modal"
           data-target="#exampleModal"
-          ><i class="fa fa-plus"></i
-        > Agregar</a>
+          ><i class="fa fa-plus"></i> Agregar</a
+        >
       </div>
 
       <div class="card-body">
@@ -60,26 +60,25 @@
       </div>
     </div>
 
-
     <modal-section @submitted="store" @close="resetForm()" maxWidth="lg">
       <template #title>
         {{ isActionNew ? "Nuevo" : "Actualizar" }}
       </template>
       <template #body>
-          <div class="form-group">
-            <label for="inputName" class="form-control-label">Descripción</label>
-            <input
-              type="text"
-              v-model="permission.name"
-              class="form-control"
-              :class="{ 'is-invalid': errors && errors.name }"
-              id="inputName"
-              placeholder="Ingrese un permiso"
-            />
-            <div class="invalid-feedback" v-if="errors && errors.name">
-              {{ errors.name[0] }}
-            </div>
+        <div class="form-group">
+          <label for="inputName" class="form-control-label">Descripción</label>
+          <input
+            type="text"
+            v-model="permission.name"
+            class="form-control"
+            :class="{ 'is-invalid': errors && errors.name }"
+            id="inputName"
+            placeholder="Ingrese un permiso"
+          />
+          <div class="invalid-feedback" v-if="errors && errors.name">
+            {{ errors.name[0] }}
           </div>
+        </div>
       </template>
       <template #footer>
         <button

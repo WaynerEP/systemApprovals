@@ -8,7 +8,7 @@
         <a
           @click="openModal()"
           href=""
-          class="btn btn-primary"
+          class="btn btn-outline-primary"
           data-toggle="modal"
           data-target="#exampleModal"
           ><i class="fa fa-plus"></i> Agregar</a

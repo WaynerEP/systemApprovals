@@ -18,18 +18,33 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
 </head>
 
 <body>
-    <div id="app">
-        <section class="">
+    <div id="app" class="d-md-flex flex-row-reverse">
+        <div class="signin-right">
             @yield('auth')
-        </section>
+        </div>
+        <div class="signin-left"
+            style="background-image: url('../assets/img/blue-panel-bg-image.png'); background-repeat: no-repeat; background-size: cover">
+            <div class="signin-box text-white">
+                <h2 class="slim-logo"><a href="{{ route('login') }}">El Valle<span>.</span></a></h2>
+
+                <p class="">We are excited to launch our new company and product. After being featured
+                    in too many magazines
+                    to mention and having created an online stir, we know that ThemePixels is going to be big. We also
+                    hope to win Startup Fictional Business of the Year this year.</p>
+
+                <p>Navegue por nuestro sitio y compruebe usted mismo por qué somos la mejor comercial del Valle.</p>
+
+                <p><a href="#" class="btn btn-secondary pd-x-25">Ver más</a></p>
+
+                <p class="tx-12">© Copyright 2018. Todos los derechos reservados.</p>
+            </div>
+        </div>
     </div>
 </body>
 
