@@ -74,10 +74,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 6. php artisan serve
 
 ## create a new branch
-git clone ----
-git branch nombre_rama
-git checkout nombre_rama
-git add .
-git commit -m "some changes"
-git push origin nombre_rama
+1. git clone https://github.com/WaynerEP/systemApprovals.git
+2. git branch nombre_rama
+3. git checkout nombre_rama
+4. git add .
+5. git commit -m "some changes"
+6. git push origin nombre_rama
 
