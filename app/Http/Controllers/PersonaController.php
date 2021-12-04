@@ -116,6 +116,6 @@ class PersonaController extends Controller
         $persona = Persona::find($id);
         $persona->estado = '0';
         $persona->save();
-        return response('Persona eliminado!.', 200);
+        return response('Persona eliminada!.', 200);
     }
 }
