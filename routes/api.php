@@ -22,6 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/dataPeople', function () {
+    $data = DB::select('exec citizens');
+    return datatables()->of($data)->addColumn('btn', 'Personas.actions')->rawColumns(['btn'])->toJson();
+});
 
 Route::get('/departamentos', [distritosController::class, 'getAllDepartamentos']);
 
@@ -29,7 +33,7 @@ Route::get('/nivelEstudios', function () {
     return DB::table('nivelEstudios')->get();
 });
 
-
+// obtener  provincias por departamento
 Route::get('/provincias/{idDepartamento}', [distritosController::class, 'getProvincias']);
 
 Route::get('/distritos/{idProvincia}', [distritosController::class, 'getDistritos']);
@@ -38,4 +42,3 @@ Route::get('/distritos/{idProvincia}', [distritosController::class, 'getDistrito
 Route::get('/depas', [cargosController::class, 'getDepartamentoEmpresa']);
 Route::get('/depas/areas/{idDepa}', [cargosController::class, 'getAreasByDepartamento']);
 Route::get('/depas/areas/cargos/{idArea}', [cargosController::class, 'getCargos']);
-

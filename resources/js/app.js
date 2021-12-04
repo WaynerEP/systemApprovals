@@ -30,8 +30,6 @@ Vue.use(VueAWN, options)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 // Management Users
 Vue.component('users-component', require('./users/UsersComponent.vue').default);
 
@@ -40,6 +38,17 @@ Vue.component('roles-component', require('./users/RolesComponent.vue').default);
 
 //Management Permissions
 Vue.component('permissions-component', require('./users/PermissionsComponent.vue').default);
+
+
+
+//Personas
+// Vue.component('people-component', require('./Personas/Index.vue').default);
+// Vue.component('people-create-component', require('./Personas/Create.vue').default);
+ 
+// //Empleados and Proveedores
+// Vue.component('employees-component', require('./Empleados/Index.vue').default);
+// Vue.component('providers-component', require('./Proveedores/Index.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

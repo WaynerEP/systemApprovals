@@ -5,7 +5,7 @@ use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Users\RolesController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\PersonaController;
-
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -47,9 +47,9 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('contacts/people', function () {
-        return view('Personas.Index');
-    })->name('people');
+    // Route::get('contacts/people', function () {
+    //     return view('Personas.Index');
+    // })->name('people');
 
     Route::get('contacts/people/create', function () {
         return view('Personas.Create');
@@ -83,4 +83,6 @@ Route::get('/roles/permissions', [RolesController::class, 'getPermissions']); //
 
 Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit');
 
-Route::resource('/persona/list', PersonaController::class);;
+Route::resource('personas', PersonaController::class);
+
+

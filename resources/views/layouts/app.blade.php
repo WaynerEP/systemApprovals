@@ -46,12 +46,7 @@
 
     </style>
     <!-- Styles -->
-    <link href="{{ asset('css/loader.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/theme-2.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/lib/SpinKit/css/spinkit.css') }}" rel="stylesheet">
+    @include('layouts.themes.styles')
 
 </head>
 
@@ -90,6 +85,7 @@
     </div>
 
     @include('layouts.themes.scripts')
+    @yield('scripts')
 </body>
 
 </html>
