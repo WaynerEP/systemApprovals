@@ -1,7 +1,6 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-{{-- <script src="{{ asset('assets/lib/jquery/js/jquery.js') }}"></script>
-<script src="{{ asset('assets/lib/popper.js/js/popper.js') }}"></script>
-<script src="{{ asset('assets/lib/bootstrap/js/bootstrap.js') }}"></script> --}}
 <script src="{{ asset('assets/js/slim.js') }}"></script>
-
+<script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('assets/lib/datatables-responsive/js/dataTables.responsive.js') }}"></script>
+<script src="{{ asset('assets/lib/select2/js/select2.min.js') }}"></script>

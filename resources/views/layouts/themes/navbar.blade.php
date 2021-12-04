@@ -157,14 +157,9 @@
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="form-elements.html">Form Elements</a></li>
-                        <li><a href="form-layouts.html">Form Layouts</a></li>
-                        <li><a href="form-validation.html">Form Validation</a></li>
-                        <li><a href="form-wizards.html">Form Wizards</a></li>
-                        <li><a href="form-editor.html">WYSIWYG Editor</a></li>
-                        <li><a href="form-select2.html">Select2</a></li>
-                        <li><a href="form-rangeslider.html">Range Slider</a></li>
-                        <li><a href="form-datepicker.html">Datepicker</a></li>
+                        <li><a href="{{ url('/personas') }}">Personas</a></li>
+                        <li><a href="{{ route('employees') }}">Empleados</a></li>
+                        <li><a href="{{ route('providers') }}">Proveedores</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
