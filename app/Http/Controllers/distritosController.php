@@ -10,24 +10,20 @@ use App\Models\Distrito;
 
 class distritosController extends Controller
 {
-    public function getAllDepartamentos()
-    {
-        return Departamento::all();
-    }
 
     public function getProvincias($idDepartamento)
     {
-        $data = Provincia::select('idProvincia', 'provincia')
-            ->where('idDepartamento', $idDepartamento)
-            ->orderBy('idProvincia', 'asc')->get();
+        $data = Provincia::select('codProvincia', 'provincia')
+            ->where('codDepartamento', $idDepartamento)
+            ->orderBy('codProvincia', 'asc')->get();
         return $data;
     }
 
 
     public function getDistritos($idProvincia)
     {
-        $data = Distrito::select('idDistrito', 'distrito')
-            ->where('idProvincia', $idProvincia)
+        $data = Distrito::select('codDistrito', 'distrito')
+            ->where('codProvincia', $idProvincia)
             ->get();
         return $data;
     }

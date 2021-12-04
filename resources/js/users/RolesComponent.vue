@@ -138,17 +138,13 @@
 </template>
 
 <script>
-import ActionsUsersHeader from "../components/HeaderActions.vue";
 import ModalSection from "../components/ModalSection.vue";
-import CardSection from "../components/CardSection.vue";
 import Loading from "../components/Loader.vue";
 import LoaderAction from "../components/LoaderAction.vue";
 
 export default {
   components: {
-    ActionsUsersHeader,
     ModalSection,
-    CardSection,
     Loading,
     LoaderAction,
   },
