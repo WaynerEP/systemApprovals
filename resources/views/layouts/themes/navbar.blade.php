@@ -25,12 +25,12 @@
             <li class="nav-item with-sub mega-dropdown">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-filing-outline"></i>
-                    <span>UI Elements</span>
+                    <span>Maintainers</span>
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="page-profile.html">Profile Page</a></li>
-                        <li><a href="page-invoice.html">Invoice</a></li>
+                        <li><a href="{{route('providers')}}">Proveedores</a></li>
+                        {{-- <li><a href="page-invoice.html">Invoice</a></li> --}}
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
