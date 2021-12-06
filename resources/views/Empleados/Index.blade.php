@@ -1,5 +1,7 @@
 @extends('layouts.App')
 
-@section('content')
-    <employees-component></employees-component>
-@endsection
+
+
+{{-- @section('content')
+<employees-component></employees-component>
+@endsection --}}
