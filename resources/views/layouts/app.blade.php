@@ -17,6 +17,7 @@
     <!-- Preloader -->
     <script src="{{ asset('js/loader.js') }}"></script>
     <!-- Preloader -->
+    <link href="{{ asset('css/loader.css') }}" rel="stylesheet">
 
     <!-- Preloaders  -->
     <style>
@@ -47,10 +48,10 @@
     </style>
     <!-- Styles -->
     @include('layouts.themes.styles')
-
+    {{-- slim-sticky-header --}}
 </head>
 
-<body class="slim-sticky-header">
+<body class="">
     <!-- Preloader -->
     <div id="preloader-area">
         <div class="lds-ripple">

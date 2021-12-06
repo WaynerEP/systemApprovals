@@ -22,26 +22,27 @@
                     </ul>
                 </div><!-- sub-item -->
             </li>
-            <li class="nav-item with-sub mega-dropdown">
+            <li class="nav-item with-sub">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-filing-outline"></i>
-                    <span>Maintainers</span>
+                    <span>Contactos</span>
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="page-invoice.html">Invoice</a></li>
+                        <li><a href="{{ url('/personas') }}">Personas</a></li>
+                        <li><a href="{{ route('employees') }}">Empleados</a></li>
+                        <li><a href="{{ route('providers') }}">Proveedores</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
             <li class="nav-item with-sub">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-book-outline"></i>
-                    <span>Pages</span>
+                    <span>Compras</span>
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="page-profile.html">Profile Page</a></li>
-                        <li><a href="page-invoice.html">Invoice</a></li>
+                        <li><a href="{{ route('solicitudes') }}">Solicitudes</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>

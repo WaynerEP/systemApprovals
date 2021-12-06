@@ -19,6 +19,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Management Users
 Route::middleware('auth')->group(function () {
 
+    // rutas administracion de usuarios
     Route::get('management/users', function () {
         return view('Users.User');
     })->name('users');
@@ -32,7 +33,7 @@ Route::middleware('auth')->group(function () {
     })->name('permissions');
 
 
-
+    // ruta ordenes
     Route::get('/purchases/orders', function () {
         return view('Orders.Index');
     })->name('orders');
@@ -41,36 +42,38 @@ Route::middleware('auth')->group(function () {
         return view('Orders.create');
     });
 
-
+    // ruta aprobacione
     Route::get('/approvals', function () {
         return view('Aprobaciones.Index');
     })->name('approvals');
 
 
-
-    // Route::get('contacts/people', function () {
-    //     return view('Personas.Index');
-    // })->name('people');
-
+    // ruta personas
     Route::get('contacts/people/create', function () {
         return view('Personas.Create');
     });
 
-
+    //ruta empleados
     Route::get('contacts/employees', function () {
         return view('Empleados.Index');
     })->name('employees');
 
+    //ruta proveedores
     Route::get('contacts/providers', function () {
         return view('Proveedores.Index');
     })->name('providers');
 
 
+    // ruta para solicitudes,proformas
+    Route::view('/solicitudes', 'Solicitudes.index')
+        ->name('solicitudes');
+
+    //ruta productos
     Route::get('/items/products', function () {
         return view('Items.Products');
     })->name('items');
 
-
+    //ruta categorias
     Route::get('/items/categories', function () {
         return view('Items.Categories');
     })->name('categories');
@@ -90,5 +93,3 @@ Route::resource('personas', PersonaController::class);
 // Aquí estará la data que reciba a proveedores
 // Route::get('/dataProviders', [providersController::class, 'listProviders']);
 //Proveedores
-
-

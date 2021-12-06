@@ -45,9 +45,9 @@ Vue.component('providers-component', require('./Providers/Index.vue').default);
 // Vue.component('people-component', require('./Personas/Index.vue').default);
 // Vue.component('people-create-component', require('./Personas/Create.vue').default);
  
-// //Empleados and Proveedores
-// Vue.component('employees-component', require('./Empleados/Index.vue').default);
-// Vue.component('providers-component', require('./Proveedores/Index.vue').default);
+// Solicitudes
+Vue.component('solicitudes-component', require('./Solicitudes/Proforma.vue').default);
+
 
 
 /**
