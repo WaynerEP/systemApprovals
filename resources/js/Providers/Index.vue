@@ -63,7 +63,7 @@ export default {
 
   methods: {
     async getProviders() {
-      const res = await axios.get("/dataProviders");
+      const res = await axios.get("/api/dataProviders");
       this.providers = res.data;
       // console.log(this.providers);
       if (res) {

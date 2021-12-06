@@ -12,11 +12,6 @@ class providersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function listProviders(){
-        $data = DB::select('exec listProviders');
-        return \response()->json($data);
-    }
-
     public function index()
     {
         //

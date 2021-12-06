@@ -88,7 +88,7 @@ Route::resource('personas', PersonaController::class);
 
 
 // Aquí estará la data que reciba a proveedores
-Route::get('/dataProviders', [providersController::class, 'listProviders']);
+// Route::get('/dataProviders', [providersController::class, 'listProviders']);
 //Proveedores
 
 

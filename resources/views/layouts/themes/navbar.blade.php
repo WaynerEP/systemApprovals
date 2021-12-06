@@ -29,8 +29,7 @@
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="{{route('providers')}}">Proveedores</a></li>
-                        {{-- <li><a href="page-invoice.html">Invoice</a></li> --}}
+                        <li><a href="page-invoice.html">Invoice</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
