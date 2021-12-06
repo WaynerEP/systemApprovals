@@ -5,7 +5,7 @@ use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Users\RolesController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\PersonaController;
-use App\Http\Controllers\providersController;
+use App\Http\Controllers\Providers\ProviderController;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
@@ -90,6 +90,6 @@ Route::resource('/permissions/list', PermissionsController::class)->except('crea
 Route::resource('personas', PersonaController::class);
 
 
-// Aquí estará la data que reciba a proveedores
-// Route::get('/dataProviders', [providersController::class, 'listProviders']);
+// Aquí estará la data que cree a proveedores
+Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit');
 //Proveedores
