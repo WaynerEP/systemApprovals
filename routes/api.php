@@ -42,3 +42,9 @@ Route::get('/distritos/{idProvincia}', [distritosController::class, 'getDistrito
 Route::get('/depas', [cargosController::class, 'getDepartamentoEmpresa']);
 Route::get('/depas/areas/{idDepa}', [cargosController::class, 'getAreasByDepartamento']);
 Route::get('/depas/areas/cargos/{idArea}', [cargosController::class, 'getCargos']);
+
+
+Route::get('/dataProviders', function () {
+    $data = DB::select('exec listProviders');
+    return response()->json($data);
+});

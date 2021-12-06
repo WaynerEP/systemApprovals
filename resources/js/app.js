@@ -8,7 +8,6 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 import VueAWN from "vue-awesome-notifications"
-
 // Your custom options
 let options = {
     labels: {
@@ -39,7 +38,8 @@ Vue.component('roles-component', require('./users/RolesComponent.vue').default);
 //Management Permissions
 Vue.component('permissions-component', require('./users/PermissionsComponent.vue').default);
 
-
+//Management Providers
+Vue.component('providers-component', require('./Providers/Index.vue').default);
 
 //Personas
 // Vue.component('people-component', require('./Personas/Index.vue').default);
