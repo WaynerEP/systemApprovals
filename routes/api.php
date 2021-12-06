@@ -27,8 +27,6 @@ Route::get('/dataPeople', function () {
     return datatables()->of($data)->addColumn('btn', 'Personas.actions')->rawColumns(['btn'])->toJson();
 });
 
-Route::get('/departamentos', [distritosController::class, 'getAllDepartamentos']);
-
 Route::get('/nivelEstudios', function () {
     return DB::table('nivelEstudios')->get();
 });

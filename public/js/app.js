@@ -3202,8 +3202,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.user.role = "";
       this.user.status = "1";
       this.isActionNew = true;
-      this.errors = [];
-      this.roles = [];
+      this.errors = []; // this.roles = [];
     }
   }
 });

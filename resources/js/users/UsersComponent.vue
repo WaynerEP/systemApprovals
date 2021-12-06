@@ -379,7 +379,7 @@ export default {
       this.user.status = "1";
       this.isActionNew = true;
       this.errors = [];
-      this.roles = [];
+      // this.roles = [];
     },
   },
 };
