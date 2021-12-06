@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Providers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
 
-class providersController extends Controller
+use App\Models\Provider;
+
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,6 +38,18 @@ class providersController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'businessName' => 'required|string|max:255|unique:proveedores,razonSocial',
+            'provider' => 'required'
+        ]);
+
+        Provider::create([
+            'dniRepresentante' => $request['provider'],
+            'razonSocial' => $request['businessName'],
+            'estado' => $request['status']
+        ]);
+
+        return response('Proveedor creado!.', 200);
     }
 
     /**
@@ -70,6 +84,19 @@ class providersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'businessName' => 'required|string|max:255|unique:proveedores,razonSocial,'.$id.',idProveedor'
+            // 'provider' => 'required',
+            // 'status' => 'required'
+        ]);
+
+        Provider::find($id)->update([
+            'razonSocial' => $request['businessName'],
+            // 'email' => $request['email'],
+            // 'status' => $request['status']
+        ]);
+
+        return response('Proveedor Actualizado!.', 200);
     }
 
     /**
@@ -81,5 +108,11 @@ class providersController extends Controller
     public function destroy($id)
     {
         //
+        Provider::find($id)->delete();
+        // $provider=Provider::find($id);
+        // $provider->estado = 0;
+        // $provider->save();
+
+        return response('Proveedor inhabilitado!.', 200);
     }
 }

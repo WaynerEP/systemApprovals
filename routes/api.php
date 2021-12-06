@@ -48,3 +48,8 @@ Route::get('/dataProviders', function () {
     $data = DB::select('exec listProviders');
     return response()->json($data);
 });
+
+Route::get('/dataProvidersNew', function () {
+    $data = DB::select('exec listProvidersNew');
+    return response()->json($data);
+});
