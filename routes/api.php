@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
+use App\Models\Organizacion;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -20,6 +21,14 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/info-el-valle', function () {
+    return Organizacion::first();
+});
+
+Route::get('/users/employees', function () {
+    return DB::select('exec listProviders');
 });
 
 Route::get('/dataPeople', function () {

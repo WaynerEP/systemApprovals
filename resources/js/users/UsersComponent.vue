@@ -111,20 +111,16 @@
           <label class="form-control-label" for="inputAutocomplete"
             >Persona/Empleado</label
           >
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              v-model="user.name"
-              :class="{ 'is-invalid': errors && errors.name }"
-              placeholder="Buscar..."
-            />
-            <span class="input-group-btn">
-              <button class="btn bd bd-l-0 bg-white tx-gray-600" type="button">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
+          <v-select
+            placeholder="Buscar..."
+            v-model="user.name"
+            label="name"
+            :reduce="(n) => n.codEmpleado + '_' + n.dni + '_' + n.email"
+            :options="employees"
+            @input="selectedPersona"
+          >
+          </v-select>
+
           <div class="invalid-feedback d-block" v-if="errors && errors.name">
             {{ errors.name[0] }}
           </div>
@@ -232,6 +228,7 @@
 <script>
 import TableComponent from "../components/Table.vue";
 import moment from "moment";
+import vSelect from "vue-select";
 import ModalSection from "../components/ModalSection.vue";
 import Loading from "../components/Loader.vue";
 import LoaderAction from "../components/LoaderAction.vue";
@@ -242,12 +239,14 @@ export default {
   components: {
     ModalSection,
     Loading,
+    vSelect,
     TableComponent,
     LoaderAction,
   },
 
   mounted() {
     this.getUsers();
+    this.getEmployees();
     this.getRoles();
   },
 
@@ -255,10 +254,12 @@ export default {
     return {
       users: [],
       roles: [],
+      employees: [],
       user: {
         name: "",
         email: "",
         dni: "",
+        codeEmpleado: "",
         role: "",
         status: "1",
       },
@@ -286,6 +287,19 @@ export default {
       if (res) {
         this.isNoEmpty = false;
       }
+    },
+
+    async getEmployees() {
+      const res = await axios.get("/api/users/employees");
+      this.employees = res.data;
+    },
+
+    selectedPersona() {
+      let el = this;
+      let datos = value.split("_");
+      el.user.dni = datos[0];
+      el.user.codeEmpleado = datos[1];
+      el.user.email = datos[2];
     },
 
     openModal() {
@@ -384,3 +398,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-select ul {
+  padding: 5px !important;
+}
+</style>
+
