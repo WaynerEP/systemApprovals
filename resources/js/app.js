@@ -41,6 +41,8 @@ Vue.component('permissions-component', require('./users/PermissionsComponent.vue
 //Management Providers
 Vue.component('providers-component', require('./Providers/Index.vue').default);
 
+//Management Products
+Vue.component('products-component', require('./Products/Index.vue').default);
 //Personas
 // Vue.component('people-component', require('./Personas/Index.vue').default);
 // Vue.component('people-create-component', require('./Personas/Create.vue').default);

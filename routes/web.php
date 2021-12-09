@@ -93,3 +93,7 @@ Route::resource('personas', PersonaController::class);
 // Aquí estará la data que cree a proveedores
 Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit');
 //Proveedores
+
+// ruta para productos,categorias
+Route::view('/productos', 'Productos.index')
+->name('productos');
