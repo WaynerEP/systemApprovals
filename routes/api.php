@@ -28,7 +28,7 @@ Route::get('/info-el-valle', function () {
 });
 
 Route::get('/users/employees', function () {
-    return DB::select('exec listProviders');
+    return DB::select('exec spEmployeesNotUsers');
 });
 
 Route::get('/dataPeople', function () {

@@ -112,14 +112,18 @@
             >Persona/Empleado</label
           >
           <v-select
+            v-if="  isActionNew"
             placeholder="Buscar..."
-            v-model="user.name"
-            label="name"
-            :reduce="(n) => n.codEmpleado + '_' + n.dni + '_' + n.email"
+            v-model="empleado"
+            label="names"
+            :reduce="
+              (n) => n.codEmpleado + '_' + n.dni + '_' + n.email + '_' + n.names
+            "
             :options="employees"
-            @input="selectedPersona"
+            @input="selectedPersona(empleado)"
           >
           </v-select>
+          <input v-else type="text" class="form-control" v-model="user.name" />
 
           <div class="invalid-feedback d-block" v-if="errors && errors.name">
             {{ errors.name[0] }}
@@ -263,6 +267,7 @@ export default {
         role: "",
         status: "1",
       },
+      empleado: "",
       errors: [],
       selected_id: "",
       isLoading: false,
@@ -274,7 +279,7 @@ export default {
   methods: {
     getHumanDate: function (date) {
       moment.locale("es");
-      return moment(date, "YYYY-MM-DD h:mm:ss").fromNow();
+      return moment(date, "YYYY-DD-MM h:mm:ss").fromNow();
     },
 
     getCreatedDate: function (date) {
@@ -294,12 +299,13 @@ export default {
       this.employees = res.data;
     },
 
-    selectedPersona() {
+    selectedPersona(value) {
       let el = this;
       let datos = value.split("_");
-      el.user.dni = datos[0];
-      el.user.codeEmpleado = datos[1];
+      el.user.codeEmpleado = datos[0];
+      el.user.dni = datos[1];
       el.user.email = datos[2];
+      el.user.name = datos[3];
     },
 
     openModal() {
@@ -316,6 +322,7 @@ export default {
           .then((res) => {
             $("#exampleModal").modal("hide");
             this.getUsers();
+            this.getEmployees();
             this.$awn.success(res.data);
             this.isLoading = false;
           })
@@ -386,6 +393,7 @@ export default {
 
     resetForm() {
       this.isLoading = false;
+      this.empleado = "";
       this.user.name = "";
       this.user.email = "";
       this.user.dni = "";

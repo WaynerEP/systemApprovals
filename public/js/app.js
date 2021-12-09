@@ -3822,6 +3822,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3855,6 +3859,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         role: "",
         status: "1"
       },
+      empleado: "",
       errors: [],
       selected_id: "",
       isLoading: false,
@@ -3865,7 +3870,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     getHumanDate: function getHumanDate(date) {
       moment__WEBPACK_IMPORTED_MODULE_2___default().locale("es");
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date, "YYYY-MM-DD h:mm:ss").fromNow();
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date, "YYYY-DD-MM h:mm:ss").fromNow();
     },
     getCreatedDate: function getCreatedDate(date) {
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format("DD/MM/YYYY");
@@ -3922,12 +3927,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    selectedPersona: function selectedPersona() {
+    selectedPersona: function selectedPersona(value) {
       var el = this;
       var datos = value.split("_");
-      el.user.dni = datos[0];
-      el.user.codeEmpleado = datos[1];
+      el.user.codeEmpleado = datos[0];
+      el.user.dni = datos[1];
       el.user.email = datos[2];
+      el.user.name = datos[3];
     },
     openModal: function openModal() {
       this.resetForm();
@@ -3943,6 +3949,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           $("#exampleModal").modal("hide");
 
           _this3.getUsers();
+
+          _this3.getEmployees();
 
           _this3.$awn.success(res.data);
 
@@ -4030,6 +4038,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     resetForm: function resetForm() {
       this.isLoading = false;
+      this.empleado = "";
       this.user.name = "";
       this.user.email = "";
       this.user.dni = "";
@@ -65211,24 +65220,58 @@ var render = function () {
                       [_vm._v("Persona/Empleado")]
                     ),
                     _vm._v(" "),
-                    _c("v-select", {
-                      attrs: {
-                        placeholder: "Buscar...",
-                        label: "name",
-                        reduce: function (n) {
-                          return n.codEmpleado + "_" + n.dni + "_" + n.email
-                        },
-                        options: _vm.employees,
-                      },
-                      on: { input: _vm.selectedPersona },
-                      model: {
-                        value: _vm.user.name,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.user, "name", $$v)
-                        },
-                        expression: "user.name",
-                      },
-                    }),
+                    _vm.isActionNew
+                      ? _c("v-select", {
+                          attrs: {
+                            placeholder: "Buscar...",
+                            label: "names",
+                            reduce: function (n) {
+                              return (
+                                n.codEmpleado +
+                                "_" +
+                                n.dni +
+                                "_" +
+                                n.email +
+                                "_" +
+                                n.names
+                              )
+                            },
+                            options: _vm.employees,
+                          },
+                          on: {
+                            input: function ($event) {
+                              return _vm.selectedPersona(_vm.empleado)
+                            },
+                          },
+                          model: {
+                            value: _vm.empleado,
+                            callback: function ($$v) {
+                              _vm.empleado = $$v
+                            },
+                            expression: "empleado",
+                          },
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.name,
+                              expression: "user.name",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.user.name },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.user, "name", $event.target.value)
+                            },
+                          },
+                        }),
                     _vm._v(" "),
                     _vm.errors && _vm.errors.name
                       ? _c("div", { staticClass: "invalid-feedback d-block" }, [
