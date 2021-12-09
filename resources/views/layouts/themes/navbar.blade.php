@@ -49,13 +49,11 @@
             <li class="nav-item with-sub">
                 <a class="nav-link" href="#" data-toggle="dropdown">
                     <i class="icon ion-ios-gear-outline"></i>
-                    <span>Contactos</span>
+                    <span>Items</span>
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="{{ url('/personas') }}">Personas</a></li>
-                        <li><a href="{{ route('employees') }}">Empleados</a></li>
-                        <li><a href="{{ route('providers') }}">Proveedores</a></li>
+                        <li><a href="{{ route('productos') }}">Productos</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>

@@ -51,3 +51,13 @@ Route::get('/dataProvidersNew', function () {
     $data = DB::select('exec listProvidersNew');
     return response()->json($data);
 });
+
+Route::get('/dataCategories', function () {
+    $data = DB::select('exec spListCategories');
+    return response()->json($data);
+});
+
+Route::get('/dataProducts/{id}', function ($id) {
+    $data = DB::select('exec spListProducts '.$id);
+    return response()->json($data);
+});
