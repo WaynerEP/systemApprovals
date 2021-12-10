@@ -61,6 +61,9 @@ Route::get('/dataProvidersNew', function () {
     return response()->json($data);
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7c0396101fbe6df26eaf6598176ba52f3a1e02f0
 
 Route::get('/dataCategories', function () {
     $data = DB::select('exec spListCategories');
@@ -71,5 +74,8 @@ Route::get('/dataProducts/{id}', function ($id) {
     $data = DB::select('exec spListProducts '.$id);
     return response()->json($data);
 });
+<<<<<<< HEAD
 =======
 >>>>>>> 2d255683554dccfce811f1683d6d25622dae8f2d
+=======
+>>>>>>> 7c0396101fbe6df26eaf6598176ba52f3a1e02f0
