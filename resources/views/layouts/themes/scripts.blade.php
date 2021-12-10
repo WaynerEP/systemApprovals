@@ -6,16 +6,4 @@
 <script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/lib/datatables-responsive/js/dataTables.responsive.js') }}"></script>
 <script src="{{ asset('assets/lib/select2/js/select2.min.js') }}"></script>
-{{-- <script>
-    $(document).ready(function() {
-        'use strict';
-
-        $('#wizard1').steps({
-            headerTag: 'h3',
-            bodyTag: 'section',
-            autoFocus: true,
-            titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>'
-        });
-
-    });
-</script> --}}
+<script src="{{ asset('js/toaster.js') }}"></script>

@@ -4,6 +4,7 @@
       <div class="col-md-6 col-lg-3 mb-3" v-for="r in roles" :key="r.id">
         <div class="card card-todo">
           <h6 class="slim-card-title">{{ r.name }}</h6>
+        <div class="signup-separator"></div>
 
           <div class="todo-list">
             <div class="todo-item" v-for="p in r.permissions" :key="p.id">
@@ -14,12 +15,12 @@
             </div>
           </div>
           <div class="mt-4">
-            <button @click="editForm(r)" class="btn btn-outline-light btn-icon">
+            <button @click="editForm(r)" class="btn  btn-icon">
               <div class="tx-20">
                 <i class="fa fa-pencil"></i>
               </div>
             </button>
-            <button class="btn btn-outline-light btn-icon">
+            <button class="btn btn-icon">
               <div class="tx-20">
                 <i class="fa fa-eye"></i>
               </div>
@@ -44,7 +45,8 @@
             data-toggle="modal"
             data-target="#exampleModal"
             ><img src="/assets/img/4.png" class="img-fluid" alt="" />
-            <p class="section-label text-center">Agregar</p>
+            
+            <p class="section-label text-center">Agregar <i class="fa fa-plus"></i></p>
           </a>
         </div>
       </div>

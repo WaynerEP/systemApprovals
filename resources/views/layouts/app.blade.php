@@ -74,7 +74,9 @@
                     <ol class="breadcrumb slim-breadcrumb">
                         @yield('navigation')
                     </ol>
-                    @yield('title')
+                    <h6 class="slim-pagetitle">
+                        @yield('title')
+                    </h6>
                 </div>
 
                 @yield('content')

@@ -16,6 +16,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('/login-google', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])
+    ->name('auth-google');
+
+Route::get('/google-callback', [App\Http\Controllers\Auth\LoginController::class, 'authWithGoogle']);
+
 // Management Users
 Route::middleware('auth')->group(function () {
 
@@ -77,6 +83,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/categories', function () {
         return view('Items.Categories');
     })->name('categories');
+
+    Route::view('/user-profile', 'Profile.user-profile')
+        ->name('profile');
+
+    Route::view('/profile-settings', 'Profile.user-profile')
+        ->name('settings');
 });
 
 Route::resource('/users/list', UserController::class)->except('create', 'show', 'edit');
@@ -96,4 +108,4 @@ Route::resource('/providers', ProviderController::class)->except('create', 'show
 
 // ruta para productos,categorias
 Route::view('/productos', 'Productos.index')
-->name('productos');
+    ->name('productos');
