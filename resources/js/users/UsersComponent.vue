@@ -111,20 +111,20 @@
           <label class="form-control-label" for="inputAutocomplete"
             >Persona/Empleado</label
           >
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              v-model="user.name"
-              :class="{ 'is-invalid': errors && errors.name }"
-              placeholder="Buscar..."
-            />
-            <span class="input-group-btn">
-              <button class="btn bd bd-l-0 bg-white tx-gray-600" type="button">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
+          <v-select
+            v-if="  isActionNew"
+            placeholder="Buscar..."
+            v-model="empleado"
+            label="names"
+            :reduce="
+              (n) => n.codEmpleado + '_' + n.dni + '_' + n.email + '_' + n.names
+            "
+            :options="employees"
+            @input="selectedPersona(empleado)"
+          >
+          </v-select>
+          <input v-else type="text" class="form-control" v-model="user.name" />
+
           <div class="invalid-feedback d-block" v-if="errors && errors.name">
             {{ errors.name[0] }}
           </div>
@@ -232,6 +232,7 @@
 <script>
 import TableComponent from "../components/Table.vue";
 import moment from "moment";
+import vSelect from "vue-select";
 import ModalSection from "../components/ModalSection.vue";
 import Loading from "../components/Loader.vue";
 import LoaderAction from "../components/LoaderAction.vue";
@@ -242,12 +243,14 @@ export default {
   components: {
     ModalSection,
     Loading,
+    vSelect,
     TableComponent,
     LoaderAction,
   },
 
   mounted() {
     this.getUsers();
+    this.getEmployees();
     this.getRoles();
   },
 
@@ -255,13 +258,16 @@ export default {
     return {
       users: [],
       roles: [],
+      employees: [],
       user: {
         name: "",
         email: "",
         dni: "",
+        codeEmpleado: "",
         role: "",
         status: "1",
       },
+      empleado: "",
       errors: [],
       selected_id: "",
       isLoading: false,
@@ -273,7 +279,7 @@ export default {
   methods: {
     getHumanDate: function (date) {
       moment.locale("es");
-      return moment(date, "YYYY-MM-DD h:mm:ss").fromNow();
+      return moment(date, "YYYY-DD-MM h:mm:ss").fromNow();
     },
 
     getCreatedDate: function (date) {
@@ -286,6 +292,20 @@ export default {
       if (res) {
         this.isNoEmpty = false;
       }
+    },
+
+    async getEmployees() {
+      const res = await axios.get("/api/users/employees");
+      this.employees = res.data;
+    },
+
+    selectedPersona(value) {
+      let el = this;
+      let datos = value.split("_");
+      el.user.codeEmpleado = datos[0];
+      el.user.dni = datos[1];
+      el.user.email = datos[2];
+      el.user.name = datos[3];
     },
 
     openModal() {
@@ -302,6 +322,7 @@ export default {
           .then((res) => {
             $("#exampleModal").modal("hide");
             this.getUsers();
+            this.getEmployees();
             this.$awn.success(res.data);
             this.isLoading = false;
           })
@@ -372,6 +393,7 @@ export default {
 
     resetForm() {
       this.isLoading = false;
+      this.empleado = "";
       this.user.name = "";
       this.user.email = "";
       this.user.dni = "";
@@ -384,3 +406,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-select ul {
+  padding: 5px !important;
+}
+</style>
+

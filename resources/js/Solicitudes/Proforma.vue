@@ -51,14 +51,7 @@
                 </div>
               </div>
             </div>
-            <div class="billed-from">
-              <h6>Comercial El valle S.A.C</h6>
-              <p>
-                Av Gonzales Caceda Nro 1592, Chepén 6546<br />
-                Tel No: (044) 561697<br />
-                Email: youremail@companyname.com
-              </p>
-            </div>
+            <!-- <info-company></info-company> -->
             <!-- billed-from -->
           </div>
 
@@ -105,102 +98,137 @@
                     type="text"
                     v-model="proforma.razonSocial"
                     class="form-control form-control-sm"
-                    id="inputEmail3"
                   />
                 </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row">
-                <label for="inputEmail3" class="col-sm-3 form-control-label"
+                <label for="inputStart" class="col-sm-3 form-control-label"
                   >Fecha</label
                 >
                 <div class="col-sm-9 mg-t-10 mg-sm-t-0">
                   <input
                     type="date"
+                    v-model="proforma.fInicio"
                     class="form-control form-control-sm"
-                    id="inputEmail3"
+                    id="inputStart"
                     placeholder="Email"
                   />
                 </div>
               </div>
               <div class="mg-t-20 row">
-                <label for="inputEmail3" class="col-sm-3 form-control-label"
+                <label for="inputEnd" class="col-sm-3 form-control-label"
                   >Plazo</label
                 >
                 <div class="col-sm-9 mg-t-10 mg-sm-t-0">
                   <input
                     type="date"
+                    v-model="proforma.fFinal"
                     class="form-control form-control-sm"
-                    id="inputEmail3"
+                    id="inputEnd"
                     placeholder="Email"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div class="table-responsive">
+          <div class="table-responsive mg-t-40">
             <table class="table table-invoice">
-              <thead class="thead-light">
+              <thead>
                 <tr>
-                  <th scope="col">Concepto</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Descuento (%)</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Observaciones</th>
-                  <th class="px-4 text-center" scope="col">Total</th>
+                  <th class="wd-30p">Concepto</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Descuento</th>
+                  <th class="wd-10p">Total</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td scope="row">
+                <tr v-for="(d, index) in details" :key="index">
+                  <td>
+                    <v-select
+                      placeholder="Buscar..."
+                      v-model="details[index].idProducto"
+                      label="names"
+                      :reduce="
+                        (n) => n.keyPro + '_' + n.dni + '_' + n.businessName
+                      "
+                      :options="providers_data"
+                      @search="fetchOptions"
+                      @input="selectedProduct(index)"
+                    >
+                    </v-select>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      v-model="details[index].precio"
+                      class="form-control form-control-sm"
+                      placeholder="0"
+                    />
+                  </td>
+                  <td class="tx-center">
+                    <input
+                      type="number"
+                      v-model="details[index].cantidad"
+                      class="form-control form-control-sm"
+                      placeholder="0"
+                    />
+                  </td>
+                  <td class="tx-right">
                     <input
                       type="text"
+                      v-model="details[index].descuento"
                       class="form-control form-control-sm"
-                      id="inputEmail3"
-                      placeholder="Search"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm"
-                      id="inputEmail3"
                       placeholder="0"
                     />
                   </td>
-                  <td>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm"
-                      id="inputEmail3"
-                      placeholder="0"
-                    />
+                  <td class="tx-right">$300.00</td>
+                </tr>
+                <tr class="mb-5">
+                  <td colspan="5">
+                    <button
+                      @click="addNewRow"
+                      type="button"
+                      class="btn btn-outline-primary btn-sm"
+                    >
+                      <i class="fas fa-plus"></i> Agregar nuevo fila
+                    </button>
                   </td>
-                  <td>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm"
-                      id="inputEmail3"
-                      placeholder="1"
-                    />
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="4" class="valign-middle">
+                    <div class="invoice-notes">
+                      <label class="section-label-sm tx-gray-500">Notes:</label>
+                      <p>
+                        Factura Proforma válida hasta: {{ notaVencimiento }}
+                      </p>
+                    </div>
+                    <!-- invoice-notes -->
                   </td>
-                  <td>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm"
-                      id="inputEmail3"
-                      placeholder="1"
-                    />
+                  <td class="tx-right tx-12">Sub-Total</td>
+                  <td colspan="2" class="tx-right">$5,750.00</td>
+                </tr>
+                <tr>
+                  <td class="tx-right tx-12">Tax (5%)</td>
+                  <td colspan="2" class="tx-right">$287.50</td>
+                </tr>
+                <tr>
+                  <td class="tx-right tx-12">Discount</td>
+                  <td colspan="2" class="tx-right">-$50.00</td>
+                </tr>
+                <tr>
+                  <td class="tx-right tx-uppercase tx-bold tx-inverse tx-12">
+                    Total Due
                   </td>
-                  <td class="text-center">S/.0.00</td>
+                  <td colspan="2" class="tx-right">
+                    <h4 class="tx-primary tx-bold tx-lato">$5,987.50</h4>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <button type="submit" class="btn btn-outline-primary btn-sm">
-            <i class="fas fa-plus"></i> Add new row
-          </button>
 
           <div class="row mt-4">
             <div class="col-lg-8"></div>
@@ -252,9 +280,13 @@
 </template>
 <script>
 import vSelect from "vue-select";
+import InfoCompany from "../components/Empresa.vue";
+import moment from "moment";
+
 export default {
   components: {
     vSelect,
+    InfoCompany,
   },
 
   mounted() {
@@ -269,7 +301,23 @@ export default {
         idProveedor: "",
         identificacion: "",
         razonSocial: "",
+        fInicial: "",
+        fFinal: "",
+        detalle: [],
       },
+      details: [
+        {
+          idProducto: "",
+          producto: "",
+          precio: "",
+          cantidad: "",
+          descuento: "",
+          total: "",
+        },
+      ],
+      subTotal: "",
+      igvTotal: "",
+      discountTotal: "",
       classes: {
         first: ["first current", "first done", "first done"],
         second: ["disabled", "current", "done"],
@@ -305,6 +353,32 @@ export default {
       el.proforma.idProveedor = datos[0];
       el.proforma.identificacion = datos[1];
       el.proforma.razonSocial = datos[2];
+    },
+
+    addNewRow() {
+      var fila = {
+        idProducto: "",
+        producto: "",
+        precio: "",
+        cantidad: "",
+        descuento: "",
+        total: "",
+      };
+      this.details.push(fila);
+    },
+
+    selectedProduct(val) {
+      console.log(val);
+      this.details[val].precio = "2506";
+    },
+  },
+
+  computed: {
+    notaVencimiento: function () {
+      moment.locale("es");
+      if (this.proforma.fFinal) {
+        return moment(this.proforma.fFinal).format("LLLL");
+      }
     },
   },
 };

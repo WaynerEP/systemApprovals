@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
+use App\Models\Organizacion;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -20,6 +21,14 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/info-el-valle', function () {
+    return Organizacion::first();
+});
+
+Route::get('/users/employees', function () {
+    return DB::select('exec spEmployeesNotUsers');
 });
 
 Route::get('/dataPeople', function () {
@@ -51,6 +60,7 @@ Route::get('/dataProvidersNew', function () {
     $data = DB::select('exec listProvidersNew');
     return response()->json($data);
 });
+<<<<<<< HEAD
 
 Route::get('/dataCategories', function () {
     $data = DB::select('exec spListCategories');
@@ -61,3 +71,5 @@ Route::get('/dataProducts/{id}', function ($id) {
     $data = DB::select('exec spListProducts '.$id);
     return response()->json($data);
 });
+=======
+>>>>>>> 2d255683554dccfce811f1683d6d25622dae8f2d
