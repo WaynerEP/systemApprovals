@@ -3582,6 +3582,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -4015,6 +4017,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4061,9 +4067,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       moment__WEBPACK_IMPORTED_MODULE_2___default().locale("es");
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(date, "YYYY-DD-MM h:mm:ss").fromNow();
     },
-    getCreatedDate: function getCreatedDate(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format("DD/MM/YYYY");
-    },
+    // getCreatedDate: function (date) {
+    //   return moment(date).format("DD/MM/YYYY");
+    // },
     getUsers: function getUsers() {
       var _this = this;
 
@@ -64956,6 +64962,8 @@ var render = function () {
                     _vm._v(_vm._s(r.name)),
                   ]),
                   _vm._v(" "),
+                  _c("div", { staticClass: "signup-separator" }),
+                  _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "todo-list" },
@@ -64983,7 +64991,7 @@ var render = function () {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-outline-light btn-icon",
+                        staticClass: "btn  btn-icon",
                         on: {
                           click: function ($event) {
                             return _vm.editForm(r)
@@ -65035,9 +65043,7 @@ var render = function () {
                   attrs: { src: "/assets/img/4.png", alt: "" },
                 }),
                 _vm._v(" "),
-                _c("p", { staticClass: "section-label text-center" }, [
-                  _vm._v("Agregar"),
-                ]),
+                _vm._m(2),
               ]
             ),
           ]),
@@ -65348,10 +65354,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-outline-light btn-icon" }, [
+    return _c("button", { staticClass: "btn btn-icon" }, [
       _c("div", { staticClass: "tx-20" }, [
         _c("i", { staticClass: "fa fa-eye" }),
       ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "section-label text-center" }, [
+      _vm._v("Agregar "),
+      _c("i", { staticClass: "fa fa-plus" }),
     ])
   },
 ]
@@ -65422,9 +65437,7 @@ var render = function () {
                   key: "thead",
                   fn: function () {
                     return [
-                      _c("th", { staticClass: "wd-5p pd-y-5" }, [
-                        _vm._v("Image"),
-                      ]),
+                      _c("th", { staticClass: "pd-y-5" }, [_vm._v("Image")]),
                       _vm._v(" "),
                       _c("th", { staticClass: "pd-y-5" }, [_vm._v("Usuario")]),
                       _vm._v(" "),
@@ -65435,8 +65448,6 @@ var render = function () {
                       _c("th", { staticClass: "pd-y-5" }, [
                         _vm._v("Última Sesión"),
                       ]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "pd-y-5" }, [_vm._v("Fecha")]),
                       _vm._v(" "),
                       _c("th", { staticClass: "pd-y-5" }, [_vm._v("Estado")]),
                       _vm._v(" "),
@@ -65459,7 +65470,9 @@ var render = function () {
                                   _c("img", {
                                     staticClass: "wd-36 rounded-circle",
                                     attrs: {
-                                      src: "http://via.placeholder.com/500x500",
+                                      src: u.photo_profile
+                                        ? u.photo_profile
+                                        : "http://via.placeholder.com/500x500",
                                       alt: "Image",
                                     },
                                   }),
@@ -65467,20 +65480,13 @@ var render = function () {
                               ),
                               _vm._v(" "),
                               _c("td", { staticClass: "valign-middle" }, [
-                                _c(
-                                  "span",
-                                  {
-                                    staticClass:
-                                      "tx-inverse tx-14 tx-medium d-block",
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  " +
-                                        _vm._s(u.name) +
-                                        "\n                "
-                                    ),
-                                  ]
-                                ),
+                                _c("span", { staticClass: "tx-medium" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(u.name) +
+                                      "\n                "
+                                  ),
+                                ]),
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "valign-middle" }, [
@@ -65534,14 +65540,6 @@ var render = function () {
                               ),
                               _vm._v(" "),
                               _c("td", { staticClass: "valign-middle" }, [
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(_vm.getCreatedDate(u.created_at)) +
-                                    "\n              "
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "valign-middle" }, [
                                 u.status == 1
                                   ? _c("span", { staticClass: "tx-success" }, [
                                       _vm._v("Habilitado"),
@@ -65555,8 +65553,8 @@ var render = function () {
                                 _c(
                                   "button",
                                   {
-                                    staticClass:
-                                      "btn btn-outline-primary btn-sm",
+                                    staticClass: "btn btn-sm",
+                                    attrs: { type: "button" },
                                     on: {
                                       click: function ($event) {
                                         return _vm.editUser(u)
@@ -65569,9 +65567,11 @@ var render = function () {
                                 _c(
                                   "button",
                                   {
-                                    staticClass:
-                                      "btn btn-outline-danger btn-sm",
-                                    attrs: { disabled: u.status == 0 },
+                                    staticClass: "btn btn-sm",
+                                    attrs: {
+                                      type: "button",
+                                      disabled: u.status == 0,
+                                    },
                                     on: {
                                       click: function ($event) {
                                         return _vm.deleteUser(u.id)
@@ -65609,6 +65609,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("modal-section", {
+        attrs: { maxWidth: "lg" },
         on: {
           submitted: _vm.store,
           close: function ($event) {
@@ -65751,6 +65752,7 @@ var render = function () {
                         class: { "is-invalid": _vm.errors && _vm.errors.dni },
                         attrs: {
                           type: "number",
+                          readonly: "",
                           id: "inputDni",
                           placeholder: "Dni",
                         },
@@ -65784,7 +65786,7 @@ var render = function () {
                         staticClass: "form-control-label",
                         attrs: { for: "inputEmail" },
                       },
-                      [_vm._v("Correo")]
+                      [_vm._v("Correo Electrónico")]
                     ),
                     _vm._v(" "),
                     _c("input", {

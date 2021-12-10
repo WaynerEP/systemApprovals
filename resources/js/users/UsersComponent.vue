@@ -18,12 +18,11 @@
       <div class="card-body">
         <table-component>
           <template #thead>
-            <th class="wd-5p pd-y-5">Image</th>
+            <th class="pd-y-5">Image</th>
             <th class="pd-y-5">Usuario</th>
             <th class="pd-y-5">Email</th>
             <th class="pd-y-5">Rol</th>
             <th class="pd-y-5">Última Sesión</th>
-            <th class="pd-y-5">Fecha</th>
             <th class="pd-y-5">Estado</th>
             <th class="pd-y-5">Acciones</th>
           </template>
@@ -32,13 +31,17 @@
               <tr v-for="u in users" :key="u.id">
                 <td class="valign-middle pd-l-20">
                   <img
-                    src="http://via.placeholder.com/500x500"
+                    :src="
+                      u.photo_profile
+                        ? u.photo_profile
+                        : 'http://via.placeholder.com/500x500'
+                    "
                     class="wd-36 rounded-circle"
                     alt="Image"
                   />
                 </td>
                 <td class="valign-middle">
-                  <span class="tx-inverse tx-14 tx-medium d-block">
+                  <span class="tx-medium">
                     {{ u.name }}
                   </span>
                 </td>
@@ -62,9 +65,9 @@
                     Nunca</template
                   >
                 </td>
-                <td class="valign-middle">
+                <!-- <td class="valign-middle">
                   {{ getCreatedDate(u.created_at) }}
-                </td>
+                </td> -->
                 <td class="valign-middle">
                   <span class="tx-success" v-if="u.status == 1"
                     >Habilitado</span
@@ -72,16 +75,14 @@
                   <span class="tx-danger" v-else>Inhabilitado</span>
                 </td>
                 <td class="valign-middle">
-                  <button
-                    @click="editUser(u)"
-                    class="btn btn-outline-primary btn-sm"
-                  >
+                  <button type="button" @click="editUser(u)" class="btn btn-sm">
                     <i class="fa fa-pencil"></i>
                   </button>
                   <button
+                    type="button"
                     :disabled="u.status == 0"
                     @click="deleteUser(u.id)"
-                    class="btn btn-outline-danger btn-sm"
+                    class="btn btn-sm"
                   >
                     <i class="fa fa-close"></i>
                   </button>
@@ -102,7 +103,7 @@
       </div>
     </div>
 
-    <modal-section @submitted="store" @close="resetForm()">
+    <modal-section maxWidth="lg" @submitted="store" @close="resetForm()">
       <template #title>
         {{ isActionNew ? "Nuevo Usuario" : "Actualizar Usuario" }}
       </template>
@@ -112,7 +113,7 @@
             >Persona/Empleado</label
           >
           <v-select
-            v-if="  isActionNew"
+            v-if="isActionNew"
             placeholder="Buscar..."
             v-model="empleado"
             label="names"
@@ -134,6 +135,7 @@
             <label class="form-control-label" for="inputDni">Documento</label>
             <input
               type="number"
+              readonly
               v-model="user.dni"
               class="form-control"
               :class="{ 'is-invalid': errors && errors.dni }"
@@ -145,7 +147,9 @@
             </div>
           </div>
           <div class="form-group col">
-            <label class="form-control-label" for="inputEmail">Correo</label>
+            <label class="form-control-label" for="inputEmail"
+              >Correo Electrónico</label
+            >
             <input
               type="email"
               v-model="user.email"
@@ -282,9 +286,9 @@ export default {
       return moment(date, "YYYY-DD-MM h:mm:ss").fromNow();
     },
 
-    getCreatedDate: function (date) {
-      return moment(date).format("DD/MM/YYYY");
-    },
+    // getCreatedDate: function (date) {
+    //   return moment(date).format("DD/MM/YYYY");
+    // },
 
     async getUsers() {
       const res = await axios.get("/users/list");

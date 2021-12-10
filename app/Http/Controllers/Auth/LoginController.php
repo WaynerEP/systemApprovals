@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,40 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+
+    public function authWithGoogle()
+    {
+        try {
+
+            $googleUser = Socialite::driver('google')->stateless()->user();
+
+            $user = User::where('email', $googleUser->email)->first();
+            if ($user) {
+
+                if ($user->avatar == null) {
+                    $user->avatar = $googleUser->avatar;
+                    $user->save();
+                }
+
+                $user->google_id = $googleUser->id;
+                $user->google_token = $googleUser->token;
+                $user->save();
+
+                Auth::login($user);
+                return redirect('home');
+            } else {
+                return redirect('/')->with('errorAuthGoogle', 'Este correo no se encuentra asociado a ningun usuario del sistema!');;
+            }
+        } catch (Throwable  $e) {
+            return redirect('/');
+        }
     }
 }

@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
+        "jquery-toasts": "^1.1.0",
         "moment": "^2.29.1",
         "vue-awesome-notifications": "^3.1.1",
         "vue-select": "^3.16.0",

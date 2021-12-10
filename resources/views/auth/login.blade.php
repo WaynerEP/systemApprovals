@@ -49,5 +49,9 @@
                 {{ __('Login') }}
             </button>
         </div>
+
+        <div class="signup-separator"><span>o</span></div>
+        <a href="{{ route('auth-google') }}" class="btn btn-facebook btn-block d-flex justify-content-center text-white">Iniciar
+            sesión usando Google <div class="ml-2"><i class="fa fa-google-plus"></i></div></a>
     </form>
 @endsection
