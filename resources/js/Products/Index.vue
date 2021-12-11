@@ -10,7 +10,7 @@
             :classes="bootstrapPaginationClasses"
           ></v-pagination>
         </div>
-        <Loading v-show="this.products.length == 0"></Loading>
+        <Loading v-show="this.dataPaginate.length == 0"></Loading>
         <div
           class="col-sm-6 col-lg-4 my-2"
           v-for="pro in dataPaginate"
@@ -179,7 +179,7 @@ export default {
     },
 
     async getProducts(id) {
-      this.products = [];
+      this.dataPaginate = [];
       this.isActive = id;
       const res = await axios.get("/api/dataProducts/" + id);
       this.products = res.data;

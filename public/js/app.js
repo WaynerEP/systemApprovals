@@ -2284,7 +2284,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.products = [];
+                _this2.dataPaginate = [];
                 _this2.isActive = id;
                 _context2.next = 4;
                 return axios.get("/api/dataProducts/" + id);
@@ -63325,8 +63325,8 @@ var render = function () {
               {
                 name: "show",
                 rawName: "v-show",
-                value: this.products.length == 0,
-                expression: "this.products.length == 0",
+                value: this.dataPaginate.length == 0,
+                expression: "this.dataPaginate.length == 0",
               },
             ],
           }),
