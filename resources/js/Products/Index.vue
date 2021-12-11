@@ -2,7 +2,15 @@
   <div class="manager-wrapper">
     <div class="manager-right">
       <div class="row row-sm">
-        <Loading v-show="this.isLoading"></Loading>
+        <div class="col-12" v-if="products.length > 15">
+          <p>Current page: {{ currentPage }}</p>
+          <v-pagination
+            v-model="currentPage"
+            :page-count="totalPages"
+            :classes="bootstrapPaginationClasses"
+          ></v-pagination>
+        </div>
+        <Loading v-show="this.products.length == 0"></Loading>
         <div
           class="col-sm-6 col-lg-4 my-2"
           v-for="pro in dataPaginate"
@@ -61,15 +69,15 @@
           <!-- card -->
         </div>
         <!-- col -->
-        <div class="col-12" v-if="products.length > 15">
+        <!-- <div class="col-12" v-if="products.length > 15">
           <p>Current page: {{ currentPage }}</p>
           <v-pagination
             v-model="currentPage"
             :page-count="totalPages"
             :classes="bootstrapPaginationClasses"
-            v-on:click="getDataPage(currentPage)"
+            v-on:click="getDataPage()"
           ></v-pagination>
-        </div>
+        </div> -->
       </div>
       <!-- row -->
     </div>
@@ -111,7 +119,6 @@ export default {
   mounted() {
     this.getCategories();
     this.getProducts(0);
-    this.getDataPage(1);
   },
 
   data() {
@@ -155,6 +162,12 @@ export default {
     },
   },
 
+  watch: {
+    currentPage: function () {
+      this.getDataPage();
+    },
+  },
+
   methods: {
     async getCategories() {
       const res = await axios.get("/api/dataCategories");
@@ -167,18 +180,17 @@ export default {
 
     async getProducts(id) {
       this.products = [];
-      this.isLoading = true;
       this.isActive = id;
       const res = await axios.get("/api/dataProducts/" + id);
       this.products = res.data;
-      this.isLoading = false;
+      this.getDataPage();
     },
 
-    getDataPage(nPage) {
-      this.currentPage = nPage;
+    getDataPage() {
+      // this.currentPage = nPage;
       this.dataPaginate = [];
-      let end = nPage * this.itemsPage;
-      let begin = nPage * this.itemsPage - this.itemsPage;
+      let begin = this.currentPage * this.itemsPage - this.itemsPage;
+      let end = this.currentPage * this.itemsPage;
       this.dataPaginate = this.products.slice(begin, end);
     },
 
