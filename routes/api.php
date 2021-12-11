@@ -37,7 +37,7 @@ Route::get('/dataPeople', function () {
 });
 
 Route::get('/nivelEstudios', function () {
-    return DB::table('nivelEstudios')->get();
+    return DB::table('nivelStudios')->get();
 });
 
 // obtener  provincias por departamento
@@ -69,4 +69,8 @@ Route::get('/dataCategories', function () {
 Route::get('/dataProducts/{id}', function ($id) {
     $data = DB::select('exec spListProducts '.$id);
     return response()->json($data);
+});
+
+Route::get('/products', function () {
+    return DB::table('productos')->get();
 });
