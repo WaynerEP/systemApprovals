@@ -37,7 +37,7 @@ Route::get('/dataPeople', function () {
 });
 
 Route::get('/nivelEstudios', function () {
-    return DB::table('nivelEstudios')->get();
+    return DB::table('nivelStudios')->get();
 });
 
 // obtener  provincias por departamento
