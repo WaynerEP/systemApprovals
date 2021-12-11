@@ -5,7 +5,7 @@
         <Loading v-show="this.isLoading"></Loading>
         <div
           class="col-sm-6 col-lg-4 my-2"
-          v-for="pro in products"
+          v-for="pro in dataPaginate"
           :key="pro.idProducto"
         >
           <div class="card-contact">
@@ -31,13 +31,20 @@
             <!-- tx-center -->
 
             <p class="contact-item">
-              <span>Precio Compra</span>
-              <span>{{ pro.precioC }}</span>
-            </p>
-            <!-- contact-item -->
-            <p class="contact-item">
-              <span>Precio Venta</span>
-              <span>{{ pro.precioV }}</span>
+              <span
+                ><div class="card-pricing">
+                  <span>P. Compra</span>
+                  <h5>S/ {{ pro.precioC }}</h5>
+                </div>
+                <!-- card-pricing --></span
+              >
+              <span
+                ><div class="card-pricing">
+                  <span>P. Venta</span>
+                  <h5>S/ {{ pro.precioV }}</h5>
+                </div>
+                <!-- card-pricing --></span
+              >
             </p>
             <!-- contact-item -->
             <p class="contact-item">
@@ -54,6 +61,15 @@
           <!-- card -->
         </div>
         <!-- col -->
+        <div class="col-12" v-if="products.length > 15">
+          <p>Current page: {{ currentPage }}</p>
+          <v-pagination
+            v-model="currentPage"
+            :page-count="totalPages"
+            :classes="bootstrapPaginationClasses"
+            v-on:click="getDataPage(currentPage)"
+          ></v-pagination>
+        </div>
       </div>
       <!-- row -->
     </div>
@@ -75,12 +91,12 @@
     </div>
     <!-- manager-left -->
   </div>
-  <!-- manager-wrapper -->
 </template>
 <script>
 import ModalSection from "../components/ModalSection.vue";
 import Loading from "../components/Loader.vue";
 import LoaderAction from "../components/LoaderAction.vue";
+import vPagination from "vue-plain-pagination";
 
 export default {
   name: "Providers",
@@ -89,11 +105,13 @@ export default {
     ModalSection,
     Loading,
     LoaderAction,
+    vPagination,
   },
 
   mounted() {
     this.getCategories();
     this.getProducts(0);
+    this.getDataPage(1);
   },
 
   data() {
@@ -110,7 +128,31 @@ export default {
       isActionNew: true,
 
       isActive: 0,
+
+      //  Para la pagination
+      dataPaginate: [],
+      itemsPage: 9,
+      currentPage: 1,
+      bootstrapPaginationClasses: {
+        ul: "pagination",
+        li: "page-item",
+        liActive: "active",
+        liDisable: "disabled",
+        button: "page-link",
+      },
+      // paginationAnchorTexts: {
+      //   first: "First",
+      //   prev: "Previous",
+      //   next: "Next",
+      //   last: "Last",
+      // },
     };
+  },
+
+  computed: {
+    totalPages() {
+      return Math.ceil(this.products.length / this.itemsPage);
+    },
   },
 
   methods: {
@@ -130,6 +172,28 @@ export default {
       const res = await axios.get("/api/dataProducts/" + id);
       this.products = res.data;
       this.isLoading = false;
+    },
+
+    getDataPage(nPage) {
+      this.currentPage = nPage;
+      this.dataPaginate = [];
+      let end = nPage * this.itemsPage;
+      let begin = nPage * this.itemsPage - this.itemsPage;
+      this.dataPaginate = this.products.slice(begin, end);
+    },
+
+    getPreviousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+      this.getDataPage(this.currentPage);
+    },
+
+    getNextPage() {
+      if (this.currentPage < this.totalPages()) {
+        this.currentPage++;
+      }
+      this.getDataPage(this.currentPage);
     },
   },
 };

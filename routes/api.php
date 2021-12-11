@@ -70,3 +70,7 @@ Route::get('/dataProducts/{id}', function ($id) {
     $data = DB::select('exec spListProducts '.$id);
     return response()->json($data);
 });
+
+Route::get('/products', function () {
+    return DB::table('productos')->get();
+});
