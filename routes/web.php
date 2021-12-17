@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\Providers\ProviderController;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -71,8 +72,14 @@ Route::middleware('auth')->group(function () {
 
 
     // ruta para solicitudes,proformas
-    Route::view('/solicitudes', 'Solicitudes.index')
-        ->name('solicitudes');
+    Route::get('/purchase-request', function () {
+        $data = DB::select('exec sp_EmpleadoArea ' . Auth::user()->id);
+        return view('Compras.NuevaCompra', compact('data'));
+    })->name('purchase-request');
+
+
+    Route::view('/new-purchase', 'Compras.index')
+        ->name('new-purchase');
 
     //ruta productos
     Route::get('/items/products', function () {

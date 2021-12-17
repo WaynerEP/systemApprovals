@@ -48,7 +48,8 @@ Vue.component('products-component', require('./Products/Index.vue').default);
 // Vue.component('people-create-component', require('./Personas/Create.vue').default);
  
 // Solicitudes
-Vue.component('solicitudes-component', require('./Solicitudes/Proforma.vue').default);
+Vue.component('nueva-compra-component', require('./Compras/NuevaCompra.vue').default);
+Vue.component('solicitudes-component', require('./Compras/Proforma.vue').default);
 
 
 

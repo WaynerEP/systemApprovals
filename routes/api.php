@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
 use App\Models\Organizacion;
+use App\Models\Area;
+use App\Models\Proveedor;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -40,6 +42,10 @@ Route::get('/nivelEstudios', function () {
     return DB::table('nivelStudios')->get();
 });
 
+// Route::get('/areas', function () {
+//     return response()->json(Area::all());
+// });
+
 // obtener  provincias por departamento
 Route::get('/provincias/{idDepartamento}', [distritosController::class, 'getProvincias']);
 
@@ -56,6 +62,11 @@ Route::get('/dataProviders', function () {
     return response()->json($data);
 });
 
+Route::get('/provider/{id}', function ($id) {
+    $data = Proveedor::find($id)->first();
+    return response()->json($data);
+});
+
 Route::get('/dataProvidersNew', function () {
     $data = DB::select('exec listProvidersNew');
     return response()->json($data);
@@ -67,10 +78,17 @@ Route::get('/dataCategories', function () {
 });
 
 Route::get('/dataProducts/{id}', function ($id) {
-    $data = DB::select('exec spListProducts '.$id);
+    $data = DB::select('exec spListProducts ' . $id);
     return response()->json($data);
 });
 
 Route::get('/products', function () {
     return DB::table('productos')->get();
 });
+
+Route::get('/products/proforma', function () {
+    $data = DB::select('exec spListProductsToProforma');
+    return response()->json($data);
+});
+
+Route::apiResource('savesPdfsProforma', \App\Http\Controllers\Solicitudes\PDFsControleer::class);
