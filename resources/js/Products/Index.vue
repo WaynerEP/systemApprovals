@@ -2,14 +2,6 @@
   <div class="manager-wrapper">
     <div class="manager-right">
       <div class="row row-sm">
-        <div class="col-12" v-if="products.length > 15">
-          <p>Current page: {{ currentPage }}</p>
-          <v-pagination
-            v-model="currentPage"
-            :page-count="totalPages"
-            :classes="bootstrapPaginationClasses"
-          ></v-pagination>
-        </div>
         <Loading v-show="this.dataPaginate.length == 0"></Loading>
         <div
           class="col-sm-6 col-lg-4 my-2"
@@ -68,16 +60,16 @@
           </div>
           <!-- card -->
         </div>
-        <!-- col -->
-        <!-- <div class="col-12" v-if="products.length > 15">
-          <p>Current page: {{ currentPage }}</p>
+        <div
+          class="col-12 d-flex justify-content-center mt-3"
+          v-if="products.length > 15"
+        >
           <v-pagination
             v-model="currentPage"
             :page-count="totalPages"
             :classes="bootstrapPaginationClasses"
-            v-on:click="getDataPage()"
           ></v-pagination>
-        </div> -->
+        </div>
       </div>
       <!-- row -->
     </div>
@@ -107,7 +99,7 @@ import LoaderAction from "../components/LoaderAction.vue";
 import vPagination from "vue-plain-pagination";
 
 export default {
-  name: "Providers",
+  name: "Products",
 
   components: {
     ModalSection,
@@ -183,6 +175,7 @@ export default {
       this.isActive = id;
       const res = await axios.get("/api/dataProducts/" + id);
       this.products = res.data;
+      this.currentPage = 1;
       this.getDataPage();
     },
 

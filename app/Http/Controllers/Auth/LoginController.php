@@ -69,7 +69,7 @@ class LoginController extends Controller
                 Auth::login($user);
                 return redirect('home');
             } else {
-                return redirect('/')->with('errorAuthGoogle', 'Este correo no se encuentra asociado a ningun usuario del sistema!');;
+                return redirect('/')->with('errorAuthGoogle', 'Usuario no encontrado!');;
             }
         } catch (Throwable  $e) {
             return redirect('/');

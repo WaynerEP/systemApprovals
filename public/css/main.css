@@ -5424,6 +5424,8 @@ button.close {
   z-index: 1050;
   display: none;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
   outline: 0;
 }
 
@@ -12240,11 +12242,9 @@ textarea.parsley-error:active {
 
 .pagination .page-item .page-link {
   color: #495057;
-  padding: 11px 0;
-  width: 38px;
-  height: 40px;
+  padding: 0.5rem 0.75rem;
   text-align: center;
-  border-radius: 0;
+  border-radius: 8px;
   border-color: #ced4da;
 }
 

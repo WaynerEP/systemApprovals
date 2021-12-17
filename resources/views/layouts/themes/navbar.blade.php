@@ -42,7 +42,8 @@
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="{{ route('solicitudes') }}">Solicitudes</a></li>
+                        <li><a href="{{ route('purchase-request') }}">Solicitud de Compra</a></li>
+                        <li><a href="{{ route('new-purchase') }}">Listado de SC</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>

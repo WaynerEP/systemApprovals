@@ -7,3 +7,12 @@
 <script src="{{ asset('assets/lib/datatables-responsive/js/dataTables.responsive.js') }}"></script>
 <script src="{{ asset('assets/lib/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('js/toaster.js') }}"></script>
+<script>
+    $(function() {
+        'use strict';
+
+        $('.select2').select2({
+            minimumResultsForSearch: Infinity
+        });
+    });
+</script>

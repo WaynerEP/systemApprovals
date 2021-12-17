@@ -14,12 +14,17 @@ class Proveedor extends Model
         'dniRepresentante',
         'razonSocial',
         'estado',
+        'ciudad',
+        'codPostal',
+        'telefono',
+        'direccion',
+        'email',
     ];
     public $timestamps = false;
 
 
     public function ciudadano()
     {
-        return $this->hasOne(Persona::class, 'dniCiudadano', 'dniRepresentante')->get('dniCiudadano','nombres','apellidos');
+        return $this->hasOne(Persona::class, 'dniCiudadano', 'dniRepresentante')->get('dniCiudadano', 'nombres', 'apellidos');
     }
 }

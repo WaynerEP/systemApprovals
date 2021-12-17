@@ -1,5 +1,5 @@
 <template>
-  <div class="billed-from">
+  <div class="billed-from" v-if="info">
     <h6>{{ info.razonSocial }}</h6>
     <p>
       {{ info.direccion }} <br />
@@ -23,7 +23,7 @@ export default {
 
   methods: {
     async getData() {
-      const res = await axios.get("/api /info-el-valle");
+      const res = await axios.get("/api/info-el-valle");
       this.info = res.data;
     },
   },

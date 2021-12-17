@@ -28,9 +28,15 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
+        "filepond": "^4.30.3",
+        "filepond-plugin-file-validate-type": "^1.2.6",
+        "filepond-plugin-image-preview": "^4.6.10",
         "jquery-toasts": "^1.1.0",
         "moment": "^2.29.1",
         "vue-awesome-notifications": "^3.1.1",
+        "vue-dialog-drag": "^0.1.29",
+        "vue-filepond": "^6.0.3",
+        "vue-materialize-datatable": "^1.0.4",
         "vue-plain-pagination": "^0.3.0",
         "vue-select": "^3.16.0",
         "vue2-dropzone": "^3.6.0"
