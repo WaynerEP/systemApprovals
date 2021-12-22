@@ -2563,17 +2563,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2656,9 +2645,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         html: false
       }],
       productsDetails: [],
-      files_proformas: [],
-      files_details: [],
-      isUpLoading: false
+      files_proformas: []
     };
   },
   filters: {
@@ -2667,6 +2654,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
+    errorsFiles: function errorsFiles() {
+      if (this.files_proformas.length < 3) {
+        return "Adjunte 3 archivos como mínimo";
+      } else return null;
+    },
     notaVencimiento: function notaVencimiento() {
       moment__WEBPACK_IMPORTED_MODULE_7___default().locale("es");
 
@@ -2721,7 +2713,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     next_step: function next_step() {
-      this.step += 1;
+      if (this.step == 1 && this.files_proformas.length < 3) {
+        return;
+      }
+
+      if (this.details.length > 0) {
+        this.step += 1;
+      }
     },
     previous_step: function previous_step() {
       if (this.step > 0) {
@@ -4181,6 +4179,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 // Import Vue FilePond
  // Import FilePond styles
 
@@ -4196,6 +4198,16 @@ __webpack_require__.r(__webpack_exports__);
 var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_0___default()((filepond_plugin_file_validate_type__WEBPACK_IMPORTED_MODULE_3___default()), (filepond_plugin_image_preview__WEBPACK_IMPORTED_MODULE_4___default()));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "FilePondDemo",
+  props: {
+    multipleFiles: {
+      type: Boolean,
+      "default": true
+    },
+    maxFiles: {
+      type: Number,
+      "default": 1
+    }
+  },
   data: function data() {
     return {
       myFiles: []
@@ -87178,7 +87190,7 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "wizard wizard-style-1 clearfixx mt-5" }, [
+      _c("div", { staticClass: "wizard wizard-style-2 clearfixx mt-5" }, [
         _c("div", { staticClass: "steps clearfix" }, [
           _c("ul", { attrs: { role: "tablist" } }, [
             _c("li", { class: _vm.classes.first[_vm.step] }, [_vm._m(3)]),
@@ -87702,65 +87714,77 @@ var render = function () {
                     staticClass: "row",
                   },
                   [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "label",
-                        { staticClass: "section-label-sm tx-gray-800 tx-14" },
-                        [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-12" },
+                      [
+                        _c(
+                          "label",
+                          { staticClass: "section-label-sm tx-gray-800 tx-14" },
+                          [
+                            _vm._v(
+                              "Adjuntar Proformas (Solo para montos mayores a S/.100)"
+                            ),
+                          ]
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "signup-separator" }),
+                        _vm._v(" "),
+                        _c("p", [
                           _vm._v(
-                            "Adjuntar Proformas (Solo para montos mayores a S/.100)"
+                            "\n                seleccionar mínimo 3 proformas y adjuntarlas a la solicitud\n                del Pedido, se aceptan solo archivos pdfs.\n              "
                           ),
-                        ]
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "signup-separator" }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary btn-sm mb-4",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.openModalUpload()
-                            },
-                          },
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-plus" }),
-                          _vm._v(" Adjuntar proformas(3)\n              "),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "accordion-one",
-                          attrs: {
-                            id: "accordion",
-                            role: "tablist",
-                            "aria-multiselectable": "true",
-                          },
-                        },
-                        _vm._l(_vm.files_details, function (file, index) {
-                          return _c(
-                            "Acordion",
-                            { key: index, attrs: { id: index, src: file } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(file) +
-                                  "\n                "
-                              ),
-                            ]
-                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("file-pond-demo", {
+                          attrs: { maxFiles: 10 },
+                          on: { changeFile: _vm.addFilesToProformas },
                         }),
-                        1
-                      ),
-                    ]),
+                        _vm._v(" "),
+                        _vm.errorsFiles
+                          ? _c(
+                              "div",
+                              { staticClass: "invalid-feedback d-block" },
+                              [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.errorsFiles) +
+                                    "\n              "
+                                ),
+                              ]
+                            )
+                          : _vm._e(),
+                      ],
+                      1
+                    ),
                   ]
                 ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.step == 2,
+                    expression: "step == 2",
+                  },
+                ],
+                staticClass: "row",
+              },
+              [
+                _c(
+                  "label",
+                  { staticClass: "section-label-sm tx-gray-800 tx-14" },
+                  [_vm._v("Resumen de la Solicitud")]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "signup-separator" }),
               ]
             ),
           ]),
@@ -87844,79 +87868,6 @@ var render = function () {
           _vm._v("Utiliza las notas para agregar información importante."),
         ]),
       ]),
-      _vm._v(" "),
-      _c("modal-section", {
-        attrs: { maxWidth: "lg" },
-        on: { submitted: _vm.savePdfsProformas },
-        scopedSlots: _vm._u([
-          {
-            key: "title",
-            fn: function () {
-              return [_vm._v(" Adjuntar Archivos ")]
-            },
-            proxy: true,
-          },
-          {
-            key: "body",
-            fn: function () {
-              return [
-                _c("p", { staticClass: "mg-b-5" }, [
-                  _vm._v(
-                    "\n        Debe seleccionar mínimo 3 proformas y adjuntarlas a la solicitud del\n        Pedido, se aceptan solo archivos pdfs.\n      "
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("file-pond-demo", {
-                  on: { changeFile: _vm.addFilesToProformas },
-                }),
-              ]
-            },
-            proxy: true,
-          },
-          {
-            key: "footer",
-            fn: function () {
-              return [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                  },
-                  [_vm._v("\n        Cancelar\n      ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: {
-                      type: "submit",
-                      disabled: _vm.files_proformas.length == 0,
-                    },
-                    on: { click: _vm.savePdfsProformas },
-                  },
-                  [
-                    _c("loader-up", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.isUpLoading,
-                          expression: "isUpLoading",
-                        },
-                      ],
-                    }),
-                    _vm._v("\n        Adjuntar\n      "),
-                  ],
-                  1
-                ),
-              ]
-            },
-            proxy: true,
-          },
-        ]),
-      }),
     ],
     2
   )
@@ -89618,12 +89569,16 @@ var render = function () {
       _c("file-pond", {
         ref: "pond",
         attrs: {
-          name: "test",
+          name: "files",
           "class-name": "my-pond",
           "label-idle":
-            "Drop files here or <span class='filepond--label-action'>Browse</span>",
-          "allow-multiple": "true",
-          "data-allow-reorder": "true",
+            "Suelta los archivos aquí o <span class='filepond--label-action'>selecciona</span>",
+          "allow-multiple": _vm.multipleFiles,
+          "max-files": _vm.maxFiles,
+          "allow-process": "true",
+          required: "true",
+          "label-Invalid-Field": "El campo contiene archivos no válidos",
+          "label-File-Processing-Complete": "Carga completa",
           files: _vm.myFiles,
         },
         on: {

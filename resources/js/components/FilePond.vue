@@ -1,12 +1,16 @@
 <template>
   <div>
     <file-pond
-      name="test"
+      name="files"
       ref="pond"
       class-name="my-pond"
-      label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
-      allow-multiple="true"
-      data-allow-reorder="true"
+      label-idle="Suelta los archivos aquí o <span class='filepond--label-action'>selecciona</span>"
+      :allow-multiple="multipleFiles"
+      :max-files="maxFiles"
+      allow-process="true"
+      required="true"
+      label-Invalid-Field="El campo contiene archivos no válidos"
+      label-File-Processing-Complete="Carga completa"
       v-bind:files="myFiles"
       v-on:addfile="handleFilePondLoaded"
       v-on:removefile="handleFilePondLoaded"
@@ -38,6 +42,16 @@ const FilePond = vueFilePond(
 
 export default {
   name: "FilePondDemo",
+  props: {
+    multipleFiles: {
+      type: Boolean,
+      default: true,
+    },
+    maxFiles: {
+      type: Number,
+      default: 1,
+    },
+  },
   data: function () {
     return {
       myFiles: [],
