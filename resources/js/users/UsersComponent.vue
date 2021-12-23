@@ -22,7 +22,6 @@
             <th class="pd-y-5">Usuario</th>
             <th class="pd-y-5">Email</th>
             <th class="pd-y-5">Rol</th>
-            <th class="pd-y-5">Última Sesión</th>
             <th class="pd-y-5">Estado</th>
             <th class="pd-y-5">Acciones</th>
           </template>
@@ -51,7 +50,7 @@
                     {{ r.name }}
                   </template>
                 </td>
-                <td class="valign-middle tx-12">
+                <!-- <td class="valign-middle tx-12">
                   <template v-if="u.last_login">
                     <span
                       class="square-8 bg-success mg-r-5 rounded-circle"
@@ -64,7 +63,7 @@
                     ></span>
                     Nunca</template
                   >
-                </td>
+                </td> -->
                 <!-- <td class="valign-middle">
                   {{ getCreatedDate(u.created_at) }}
                 </td> -->
@@ -281,13 +280,10 @@ export default {
   },
 
   methods: {
-    getHumanDate: function (date) {
-      moment.locale("es");
-      return moment(date, "YYYY-DD-MM h:mm:ss").fromNow();
-    },
-
-    // getCreatedDate: function (date) {
-    //   return moment(date).format("DD/MM/YYYY");
+    // getHumanDate: function (date) {
+    //   console.log();
+    //   moment.locale("es");
+    //   return moment(date, "YYYY-MM-DD h:mm:ss").fromNow();
     // },
 
     async getUsers() {

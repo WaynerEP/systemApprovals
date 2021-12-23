@@ -5193,7 +5193,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -5236,12 +5235,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    getHumanDate: function getHumanDate(date) {
-      moment__WEBPACK_IMPORTED_MODULE_2___default().locale("es");
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date, "YYYY-DD-MM h:mm:ss").fromNow();
-    },
-    // getCreatedDate: function (date) {
-    //   return moment(date).format("DD/MM/YYYY");
+    // getHumanDate: function (date) {
+    //   console.log();
+    //   moment.locale("es");
+    //   return moment(date, "YYYY-MM-DD h:mm:ss").fromNow();
     // },
     getUsers: function getUsers() {
       var _this = this;
@@ -90584,10 +90581,6 @@ var render = function () {
                       _vm._v(" "),
                       _c("th", { staticClass: "pd-y-5" }, [_vm._v("Rol")]),
                       _vm._v(" "),
-                      _c("th", { staticClass: "pd-y-5" }, [
-                        _vm._v("Última Sesión"),
-                      ]),
-                      _vm._v(" "),
                       _c("th", { staticClass: "pd-y-5" }, [_vm._v("Estado")]),
                       _vm._v(" "),
                       _c("th", { staticClass: "pd-y-5" }, [_vm._v("Acciones")]),
@@ -90645,35 +90638,6 @@ var render = function () {
                                       ),
                                     ]
                                   }),
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "valign-middle tx-12" },
-                                [
-                                  u.last_login
-                                    ? [
-                                        _c("span", {
-                                          staticClass:
-                                            "square-8 bg-success mg-r-5 rounded-circle",
-                                        }),
-                                        _vm._v(
-                                          "\n                  " +
-                                            _vm._s(
-                                              _vm.getHumanDate(u.last_login)
-                                            ) +
-                                            "\n                "
-                                        ),
-                                      ]
-                                    : [
-                                        _c("span", {
-                                          staticClass:
-                                            "square-8 bg-warning mg-r-5 rounded-circle",
-                                        }),
-                                        _vm._v("\n                  Nunca"),
-                                      ],
                                 ],
                                 2
                               ),
