@@ -158,7 +158,7 @@
       <!-- col -->
     </div>
 
-    <div class="wizard wizard-style-1 clearfixx mt-5">
+    <div class="wizard wizard-style-2 clearfixx mt-5">
       <div class="steps clearfix">
         <ul role="tablist">
           <li :class="classes.first[step]">
@@ -391,33 +391,27 @@
                   >Adjuntar Proformas (Solo para montos mayores a S/.100)</label
                 ><br />
                 <div class="signup-separator"></div>
-
-                <button
-                  type="button"
-                  @click="openModalUpload()"
-                  class="btn btn-outline-primary btn-sm mb-4"
-                >
-                  <i class="fas fa-plus"></i> Adjuntar proformas(3)
-                </button>
-
-                <div
-                  id="accordion"
-                  class="accordion-one"
-                  role="tablist"
-                  aria-multiselectable="true"
-                >
-                  <Acordion
-                    :id="index"
-                    v-for="(file, index) in files_details"
-                    :key="index"
-                    :src="file"
-                  >
-                    {{ file }}
-                  </Acordion>
+                <p>
+                  seleccionar mínimo 3 proformas y adjuntarlas a la solicitud
+                  del Pedido, se aceptan solo archivos pdfs.
+                </p>
+                <file-pond-demo
+                  :maxFiles="10"
+                  @changeFile="addFilesToProformas"
+                ></file-pond-demo>
+                <div class="invalid-feedback d-block" v-if="errorsFiles">
+                  {{ errorsFiles }}
                 </div>
               </div>
               <!-- col -->
             </div>
+          </div>
+
+          <div class="row" v-show="step == 2">
+            <label class="section-label-sm tx-gray-800 tx-14"
+              >Resumen de la Solicitud</label
+            ><br />
+            <div class="signup-separator"></div>
           </div>
         </section>
       </div>
@@ -428,12 +422,7 @@
             <a href="#previous" @click="previous_step">Anterior</a>
           </li>
           <li :class="{ disabled: details.length == 0 }">
-            <a
-              href="#next"
-              @click="next_step"
-              v-show="step < 2"
-              >Siguiente</a
-            >
+            <a href="#next" @click="next_step" v-show="step < 2">Siguiente</a>
           </li>
           <li v-show="step == 2">
             <a href="#finish">Finalizar</a>
@@ -450,7 +439,7 @@
       <small>Utiliza las notas para agregar información importante.</small>
     </div>
 
-    <modal-section maxWidth="lg" @submitted="savePdfsProformas">
+    <!-- <modal-section maxWidth="lg" @submitted="savePdfsProformas">
       <template #title> Adjuntar Archivos </template>
       <template #body>
         <p class="mg-b-5">
@@ -473,7 +462,7 @@
           Adjuntar
         </button>
       </template>
-    </modal-section>
+    </modal-section> -->
   </div>
 </template>
 <script>
@@ -569,8 +558,6 @@ export default {
       ],
       productsDetails: [],
       files_proformas: [],
-      files_details: [],
-      isUpLoading: false,
     };
   },
 
@@ -581,6 +568,12 @@ export default {
   },
 
   computed: {
+    errorsFiles() {
+      if (this.files_proformas.length < 3) {
+        return "Adjunte 3 archivos como mínimo";
+      } else return null;
+    },
+
     notaVencimiento() {
       moment.locale("es");
       if (this.solicitud.fFinal) {
@@ -635,7 +628,12 @@ export default {
     },
 
     next_step() {
-      this.step += 1;
+      if (this.step == 1 && this.files_proformas.length < 3) {
+        return;
+      }
+      if (this.details.length > 0) {
+        this.step += 1;
+      }
     },
 
     previous_step() {
