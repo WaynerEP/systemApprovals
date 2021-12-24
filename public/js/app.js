@@ -3549,6 +3549,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -3710,6 +3711,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -88937,183 +88940,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "manager-wrapper" }, [
-    _c("div", { staticClass: "manager-right" }, [
-      _c(
-        "div",
-        { staticClass: "row row-sm" },
-        [
-          _c("Loading", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: this.dataPaginate.length == 0,
-                expression: "this.dataPaginate.length == 0",
-              },
-            ],
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.dataPaginate, function (pro) {
-            return _c(
-              "div",
-              { key: pro.idProducto, staticClass: "col-sm-6 col-lg-4 my-2" },
-              [
-                _c("div", { staticClass: "card-contact" }, [
-                  _c("div", { staticClass: "tx-center" }, [
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("h5", { staticClass: "mg-t-10 mg-b-5" }, [
-                      _c(
-                        "a",
-                        { staticClass: "contact-name", attrs: { href: "" } },
-                        [_vm._v(_vm._s(pro.descripcionProducto))]
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(pro.medida))]),
-                    _vm._v(" "),
-                    _vm._m(1, true),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "contact-item" }, [
-                    _c("span", [
-                      _c("div", { staticClass: "card-pricing" }, [
-                        _c("span", [_vm._v("P. Compra")]),
-                        _vm._v(" "),
-                        _c("h5", [_vm._v("S/ " + _vm._s(pro.precioC))]),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [
-                      _c("div", { staticClass: "card-pricing" }, [
-                        _c("span", [_vm._v("P. Venta")]),
-                        _vm._v(" "),
-                        _c("h5", [_vm._v("S/ " + _vm._s(pro.precioV))]),
-                      ]),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "contact-item" }, [
-                    _c("span", [_vm._v("Stock")]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(pro.stock))]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(2, true),
-                ]),
-              ]
-            )
-          }),
-          _vm._v(" "),
-          _vm.products.length > 15
-            ? _c(
-                "div",
-                { staticClass: "col-12 d-flex justify-content-center mt-3" },
-                [
-                  _c("v-pagination", {
-                    attrs: {
-                      "page-count": _vm.totalPages,
-                      classes: _vm.bootstrapPaginationClasses,
-                    },
-                    model: {
-                      value: _vm.currentPage,
-                      callback: function ($$v) {
-                        _vm.currentPage = $$v
-                      },
-                      expression: "currentPage",
-                    },
-                  }),
-                ],
-                1
-              )
-            : _vm._e(),
-        ],
-        2
-      ),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "manager-left" }, [
-      _c("a", { staticClass: "btn btn-contact-new", attrs: { href: "" } }, [
-        _vm._v("Add New"),
-      ]),
-      _vm._v(" "),
-      _c(
-        "nav",
-        { staticClass: "nav" },
-        _vm._l(_vm.categories, function (cat) {
-          return _c(
-            "a",
-            {
-              key: cat.id,
-              staticClass: "nav-link",
-              class: _vm.isActive == cat.id ? "active" : "",
-              on: {
-                click: function ($event) {
-                  return _vm.getProducts(cat.id)
-                },
-              },
-            },
-            [
-              _c("span", [_vm._v(_vm._s(cat.description))]),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(cat.amountProduct))]),
-            ]
-          )
-        }),
-        0
-      ),
-    ]),
-  ])
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "" } }, [
-      _c("img", {
-        staticClass: "card-img",
-        attrs: { src: "http://via.placeholder.com/500x500", alt: "" },
-      }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "contact-social" }, [
-      _c("a", { attrs: { href: "" } }, [
-        _c("i", { staticClass: "fa fa-facebook" }),
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [
-        _c("i", { staticClass: "fa fa-twitter" }),
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [
-        _c("i", { staticClass: "fa fa-google" }),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "contact-item" }, [
-      _c("a", { attrs: { href: "" } }, [_vm._v("Editar")]),
-      _vm._v(" "),
-      _c("a", { staticClass: "text-danger", attrs: { href: "" } }, [
-        _vm._v("Eliminar"),
-      ]),
-    ])
-  },
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 
@@ -89155,7 +88983,10 @@ var render = function () {
               },
             },
           },
-          [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Agregar")]
+          [
+            _c("i", { staticClass: "fa fa-plus" }),
+            _vm._v("\n      Agregar\n    "),
+          ]
         ),
       ]),
       _vm._v(" "),

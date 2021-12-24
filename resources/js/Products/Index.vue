@@ -10,12 +10,13 @@
         >
           <div class="card-contact">
             <div class="tx-center">
-              <a href=""
-                ><img
-                  src="http://via.placeholder.com/500x500"
+              <a href="">
+                <img
+                  src="http://via.placeholder.com/200x300"
                   class="card-img"
-                  alt=""
-              /></a>
+                  alt="product{{pro.idProducto}}"
+                />
+              </a>
               <h5 class="mg-t-10 mg-b-5">
                 <a href="" class="contact-name">{{
                   pro.descripcionProducto
