@@ -42,22 +42,17 @@
     </dialog-drag>
     <!-- end Dialog -->
     <div class="invoice-header">
-      <div class="justify-content-end">
-        <h1 class="invoice-title">Orden de Compra</h1>
-        <div class="form-layout form-layout-6">
-          <div class="row no-gutter mt-1">
-            <div class="col-5 col-sm-4">Nro.</div>
-            <div class="col-7 col-sm-8">
-              <input
-                class="form-control"
-                type="text"
-                name="nro"
-                placeholder="ejm. 110023"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <header-invoice>
+        <template #title> Solicitud </template>
+        <template #input>
+          <input
+            type="text"
+            v-model="nroSolicitud"
+            placeholder="ejm. 110023"
+            class="form-control"
+          />
+        </template>
+      </header-invoice>
       <info-company></info-company>
       <!-- company-from -->
     </div>
@@ -466,12 +461,10 @@
   </div>
 </template>
 <script>
-import vSelect from "vue-select";
 import InfoCompany from "../components/Empresa.vue";
 import ModalSection from "../components/ModalSection.vue";
-import Acordion from "../components/Acordion.vue";
 import FilePondDemo from "../components/FilePond.vue";
-import LoaderUp from "../components/LoaderAction.vue";
+import HeaderInvoice from "../components/HeaderInvoice.vue";
 import moment from "moment";
 import DialogDrag from "vue-dialog-drag";
 import DataTable from "vue-materialize-datatable";
@@ -479,13 +472,11 @@ import DataTable from "vue-materialize-datatable";
 export default {
   props: ["empleado"],
   components: {
-    vSelect,
-    DialogDrag,
     InfoCompany,
-    Acordion,
     FilePondDemo,
-    LoaderUp,
     ModalSection,
+    HeaderInvoice,
+    DialogDrag,
     DataTable,
   },
   mounted() {
@@ -505,6 +496,7 @@ export default {
         detalle: [],
         notas: "",
       },
+      nroSolicitud: "",
       details: [],
       igv: 0.18,
       descuento: "0",
@@ -645,9 +637,9 @@ export default {
     fetchOptions() {
       var el = this;
       // AJAX request
-      axios.get("/api/dataProviders").then((res) => {
+      axios.get("/api/solicitudes/number").then((res) => {
         // Update options
-        el.providers_data = res.data;
+        el.nroSolicitud = "000" + res.data.max;
       });
     },
 
