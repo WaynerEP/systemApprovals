@@ -1,272 +1,5 @@
 <template>
-  <div>
-    <div class="wizard clearfix">
-      <div class="steps clearfix">
-        <ul role="tablist">
-          <li :class="classes.first[step]">
-            <a href="#wizard1-h-0">
-              <span class="current-info audible"> current step: </span>
-              <span class="number">1</span>
-              <span class="title">Registrar proformas</span></a
-            >
-          </li>
-          <li :class="classes.second[step]">
-            <a id="wizard1-t-1" href="#wizard1-h-1">
-              <span class="number">2</span>
-              <span class="title">Solicitudes</span>
-            </a>
-          </li>
-          <li :class="classes.third[step]">
-            <a id="wizard1-t-2" href="#wizard1-h-2">
-              <span class="number">3</span>
-              <span class="title">Enviar Solicitudes</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="content clearfix">
-        <section id="wizard1-p-0" class="body current">
-          <div class="invoice-header mb-4">
-            <div class="justify-content-end">
-              <h1 class="invoice-title">Proforma</h1>
-              <div class="form-layout form-layout-6">
-                <div class="row no-gutter mt-1">
-                  <div class="col-5 col-sm-4">Nro.</div>
-                  <div class="col-7 col-sm-8">
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="nro"
-                      placeholder="ejm. 110023"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <info-company></info-company>
-            <!-- billed-from -->
-          </div>
-
-          <div class="row mb-4">
-            <div class="col-sm-6">
-              <div class="row">
-                <label for="inputEmail3" class="col-sm-3 form-control-label"
-                  >Proveeedor</label
-                >
-                <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                  <v-select
-                    v-model="proveedor"
-                    placeholder="Buscar..."
-                    label="names"
-                    :reduce="
-                      (n) => n.keyPro + '_' + n.dni + '_' + n.businessName
-                    "
-                    :options="providers_data"
-                    @search="fetchOptions"
-                  >
-                  </v-select>
-                </div>
-              </div>
-              <div class="mg-t-20 row">
-                <label for="inputEmail3" class="col-sm-3 form-control-label"
-                  >Identificación</label
-                >
-                <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                  <input
-                    type="text"
-                    v-model="proforma.identificacion"
-                    class="form-control form-control-sm"
-                    id=""
-                  />
-                </div>
-              </div>
-              <div class="mg-t-20 row">
-                <label for="inputEmail3" class="col-sm-3 form-control-label"
-                  >Telefono</label
-                >
-                <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                  <input
-                    type="text"
-                    v-model="proforma.razonSocial"
-                    class="form-control form-control-sm"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <div class="row">
-                <label for="inputStart" class="col-sm-3 form-control-label"
-                  >Fecha</label
-                >
-                <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                  <input
-                    type="date"
-                    v-model="proforma.fInicial"
-                    class="form-control form-control-sm"
-                    id="inputStart"
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
-              <div class="mg-t-20 row">
-                <label for="inputEnd" class="col-sm-3 form-control-label"
-                  >Plazo</label
-                >
-                <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                  <input
-                    type="date"
-                    v-model="proforma.fFinal"
-                    class="form-control form-control-sm"
-                    id="inputEnd"
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- agregar nuevo producto -->
-          <button
-            type="button"
-            @click="newDialog(0)"
-            class="btn btn-outline-primary btn-sm"
-          >
-            <i class="fas fa-plus"></i> Agregar nuevo producto
-          </button>
-          <!-- table responsivo detalle -->
-          <div class="table-responsive mg-t-20">
-            <table class="table table-invoice">
-              <thead class="thead-colored bg-primary">
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th class="wd-30p">Concepto</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unit.</th>
-                  <th>Medida</th>
-                  <th class="wd-15p">Precio Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-if="details.length > 0">
-                  <tr v-for="(d, index) in details" :key="index">
-                    <td class="valign-middle">
-                      <button
-                        type="button"
-                        class="btn btn-sm"
-                        @click="removeItem(d.idProducto)"
-                      >
-                        <i class="fa fa-close text-danger"></i>
-                      </button>
-                    </td>
-                    <td>
-                      <img
-                        src="http://via.placeholder.com/800x533"
-                        class="wd-55"
-                        :alt="details[index].producto"
-                      />
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].producto }}
-                    </td>
-                    <td class="tx-center valign-middle">
-                      <input
-                        type="number"
-                        v-model="details[index].cantidad"
-                        class="form-control form-control-sm"
-                        placeholder="0"
-                      />
-                    </td>
-                    <td class="valign-middle">
-                      <input
-                        type="number"
-                        v-model="details[index].precio"
-                        class="form-control form-control-sm"
-                        placeholder="0"
-                      />
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].medida }}
-                    </td>
-                    <td class="tx-right valign-middle">
-                      {{
-                        (details[index].precio * details[index].cantidad)
-                          | money
-                      }}
-                    </td>
-                  </tr>
-                </template>
-                <tr v-else>
-                  <td
-                    class="text-center valign-middle tx-bold tx-12"
-                    colspan="7"
-                  >
-                    Seleccione un producto!!
-                  </td>
-                </tr>
-
-                <tr>
-                  <td colspan="4" rowspan="4" class="valign-middle">
-                    <div class="invoice-notes">
-                      <label class="section-label-sm tx-gray-500">Notas:</label>
-                      <p class="tx-12 tx-bold">
-                        Factura Proforma válida hasta: {{ notaVencimiento }}
-                      </p>
-                    </div>
-                    <!-- invoice-notes -->
-                  </td>
-                  <td class="tx-right tx-12">Sub-Total</td>
-                  <td colspan="2" class="tx-right">{{ subTotal | money }}</td>
-                </tr>
-                <tr>
-                  <td class="tx-right tx-12">Igv (18%)</td>
-                  <td colspan="2" class="tx-right">{{ igvTotal | money }}</td>
-                </tr>
-                <tr>
-                  <td class="tx-right tx-12">Descuento</td>
-                  <td colspan="2" class="tx-right">{{ descuento | money }}</td>
-                </tr>
-                <tr>
-                  <td class="tx-right tx-uppercase tx-bold tx-inverse tx-12">
-                    Total
-                  </td>
-                  <td colspan="2" class="tx-right">
-                    <h4 class="tx-primary tx-bold tx-lato">
-                      {{ total | money }}
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="form-group mt-5">
-            <label
-              >Notas <i class="far fa-question-circle text-success"></i> :
-            </label>
-            <textarea v-model="proforma.notas" class="form-control"></textarea>
-            <small
-              >Utiliza las notas para agregar información importante. No son
-              visibles en la impresión.</small
-            >
-          </div>
-        </section>
-      </div>
-      <div class="actions clearfix">
-        <ul>
-          <li :class="classes.button_left[step]">
-            <a href="#previous" @click="previous_step">Anterior</a>
-          </li>
-          <li>
-            <a href="#next" @click="next_step" v-show="step < 2">Siguiente</a>
-          </li>
-          <li v-show="step == 2">
-            <a href="#finish">Finalizar</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
+  <div class="card-body">
     <!-- dialog -->
     <dialog-drag
       v-for="dialog in dialogs"
@@ -308,35 +41,462 @@
       </DataTable>
     </dialog-drag>
     <!-- end Dialog -->
+    <div class="invoice-header">
+      <div class="justify-content-end">
+        <h1 class="invoice-title">Orden de Compra</h1>
+        <div class="form-layout form-layout-6">
+          <div class="row no-gutter mt-1">
+            <div class="col-5 col-sm-4">Nro.</div>
+            <div class="col-7 col-sm-8">
+              <input
+                class="form-control"
+                type="text"
+                name="nro"
+                placeholder="ejm. 110023"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <info-company></info-company>
+      <!-- company-from -->
+    </div>
+
+    <div class="row mg-t-20">
+      <div class="col-md mg-t-10 mg-md-t-0">
+        <label class="section-label-sm tx-gray-500"
+          >Datos del Solicitante</label
+        >
+        <div class="signup-separator"></div>
+        <div class="billed-to mt-3">
+          <div class="mg-t-8 row">
+            <label for="" class="col-sm-3 form-control-label"
+              >Solicitante</label
+            >
+            <div class="col-sm-9">
+              <div class="d-flex">
+                <select readonly class="form-control form-control-sm mr-2">
+                  <option>Usuario</option>
+                </select>
+                <input
+                  type="text"
+                  readonly
+                  :value="empleado[0].cargo"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="mg-t-8 row">
+            <label for="" class="col-sm-3 form-control-label">Nombre</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                :value="empleado[0].name"
+                readonly
+                class="form-control form-control-sm"
+                id=""
+              />
+            </div>
+          </div>
+          <div class="mg-t-8 row">
+            <label for="" class="col-sm-3 form-control-label">Sucursal</label>
+            <div class="col-sm-9">
+              <select readonly class="form-control form-control-sm">
+                <option>Principal</option>
+              </select>
+            </div>
+          </div>
+          <div class="mg-t-8 row">
+            <label for="" class="col-sm-3 form-control-label">Area</label>
+            <div class="col-sm-9">
+              <select class="form-control form-control-sm">
+                <option :value="empleado[0].area">
+                  {{ empleado[0].area }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <div class="col-md mg-t-30 mg-md-t-0">
+        <label class="section-label-sm tx-gray-500">Información</label>
+        <div class="signup-separator"></div>
+        <div class="billed-to mt-3">
+          <div class="mg-t-8 row">
+            <label for="inputStart" class="col-sm-3 form-control-label"
+              >Emisión</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="date"
+                v-model="solicitud.fInicial"
+                class="form-control form-control-sm"
+                id="inputStart"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div class="mg-t-8 row">
+            <label for="inputEnd" class="col-sm-3 form-control-label"
+              >Válido hasta</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="date"
+                v-model="solicitud.fFinal"
+                class="form-control form-control-sm"
+                id="inputEnd"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+    </div>
+
+    <div class="wizard wizard-style-2 clearfixx mt-5">
+      <div class="steps clearfix">
+        <ul role="tablist">
+          <li :class="classes.first[step]">
+            <a id="wizard5-t-0" href="#wizard5-h-0" aria-controls="wizard5-p-0"
+              ><span class="current-info audible">current step: </span
+              ><span class="number">1</span>
+              <span class="title">Contenido</span></a
+            >
+          </li>
+          <li :class="classes.second[step]">
+            <a id="wizard1-t-1" href="#wizard1-h-1">
+              <span class="number">2</span>
+              <span class="title">Proveedores</span>
+            </a>
+          </li>
+          <li :class="classes.third[step]">
+            <a id="wizard1-t-2" href="#wizard1-h-2">
+              <span class="number">3</span>
+              <span class="title">Resumen</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="content clearfix">
+        <section class="body current">
+          <!-- agregar nuevo producto -->
+          <button
+            type="button"
+            v-show="step == 0"
+            @click="newDialog(0)"
+            class="btn btn-outline-primary btn-sm mb-4"
+          >
+            <i class="fas fa-plus"></i> Agregar nuevo producto
+          </button>
+          <!-- table responsivo detalle -->
+          <div class="table-responsive" v-show="step == 0">
+            <table class="table table-invoice table-sm">
+              <thead class="thead-colored bg-primary">
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th class="wd-30p">Concepto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Compra.</th>
+                  <th>Medida</th>
+                  <th class="wd-15p">Precio Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template v-if="details.length > 0">
+                  <tr v-for="(d, index) in details" :key="index">
+                    <td class="valign-middle">
+                      <button
+                        type="button"
+                        class="btn btn-sm"
+                        @click="removeItem(d.idProducto)"
+                      >
+                        <i class="fa fa-close text-danger"></i>
+                      </button>
+                    </td>
+                    <td>
+                      <img
+                        src="http://via.placeholder.com/800x533"
+                        class="wd-55"
+                        :alt="details[index].producto"
+                      />
+                    </td>
+                    <td class="valign-middle tx-bold tx-12">
+                      {{ details[index].producto }}
+                    </td>
+                    <td class="tx-center valign-middle">
+                      <input
+                        type="number"
+                        min="0"
+                        v-model="details[index].cantidad"
+                        class="form-control form-control-sm"
+                        placeholder="0"
+                      />
+                    </td>
+                    <td class="valign-middle">
+                      <input
+                        type="number"
+                        min="0"
+                        v-model="details[index].precio"
+                        class="form-control form-control-sm"
+                        placeholder="0"
+                      />
+                    </td>
+                    <td class="valign-middle tx-bold tx-12">
+                      {{ details[index].medida }}
+                    </td>
+                    <td class="tx-right valign-middle">
+                      {{
+                        (details[index].precio * details[index].cantidad)
+                          | money
+                      }}
+                    </td>
+                  </tr>
+                </template>
+                <tr v-else>
+                  <td
+                    class="text-center valign-middle tx-bold tx-12"
+                    colspan="7"
+                  >
+                    Seleccione un producto!!
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="4" rowspan="4" class="valign-middle">
+                    <div class="invoice-notes">
+                      <label class="section-label-sm tx-gray-500">Notas:</label>
+                      <p class="tx-12 tx-bold">
+                        Solicitud de Compra válida hasta: {{ notaVencimiento }}
+                      </p>
+                    </div>
+                    <!-- invoice-notes -->
+                  </td>
+                  <td class="tx-right tx-12">Sub-Total</td>
+                  <td colspan="2" class="tx-right">{{ subTotal | money }}</td>
+                </tr>
+                <tr>
+                  <td class="tx-right tx-12">Igv (18%)</td>
+                  <td colspan="2" class="tx-right">{{ igvTotal | money }}</td>
+                </tr>
+                <tr>
+                  <td class="tx-right tx-12">Descuento</td>
+                  <td colspan="2" class="tx-right">{{ descuento | money }}</td>
+                </tr>
+                <tr>
+                  <td class="tx-right tx-uppercase tx-bold tx-inverse tx-12">
+                    Total
+                  </td>
+                  <td colspan="2" class="tx-right">
+                    <h4 class="tx-primary tx-bold tx-lato">
+                      {{ total | money }}
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="" v-show="step == 1">
+            <div class="row" v-show="total < 100 && total > 0">
+              <div class="col-lg-6">
+                <label class="section-label-sm tx-gray-800 tx-14"
+                  >Información del Proveedor</label
+                >
+                <div class="signup-separator"></div>
+                <div class="row mt-2">
+                  <div class="col-lg-12">
+                    <select
+                      class="form-control"
+                      v-model="keyProveedor"
+                      @change="fetchInfoProvider()"
+                    >
+                      <option value="" disabled>Seleccione</option>
+                      <option
+                        :value="p.keyPro"
+                        v-for="p in providers_data"
+                        :key="p.keyPro"
+                      >
+                        {{ p.businessName }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- row -->
+                <div class="media-list mg-t-25 ml-4">
+                  <div class="media">
+                    <div><i class="icon ion-link tx-24 lh-0"></i></div>
+                    <div class="media-body mg-l-15 mg-t-4">
+                      <h6 class="tx-14 tx-gray-700">Razón Social</h6>
+                      <span class="d-block">{{
+                        infoProveedor.razonSocial
+                      }}</span>
+                    </div>
+                    <!-- media-body -->
+                  </div>
+                  <!-- media -->
+                  <div class="media mg-t-25">
+                    <div>
+                      <i class="icon ion-ios-telephone-outline tx-24 lh-0"></i>
+                    </div>
+                    <div class="media-body mg-l-15 mg-t-4">
+                      <h6 class="tx-14 tx-gray-700">Teléfono</h6>
+                      <span class="d-block"
+                        >+51 {{ infoProveedor.telefono }}</span
+                      >
+                    </div>
+                    <!-- media-body -->
+                  </div>
+                  <!-- media -->
+                  <div class="media mg-t-25">
+                    <div>
+                      <i class="icon ion-ios-email-outline tx-24 lh-0"></i>
+                    </div>
+                    <div class="media-body mg-l-15 mg-t-4">
+                      <h6 class="tx-14 tx-gray-700">Email</h6>
+                      <span class="d-block">{{ infoProveedor.email }}</span>
+                    </div>
+                    <!-- media-body -->
+                  </div>
+                  <!-- media -->
+                  <div class="media mg-t-25">
+                    <div>
+                      <i class="icon ion-location tx-18 lh-0"></i>
+                    </div>
+                    <div class="media-body mg-l-15 mg-t-2">
+                      <h6 class="tx-14 tx-gray-700">
+                        Distrito/Provincia/Departamento - CP
+                      </h6>
+                      <span class="d-block"
+                        >{{ infoProveedor.ciudad }} -
+                        {{ infoProveedor.codPostal }}</span
+                      >
+                    </div>
+                    <!-- media-body -->
+                  </div>
+                  <!-- media -->
+                </div>
+              </div>
+              <!-- col -->
+            </div>
+
+            <div class="row" v-show="total >= 100">
+              <div class="col-md-12">
+                <label class="section-label-sm tx-gray-800 tx-14"
+                  >Adjuntar Proformas (Solo para montos mayores a S/.100)</label
+                ><br />
+                <div class="signup-separator"></div>
+                <p>
+                  seleccionar mínimo 3 proformas y adjuntarlas a la solicitud
+                  del Pedido, se aceptan solo archivos pdfs.
+                </p>
+                <file-pond-demo
+                  :maxFiles="10"
+                  @changeFile="addFilesToProformas"
+                ></file-pond-demo>
+                <div class="invalid-feedback d-block" v-if="errorsFiles">
+                  {{ errorsFiles }}
+                </div>
+              </div>
+              <!-- col -->
+            </div>
+          </div>
+
+          <div class="row" v-show="step == 2">
+            <label class="section-label-sm tx-gray-800 tx-14"
+              >Resumen de la Solicitud</label
+            ><br />
+            <div class="signup-separator"></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="actions clearfix">
+        <ul>
+          <li :class="classes.button_left[step]">
+            <a href="#previous" @click="previous_step">Anterior</a>
+          </li>
+          <li :class="{ disabled: details.length == 0 }">
+            <a href="#next" @click="next_step" v-show="step < 2">Siguiente</a>
+          </li>
+          <li v-show="step == 2">
+            <a href="#finish">Finalizar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-group mt-5">
+      <label
+        >Notas <i class="far fa-question-circle text-success"></i> :
+      </label>
+      <textarea v-model="solicitud.notas" class="form-control"></textarea>
+      <small>Utiliza las notas para agregar información importante.</small>
+    </div>
+
+    <!-- <modal-section maxWidth="lg" @submitted="savePdfsProformas">
+      <template #title> Adjuntar Archivos </template>
+      <template #body>
+        <p class="mg-b-5">
+          Debe seleccionar mínimo 3 proformas y adjuntarlas a la solicitud del
+          Pedido, se aceptan solo archivos pdfs.
+        </p>
+        <file-pond-demo @changeFile="addFilesToProformas"></file-pond-demo>
+      </template>
+      <template #footer>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          :disabled="files_proformas.length == 0"
+          @click="savePdfsProformas"
+        >
+          <loader-up v-show="isUpLoading"></loader-up>
+          Adjuntar
+        </button>
+      </template>
+    </modal-section> -->
   </div>
 </template>
 <script>
 import vSelect from "vue-select";
 import InfoCompany from "../components/Empresa.vue";
+import ModalSection from "../components/ModalSection.vue";
+import Acordion from "../components/Acordion.vue";
+import FilePondDemo from "../components/FilePond.vue";
+import LoaderUp from "../components/LoaderAction.vue";
 import moment from "moment";
 import DialogDrag from "vue-dialog-drag";
 import DataTable from "vue-materialize-datatable";
 
 export default {
+  props: ["empleado"],
   components: {
     vSelect,
     DialogDrag,
     InfoCompany,
+    Acordion,
+    FilePondDemo,
+    LoaderUp,
+    ModalSection,
     DataTable,
   },
-
   mounted() {
     this.fetchOptions();
-    if (localStorage.proveedor) {
-      this.proveedor = localStorage.proveedor;
-    }
   },
 
   data() {
     return {
       step: 0,
       proveedor: "",
-      proforma: {
+      solicitud: {
         idProveedor: "",
         identificacion: "",
         razonSocial: "",
@@ -355,6 +515,8 @@ export default {
         button_left: ["disabled", "", ""],
       },
       providers_data: [],
+      keyProveedor: "",
+      infoProveedor: {},
       dialogs: [],
       dialogId: 1,
       styles: [
@@ -395,7 +557,7 @@ export default {
         },
       ],
       productsDetails: [],
-      // subTotal: "0",
+      files_proformas: [],
     };
   },
 
@@ -406,10 +568,16 @@ export default {
   },
 
   computed: {
+    errorsFiles() {
+      if (this.files_proformas.length < 3) {
+        return "Adjunte 3 archivos como mínimo";
+      } else return null;
+    },
+
     notaVencimiento() {
       moment.locale("es");
-      if (this.proforma.fFinal) {
-        return moment(this.proforma.fFinal).format("LLLL");
+      if (this.solicitud.fFinal) {
+        return moment(this.solicitud.fFinal).format("LLLL");
       }
     },
 
@@ -433,8 +601,39 @@ export default {
   },
 
   methods: {
+    addFilesToProformas(values) {
+      this.files_proformas = values;
+    },
+
+    savePdfsProformas() {
+      this.isUpLoading = true;
+      let fields = new FormData();
+      for (let i = 0; i < this.files_proformas.length; i++) {
+        let file = this.files_proformas[i].file;
+        fields.append("files[" + i + "]", file);
+      }
+      const config = {
+        headers: { "content-type": "multipart/form-data" },
+      };
+      axios
+        .post("/api/savesPdfsProforma", fields, config)
+        .then((res) => {
+          this.files_details = res.data;
+          this.isUpLoading = false;
+          $("#exampleModal").modal("hide");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
     next_step() {
-      this.step += 1;
+      if (this.step == 1 && this.files_proformas.length < 3) {
+        return;
+      }
+      if (this.details.length > 0) {
+        this.step += 1;
+      }
     },
 
     previous_step() {
@@ -446,9 +645,18 @@ export default {
     fetchOptions() {
       var el = this;
       // AJAX request
-      axios.get("/api/dataProviders").then(function (response) {
+      axios.get("/api/dataProviders").then((res) => {
         // Update options
-        el.providers_data = response.data;
+        el.providers_data = res.data;
+      });
+    },
+
+    fetchInfoProvider() {
+      var el = this;
+
+      axios.get("/api/provider/" + this.keyProveedor).then((res) => {
+        // Update options
+        el.infoProveedor = res.data;
       });
     },
 
@@ -491,13 +699,14 @@ export default {
     },
 
     addProductToDetails(row, e) {
+      console.log(row);
       if (e.target.checked == true) {
         let fila = {
           idProducto: row.id,
           image: "",
           producto: row.product,
-          precio: 0,
-          cantidad: 0,
+          precio: row.precioC,
+          cantidad: 1,
           medida: row.measure,
           total: "",
         };
@@ -512,6 +721,10 @@ export default {
         (element) => element.idProducto === key
       );
       this.details.splice(index, 1);
+    },
+
+    openModalUpload() {
+      $("#exampleModal").modal("show");
     },
   },
 

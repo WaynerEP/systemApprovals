@@ -22,7 +22,7 @@
                     </ul>
                 </div><!-- sub-item -->
             </li>
-            <li class="nav-item with-sub">
+            <li class="nav-item with-sub {{ request()->is('contacts/*') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-filing-outline"></i>
                     <span>Contactos</span>
@@ -35,13 +35,15 @@
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
-            <li class="nav-item with-sub">
+            <li class="nav-item with-sub {{ request()->is('compras-*') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-book-outline"></i>
                     <span>Compras</span>
                 </a>
                 <div class="sub-item">
                     <ul>
+                        <li><a href="{{ route('pedidos') }}">Pedidos</a></li>
+                        <li><a href="{{ route('proformas') }}">Proformas</a></li>
                         <li><a href="{{ route('purchase-request') }}">Solicitud de Compra</a></li>
                         <li><a href="{{ route('new-purchase') }}">Listado de SC</a></li>
                     </ul>
