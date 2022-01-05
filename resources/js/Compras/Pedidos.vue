@@ -2,30 +2,18 @@
   <div class="section-wrapper">
     <div class="form-layout">
       <div class="invoice-header mg-b-25">
-        <div class="justify-content-end">
-          <h1 class="invoice-title">Pedido</h1>
-          <div class="form-layout form-layout-6">
-            <div class="row no-gutter mt-1">
-              <div class="col-5 col-sm-4">Nro.</div>
-              <div class="col-7 col-sm-8">
-                <input
-                  type="text"
-                  v-model="nroPedido"
-                  placeholder="ejm. 110023"
-                  class="form-control"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="billed-from">
-          <h6>COMERCIAL EL VALLE S.A.C.</h6>
-          <p>
-            Jr. La Victoria NRO. 704 <br />
-            930154994 <br />
-            Email: cvalleg@gmail.com
-          </p>
-        </div>
+        <header-invoice>
+          <template #title> Solicitud </template>
+          <template #input>
+            <input
+              type="text"
+              v-model="nroSolicitud"
+              placeholder="ejm. 110023"
+              class="form-control"
+            />
+          </template>
+        </header-invoice>
+        <info-company></info-company>
       </div>
 
       <div class="row mg-b-25">
@@ -180,7 +168,7 @@
     <!-- form-layout -->
 
     <modal-section maxWidth="lg">
-      <template #title> Adjuntar Archivos </template>
+      <template #title> Seleccionar Productos </template>
       <template #body>
         <DataTable
           title="Seleccione Productos"
@@ -226,6 +214,8 @@ import ButtonDetail from "../components/ButtonDetail.vue";
 import Loading from "../components/LoaderAction.vue";
 import DataTable from "vue-materialize-datatable";
 import InputDate from "../components/InputGroupDate.vue";
+import HeaderInvoice from "../components/HeaderInvoice.vue";
+
 
 export default {
   name: "Pedidos",
@@ -237,6 +227,7 @@ export default {
     ButtonDetail,
     DataTable,
     InputDate,
+    HeaderInvoice,
   },
 
   mounted() {
@@ -313,12 +304,10 @@ export default {
 
   methods: {
     async loadData() {
-      console.time("loop-timer");
       const content = await Promise.all([
         this.getProducts(),
         this.getNroPedido(),
       ]);
-      console.timeEnd("loop-timer");
       return ([this.products, this.nroPedido] = content);
     },
 
@@ -326,14 +315,12 @@ export default {
       return axios
         .get("/api/products/proforma")
         .then((response) => response.data);
-      // this.products = res.data;
     },
 
     getNroPedido() {
       return axios
         .get("/api/pedidos/number")
         .then((response) => "0000" + response.data.max);
-      // this.nroPedido = "0000" + res.data.max;
     },
 
     addProductToDetails(row, e) {
@@ -393,7 +380,7 @@ export default {
       if (e.response.status == 422) {
         this.errors = e.response.data.errors;
       } else {
-        this.$awn.alert("Ha ocurrido un error!.");
+        this.$awn.alert("La acción ha fallado!.");
       }
       this.isLoading = false;
     },

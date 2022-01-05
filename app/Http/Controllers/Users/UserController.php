@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use App\Notifications\WelcomeToTheApplication;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -17,12 +17,6 @@ class UserController extends Controller
     {
         $data = User::with('roles')->get();
         return $data;
-    }
-
-
-    public function create()
-    {
-        //
     }
 
     public function store(Request $request)
@@ -44,7 +38,10 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($request['role']);
-        return response('Usuario creado!.', 200);
+
+        $user->notify(new WelcomeToTheApplication());
+
+        return response('La acción ha sido exitosa!.', 200);
     }
 
 
@@ -66,7 +63,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request['role']);
 
-        return response('Usuario Actualizado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
 
@@ -75,7 +72,7 @@ class UserController extends Controller
         $user=User::find($id);
         $user->status = 0;
         $user->save();
-        return response('Usuario inhabilitado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     public function getRoles()

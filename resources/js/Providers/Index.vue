@@ -260,7 +260,7 @@ export default {
       if (e.response.status === 422) {
         this.errors = e.response.data.errors;
       } else {
-        this.$awn.alert("Ha ocurrido un error!.");
+        this.$awn.alert("La acción ha fallado!.");
       }
       this.isLoading = false;
     },

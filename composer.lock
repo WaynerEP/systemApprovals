@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "785eaf120427797f16564f2d1bd87eb7",
+    "content-hash": "b560069ec4a94d9bc1db2f0a5461fc02",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2146,6 +2146,46 @@
                 "source": "https://github.com/thephpleague/oauth1-client/tree/v1.10.0"
             },
             "time": "2021-08-15T23:05:49+00:00"
+        },
+        {
+            "name": "mehedimi/laravel-amp-mail",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mehedimi/laravel-amp-mail.git",
+                "reference": "7eb249a6058aa449b88cfb9133306b537ae18df6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mehedimi/laravel-amp-mail/zipball/7eb249a6058aa449b88cfb9133306b537ae18df6",
+                "reference": "7eb249a6058aa449b88cfb9133306b537ae18df6",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mehedi\\AmpMail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mehedi Hasan",
+                    "email": "mehedihasansabbirmi@gmail.com"
+                }
+            ],
+            "description": "Send amp mail through laravel mail",
+            "support": {
+                "issues": "https://github.com/mehedimi/laravel-amp-mail/issues",
+                "source": "https://github.com/mehedimi/laravel-amp-mail/tree/2.0.0"
+            },
+            "time": "2020-07-18T06:35:45+00:00"
         },
         {
             "name": "monolog/monolog",

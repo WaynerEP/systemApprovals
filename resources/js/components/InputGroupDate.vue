@@ -9,8 +9,19 @@
       <input
         type="text"
         class="form-control fc-datepicker"
+        :class="size"
         placeholder="DD/MM/YYYY"
       />
     </div>
   </div>
-</template>    
+</template>
+<script>
+export default {
+  props: {
+    size: {
+      type: String,
+      default: "",
+    },
+  },
+};
+</script>    

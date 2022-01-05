@@ -11,7 +11,7 @@ import VueAWN from "vue-awesome-notifications"
 // Your custom options
 let options = {
     labels: {
-        success: "Exito!",
+        success: "Éxito!",
         confirm: "Confirmación requerida",
     }
 }
@@ -56,7 +56,12 @@ Vue.component('pedidos-component', require('./Compras/Pedidos.vue').default);
  
 // Solicitudes
 Vue.component('proformas-component', require('./Compras/Proformas.vue').default);
+
+// Solicitudes
+Vue.component('list-solicitudes', require('./Orders/Index.vue').default);
  
+
+
 // Solicitudes
 Vue.component('user-profile', require('./Profile/User-Profile.vue').default);
 

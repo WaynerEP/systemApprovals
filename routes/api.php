@@ -7,20 +7,11 @@ use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
 use App\Models\Organizacion;
 use App\Models\Area;
+use App\Models\DetallePedidos;
 use App\Models\Proveedor;
 use App\Models\Pedido;
 use Illuminate\Support\Facades\DB;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -127,7 +118,30 @@ Route::get('/solicitudes/number', function () {
 
 //ruta para traer los pedidos recientes sin proformas
 Route::get('/proformas/pedidos', function () {
-    return Pedido::where('estado', '0')->get();
+    return response()->json(DB::select('exec spPedidosNotProformas'));
 });
 
-Route::apiResource('savesPdfsProforma', \App\Http\Controllers\Solicitudes\PDFsControleer::class);
+//ruta para traer los pedidos recientes sin solicitudes y con proformas
+Route::get('/solicitudes/pedidos', function () {
+    return response()->json(DB::select('exec spPedidosNotSolicitudes'));
+});
+
+//ruta para traer los pedidos recientes sin solicitudes y con proformas
+Route::get('/pedidos/detalle/{idPedido}', function ($idPedido) {
+    $detalle = DetallePedidos::join('productos as p', 'p.idProducto', '=', 'detallePedidos.idProducto')
+        ->select('detallePedidos.idPedido', 'p.idProducto', 'p.image', 'p.medida', 'p.descripcionProducto', 'detallePedidos.cantidad', 'detallePedidos.costoUnitario')
+        ->where('detallePedidos.idPedido', '=', $idPedido)
+        ->get();
+    return response()->json($detalle);
+});
+
+//ruta para traer los 3 mejores proformas
+Route::get('/pedidos/{idPedido}/proformas', function ($idPedido) {
+    return response()->json(DB::select('exec spProformasMenorPrecio ' . $idPedido));
+});
+
+
+Route::get('/orders/list/{id}/{status}', function ($id, $status) {
+    $data = DB::select('Exec spOrdersListByEmpleado ?,?', array($id, $status));
+    return response()->json($data);
+});

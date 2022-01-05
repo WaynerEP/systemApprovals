@@ -49,7 +49,7 @@ class ProviderController extends Controller
             'estado' => $request['status']
         ]);
 
-        return response('Proveedor creado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     /**
@@ -96,7 +96,7 @@ class ProviderController extends Controller
             // 'status' => $request['status']
         ]);
 
-        return response('Proveedor Actualizado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     /**
@@ -113,6 +113,6 @@ class ProviderController extends Controller
         // $provider->estado = 0;
         // $provider->save();
 
-        return response('Proveedor inhabilitado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 }
