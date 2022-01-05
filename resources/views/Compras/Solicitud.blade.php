@@ -1,14 +1,14 @@
 @extends('layouts.App')
 
 @section('title')
-    Nueva Compra
+    Nueva Solicitud
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Nueva Compra</li>
+    <li class="breadcrumb-item active" aria-current="page">Nueva Solicitud</li>
 @endsection
 @section('content')
     <div class="card card-invoice">
-        <nueva-compra-component :empleado="{{ json_encode($data) }}"></nueva-compra-component>
+        <solicitud-component :empleado="{{ json_encode($data) }}"></solicitud-component>
     </div>
 @endsection

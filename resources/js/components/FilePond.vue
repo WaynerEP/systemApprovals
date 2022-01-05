@@ -12,8 +12,8 @@
       label-Invalid-Field="El campo contiene archivos no válidos"
       label-File-Processing-Complete="Carga completa"
       v-bind:files="myFiles"
-      v-on:addfile="handleFilePondLoaded"
-      v-on:removefile="handleFilePondLoaded"
+      v-on:addfile="emitFiles"
+      v-on:removefile="emitFiles"
     />
   </div>
 </template>
@@ -57,14 +57,20 @@ export default {
       myFiles: [],
     };
   },
+
   components: {
     FilePond,
   },
+
   methods: {
-    handleFilePondLoaded() {
+    emitFiles: function () {
       // example of instance method call on pond reference
       const files = this.$refs.pond.getFiles();
       this.$emit("changeFile", files);
+    },
+
+    removeFiles: function () {
+      this.$refs.pond.removeFile();
     },
   },
 };

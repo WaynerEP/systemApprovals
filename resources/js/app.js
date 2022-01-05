@@ -48,8 +48,17 @@ Vue.component('products-component', require('./Products/Index.vue').default);
 // Vue.component('people-create-component', require('./Personas/Create.vue').default);
  
 // Solicitudes
-Vue.component('nueva-compra-component', require('./Compras/NuevaCompra.vue').default);
-Vue.component('solicitudes-component', require('./Compras/Proforma.vue').default);
+Vue.component('solicitud-component', require('./Compras/Solicitudes.vue').default);
+// Vue.component('solicitudes-component', require('./Compras/Proforma.vue').default);
+ 
+// Pedidos
+Vue.component('pedidos-component', require('./Compras/Pedidos.vue').default);
+ 
+// Solicitudes
+Vue.component('proformas-component', require('./Compras/Proformas.vue').default);
+ 
+// Solicitudes
+Vue.component('user-profile', require('./Profile/User-Profile.vue').default);
 
 
 

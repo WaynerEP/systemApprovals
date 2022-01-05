@@ -6,8 +6,11 @@ use App\Http\Controllers\Users\RolesController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\Providers\ProviderController;
+use App\Http\Controllers\Compras\PedidoController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -40,21 +43,6 @@ Route::middleware('auth')->group(function () {
     })->name('permissions');
 
 
-    // ruta ordenes
-    Route::get('/purchases/orders', function () {
-        return view('Orders.Index');
-    })->name('orders');
-
-    Route::get('/purchases/orders/create', function () {
-        return view('Orders.create');
-    });
-
-    // ruta aprobacione
-    Route::get('/approvals', function () {
-        return view('Aprobaciones.Index');
-    })->name('approvals');
-
-
     // ruta personas
     Route::get('contacts/people/create', function () {
         return view('Personas.Create');
@@ -70,14 +58,7 @@ Route::middleware('auth')->group(function () {
         return view('Proveedores.Index');
     })->name('providers');
 
-
-    // ruta para solicitudes,proformas
-    Route::get('/purchase-request', function () {
-        $data = DB::select('exec sp_EmpleadoArea ' . Auth::user()->id);
-        return view('Compras.NuevaCompra', compact('data'));
-    })->name('purchase-request');
-
-
+    //Ruta para todavia no sirve
     Route::view('/new-purchase', 'Compras.index')
         ->name('new-purchase');
 
@@ -91,22 +72,62 @@ Route::middleware('auth')->group(function () {
         return view('Items.Categories');
     })->name('categories');
 
+    // Rutas para pedidos
+    Route::view('/compras-pedidos', 'Compras.Pedidos')
+        ->name('pedidos');
+    // end ruta pedidos
+
+    // Rutas para proformas
+    Route::view('/compras-proformas', 'Compras.Proformas')
+        ->name('proformas');
+    // end ruta proformas
+
+    // ruta para solicitudes
+    Route::get('/compras-request', function () {
+        $data = DB::select('exec sp_EmpleadoArea ' . Auth::user()->id);
+        return view('Compras.Solicitud', compact('data'));
+    })->name('purchase-request');
+
+
+    // // ruta ordenes
+    // Route::get('/purchases/orders', function () {
+    //     return view('Orders.Index');
+    // })->name('orders');
+
+    // Route::get('/purchases/orders/create', function () {
+    //     return view('Orders.create');
+    // });
+
+    // ruta aprobaciones
+    // Route::get('/approvals', function () {
+    //     return view('Aprobaciones.Index');
+    // })->name('approvals');
+
+    //Rutas para el perfil del usuario
     Route::view('/user-profile', 'Profile.user-profile')
         ->name('profile');
 
     Route::view('/profile-settings', 'Profile.user-profile')
         ->name('settings');
+    // end profile-user
 });
 
 Route::resource('/users/list', UserController::class)->except('create', 'show', 'edit');
 Route::get('/users/roles', [UserController::class, 'getRoles']); //api then
 
 Route::resource('/roles/list', RolesController::class)->except('create', 'show', 'edit');
+
 Route::get('/roles/permissions', [RolesController::class, 'getPermissions']); //api then
 
 Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit');
 
 Route::resource('personas', PersonaController::class);
+
+//Routes para pedidos
+Route::resource('pedidos', PedidoController::class);
+
+//Routes para proformas
+Route::post('/pedidos/proformas', [PedidoController::class, 'storeProformas']);
 
 
 // Aquí estará la data que cree a proveedores
@@ -116,3 +137,10 @@ Route::resource('/providers', ProviderController::class)->except('create', 'show
 // ruta para productos,categorias
 Route::view('/productos', 'Productos.index')
     ->name('productos');
+
+Route::view('/email', 'Orders.Email');
+
+Route::get('/file', function () {
+    Storage::disk("google")->put("test.pdf", "Hello, I'm wayner");
+    return "Exito";
+});

@@ -299,6 +299,11 @@ export default {
       this.employees = res.data;
     },
 
+    async getRoles() {
+      const res = await axios.get("/users/roles");
+      this.roles = res.data;
+    },
+
     selectedPersona(value) {
       let el = this;
       let datos = value.split("_");
@@ -375,11 +380,6 @@ export default {
         : (this.user.role = "");
       this.selected_id = data.id;
       $("#exampleModal").modal("show");
-    },
-
-    async getRoles() {
-      const res = await axios.get("/users/roles");
-      this.roles = res.data;
     },
 
     existsErrors(e) {
