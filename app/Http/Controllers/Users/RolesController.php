@@ -30,7 +30,7 @@ class RolesController extends Controller
         $arrayPermisos = $request['permissions'];
         $role->syncPermissions($arrayPermisos);
 
-        return response('Rol creado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     public function update(Request $request, $id)
@@ -48,7 +48,7 @@ class RolesController extends Controller
         $arrayPermisos = $request['permissions'];
         $role->permissions()->sync($arrayPermisos);
 
-        return response('Rol actualizado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     public function destroy($id)

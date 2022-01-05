@@ -13,7 +13,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
-    // protected $dateFormat = 'Y-d-m H:i:s.000';
 
     protected $fillable = [
         'name',

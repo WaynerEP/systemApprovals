@@ -31,8 +31,8 @@
                 <td class="valign-middle pd-l-20">
                   <img
                     :src="
-                      u.photo_profile
-                        ? u.photo_profile
+                      u.avatar
+                        ? u.avatar
                         : 'http://via.placeholder.com/500x500'
                     "
                     class="wd-36 rounded-circle"
@@ -50,23 +50,6 @@
                     {{ r.name }}
                   </template>
                 </td>
-                <!-- <td class="valign-middle tx-12">
-                  <template v-if="u.last_login">
-                    <span
-                      class="square-8 bg-success mg-r-5 rounded-circle"
-                    ></span>
-                    {{ getHumanDate(u.last_login) }}
-                  </template>
-                  <template v-else
-                    ><span
-                      class="square-8 bg-warning mg-r-5 rounded-circle"
-                    ></span>
-                    Nunca</template
-                  >
-                </td> -->
-                <!-- <td class="valign-middle">
-                  {{ getCreatedDate(u.created_at) }}
-                </td> -->
                 <td class="valign-middle">
                   <span class="tx-success" v-if="u.status == 1"
                     >Habilitado</span
@@ -280,12 +263,6 @@ export default {
   },
 
   methods: {
-    // getHumanDate: function (date) {
-    //   console.log();
-    //   moment.locale("es");
-    //   return moment(date, "YYYY-MM-DD h:mm:ss").fromNow();
-    // },
-
     async getUsers() {
       const res = await axios.get("/users/list");
       this.users = res.data;
@@ -386,7 +363,7 @@ export default {
       if (e.response.status === 422) {
         this.errors = e.response.data.errors;
       } else {
-        this.$awn.alert("Ha ocurrido un error!.");
+        this.$awn.alert("La acción ha fallado!.");
       }
       this.isLoading = false;
     },

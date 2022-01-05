@@ -7,10 +7,11 @@ use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\Providers\ProviderController;
 use App\Http\Controllers\Compras\PedidoController;
+use App\Http\Controllers\Aprobaciones\orderController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Models\User;
-
+// use App\Models\User;
+// use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -89,10 +90,10 @@ Route::middleware('auth')->group(function () {
     })->name('purchase-request');
 
 
-    // // ruta ordenes
-    // Route::get('/purchases/orders', function () {
-    //     return view('Orders.Index');
-    // })->name('orders');
+    // ruta ordenes
+    Route::get('/orders/list', function () {
+        return view('Orders.List', ['idEmpleado' => Auth::user()->code_Empleado]);
+    })->name('orders');
 
     // Route::get('/purchases/orders/create', function () {
     //     return view('Orders.create');
@@ -112,35 +113,47 @@ Route::middleware('auth')->group(function () {
     // end profile-user
 });
 
-Route::resource('/users/list', UserController::class)->except('create', 'show', 'edit');
+Route::resource('/users/list', UserController::class)->except('create', 'show', 'edit')->middleware('auth');
 Route::get('/users/roles', [UserController::class, 'getRoles']); //api then
 
-Route::resource('/roles/list', RolesController::class)->except('create', 'show', 'edit');
+Route::resource('/roles/list', RolesController::class)->except('create', 'show', 'edit')->middleware('auth');
 
 Route::get('/roles/permissions', [RolesController::class, 'getPermissions']); //api then
 
-Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit');
+Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit')->middleware('auth');
 
-Route::resource('personas', PersonaController::class);
+//routes para personas
+Route::resource('personas', PersonaController::class)->middleware('auth');
 
 //Routes para pedidos
-Route::resource('pedidos', PedidoController::class);
+Route::resource('pedidos', PedidoController::class)->middleware('auth');
 
 //Routes para proformas
-Route::post('/pedidos/proformas', [PedidoController::class, 'storeProformas']);
-
+Route::post('/pedidos/proformas', [PedidoController::class, 'storeProformas'])->middleware('auth');
 
 // Aquí estará la data que cree a proveedores
-Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit');
+Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit')->middleware('auth');
 //Proveedores
 
 // ruta para productos,categorias
 Route::view('/productos', 'Productos.index')
-    ->name('productos');
+    ->name('productos')->middleware('auth');
 
-Route::view('/email', 'Orders.Email');
+//ruta para mostrar las proformas
+Route::get('/showProforma/{idPedido}/{value}', [PedidoController::class, 'showProforma']);
 
-Route::get('/file', function () {
-    Storage::disk("google")->put("test.pdf", "Hello, I'm wayner");
-    return "Exito";
-});
+//ruta post para guardar la solicitud y hacer el envio de correos
+Route::post('/solicitud/enviar', [PedidoController::class, 'storeSolicitud']);
+
+//orders
+Route::get('orders/{idEmpleado}/{idPedido}', [orderController::class, 'index'])->name('order');
+Route::post('/response-request', [orderController::class, 'store'])->name('response-request');
+
+
+//no usable
+// Route::view('/email', 'Orders.Email');
+
+// Route::get('/file', function () {
+//     Storage::disk("google")->put("test.pdf", "Hello, I'm wayner");
+//     return "Exito";
+// });

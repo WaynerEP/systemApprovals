@@ -166,7 +166,9 @@
           <Loading v-show="isLoading" />
           Guardar
         </button>
-        <button class="btn btn-secondary bd-0" @click="cancelActions">Cancelar</button>
+        <button class="btn btn-secondary bd-0" @click="cancelActions">
+          Cancelar
+        </button>
       </div>
       <!-- form-layout-footer -->
     </div>
@@ -187,34 +189,29 @@
           <table class="table table-invoice table-sm">
             <thead class="thead-colored bg-primary">
               <tr>
-                <th>Detalle</th>
                 <th>Pedido</th>
                 <th>Monto</th>
                 <th>Fecha</th>
+                <th>Nro. Items</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
               <template v-if="detallePedidos.length > 0">
                 <tr v-for="d in detallePedidos" :key="d.idPedido">
-                  <td class="valign-middle">
-                    <button
-                      type="button"
-                      class="btn btn-outline-warning btn-sm"
-                    >
-                      <i class="fa fa-stack-overflow"></i> Detalle
-                    </button>
-                  </td>
                   <td class="valign-middle tx-bold tx-12">
-                    {{ d.idPedido }}
+                   000{{ d.idPedido }}
                   </td>
                   <td class="valign-middle tx-bold tx-12">
                     {{ d.monto | money }}
                   </td>
-                  <td class="valign-middle tx-bold tx-12">
+                  <td class="valign-middle tx-bold tx-12 text-capitalize">
                     {{ formatDatePedido(d.fechaPedido) }}
                   </td>
-                  <td class="valign-middle">
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ d.nroProducts }} items
+                  </td>
+                  <td class="valign-middle text-center">
                     <button
                       type="button"
                       @click="addPedidoDetail(d, d.idPedido)"
@@ -257,7 +254,7 @@ import InputDate from "../components/InputGroupDate.vue";
 import ModalSection from "../components/ModalSection.vue";
 import FilePondDemo from "../components/FilePond.vue";
 import Loading from "../components/LoaderAction.vue";
-import moment, { relativeTimeRounding } from "moment";
+import moment from "moment";
 
 export default {
   name: "Proformas",
@@ -397,16 +394,6 @@ export default {
       });
     },
 
-    // removeItem(key) {
-    //   const index = this.details.findIndex(
-    //     (element) => element.idProducto === key
-    //   );
-    //   this.details.splice(index, 1);
-
-    //   var i = this.productsDetails.indexOf(key);
-    //   i !== -1 && this.productsDetails.splice(i, 1);
-    // },
-
     saveProformas() {
       this.isLoading = true;
       let fields = new FormData();
@@ -451,7 +438,7 @@ export default {
       if (e.response.status == 422) {
         this.errors = e.response.data.errors;
       } else {
-        this.$awn.alert("Ha ocurrido un error!.");
+        this.$awn.alert("La acción ha fallado!.");
       }
       this.isLoading = false;
     },

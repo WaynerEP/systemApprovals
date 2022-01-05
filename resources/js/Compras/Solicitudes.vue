@@ -1,46 +1,5 @@
 <template>
   <div class="card-body">
-    <!-- dialog -->
-    <dialog-drag
-      v-for="dialog in dialogs"
-      :key="dialog.id"
-      :id="dialog.id"
-      :title="dialog.name"
-      :ref="'dialog-' + dialog.id"
-      @close="removeDialog"
-      :options="dialog.options"
-    >
-      <DataTable
-        title="Seleccione Productos"
-        :columns="columns"
-        :rows="products"
-        :perPage="[7, 15, 20, 50]"
-        :defaultPerPage="7"
-        locale="es"
-        :exportable="false"
-        :printable="false"
-        :clickable="false"
-      >
-        <th slot="thead-tr">
-          <label class="ckbox"> <input type="checkbox" /><span></span> </label>
-        </th>
-        <template slot="tbody-tr" slot-scope="props">
-          <td>
-            <label class="ckbox" :for="'gridCheck' + props.row.id">
-              <input
-                type="checkbox"
-                :value="props.row.id"
-                :id="'gridCheck' + props.row.id"
-                v-model="productsDetails"
-                @change="(e) => addProductToDetails(props.row, e)"
-                checked="false"
-              /><span></span>
-            </label>
-          </td>
-        </template>
-      </DataTable>
-    </dialog-drag>
-    <!-- end Dialog -->
     <div class="invoice-header">
       <header-invoice>
         <template #title> Solicitud </template>
@@ -125,27 +84,7 @@
               >Emisión</label
             >
             <div class="col-sm-9">
-              <input
-                type="date"
-                v-model="solicitud.fInicial"
-                class="form-control form-control-sm"
-                id="inputStart"
-                placeholder="Email"
-              />
-            </div>
-          </div>
-          <div class="mg-t-8 row">
-            <label for="inputEnd" class="col-sm-3 form-control-label"
-              >Válido hasta</label
-            >
-            <div class="col-sm-9">
-              <input
-                type="date"
-                v-model="solicitud.fFinal"
-                class="form-control form-control-sm"
-                id="inputEnd"
-                placeholder="Email"
-              />
+              <input-date size="form-control-sm"></input-date>
             </div>
           </div>
         </div>
@@ -160,13 +99,13 @@
             <a id="wizard5-t-0" href="#wizard5-h-0" aria-controls="wizard5-p-0"
               ><span class="current-info audible">current step: </span
               ><span class="number">1</span>
-              <span class="title">Contenido</span></a
+              <span class="title">Detalle del Pedido</span></a
             >
           </li>
           <li :class="classes.second[step]">
             <a id="wizard1-t-1" href="#wizard1-h-1">
               <span class="number">2</span>
-              <span class="title">Proveedores</span>
+              <span class="title">Proformas</span>
             </a>
           </li>
           <li :class="classes.third[step]">
@@ -182,11 +121,12 @@
           <!-- agregar nuevo producto -->
           <button
             type="button"
-            v-show="step == 0"
-            @click="newDialog(0)"
+            data-toggle="modal"
+            data-target="#exampleModal"
             class="btn btn-outline-primary btn-sm mb-4"
+            v-show="step == 0"
           >
-            <i class="fas fa-plus"></i> Agregar nuevo producto
+            <i class="fas fa-plus"></i> Agregar Pedido
           </button>
           <!-- table responsivo detalle -->
           <div class="table-responsive" v-show="step == 0">
@@ -194,84 +134,50 @@
               <thead class="thead-colored bg-primary">
                 <tr>
                   <th></th>
-                  <th></th>
                   <th class="wd-30p">Concepto</th>
                   <th>Cantidad</th>
-                  <th>Precio Compra.</th>
                   <th>Medida</th>
+                  <th>Precio</th>
                   <th class="wd-15p">Precio Total</th>
                 </tr>
               </thead>
               <tbody>
                 <template v-if="details.length > 0">
-                  <tr v-for="(d, index) in details" :key="index">
-                    <td class="valign-middle">
-                      <button
-                        type="button"
-                        class="btn btn-sm"
-                        @click="removeItem(d.idProducto)"
-                      >
-                        <i class="fa fa-close text-danger"></i>
-                      </button>
-                    </td>
+                  <tr v-for="d in details" :key="d.idProducto">
                     <td>
                       <img
                         src="http://via.placeholder.com/800x533"
                         class="wd-55"
-                        :alt="details[index].producto"
+                        :alt="d.descripcionProducto"
                       />
                     </td>
                     <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].producto }}
+                      {{ d.descripcionProducto }}
                     </td>
-                    <td class="tx-center valign-middle">
-                      <input
-                        type="number"
-                        min="0"
-                        v-model="details[index].cantidad"
-                        class="form-control form-control-sm"
-                        placeholder="0"
-                      />
+                    <td class="valign-middle tx-bold">
+                      {{ d.cantidad }}
                     </td>
-                    <td class="valign-middle">
-                      <input
-                        type="number"
-                        min="0"
-                        v-model="details[index].precio"
-                        class="form-control form-control-sm"
-                        placeholder="0"
-                      />
+                    <td class="valign-middle tx-bold">
+                      {{ d.medida }}
                     </td>
                     <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].medida }}
+                      {{ d.costoUnitario | money }}
                     </td>
                     <td class="tx-right valign-middle">
-                      {{
-                        (details[index].precio * details[index].cantidad)
-                          | money
-                      }}
+                      {{ (d.cantidad * d.costoUnitario) | money }}
                     </td>
                   </tr>
                 </template>
                 <tr v-else>
                   <td
                     class="text-center valign-middle tx-bold tx-12"
-                    colspan="7"
+                    colspan="6"
                   >
-                    Seleccione un producto!!
+                    Seleccione un pedido!!
                   </td>
                 </tr>
-
                 <tr>
-                  <td colspan="4" rowspan="4" class="valign-middle">
-                    <div class="invoice-notes">
-                      <label class="section-label-sm tx-gray-500">Notas:</label>
-                      <p class="tx-12 tx-bold">
-                        Solicitud de Compra válida hasta: {{ notaVencimiento }}
-                      </p>
-                    </div>
-                    <!-- invoice-notes -->
-                  </td>
+                  <td colspan="3" rowspan="4" class="valign-middle"></td>
                   <td class="tx-right tx-12">Sub-Total</td>
                   <td colspan="2" class="tx-right">{{ subTotal | money }}</td>
                 </tr>
@@ -297,116 +203,65 @@
             </table>
           </div>
 
-          <div class="" v-show="step == 1">
-            <div class="row" v-show="total < 100 && total > 0">
-              <div class="col-lg-6">
-                <label class="section-label-sm tx-gray-800 tx-14"
-                  >Información del Proveedor</label
-                >
-                <div class="signup-separator"></div>
-                <div class="row mt-2">
-                  <div class="col-lg-12">
-                    <select
-                      class="form-control"
-                      v-model="keyProveedor"
-                      @change="fetchInfoProvider()"
-                    >
-                      <option value="" disabled>Seleccione</option>
-                      <option
-                        :value="p.keyPro"
-                        v-for="p in providers_data"
-                        :key="p.keyPro"
-                      >
-                        {{ p.businessName }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <!-- row -->
-                <div class="media-list mg-t-25 ml-4">
-                  <div class="media">
-                    <div><i class="icon ion-link tx-24 lh-0"></i></div>
-                    <div class="media-body mg-l-15 mg-t-4">
-                      <h6 class="tx-14 tx-gray-700">Razón Social</h6>
-                      <span class="d-block">{{
-                        infoProveedor.razonSocial
-                      }}</span>
-                    </div>
-                    <!-- media-body -->
-                  </div>
-                  <!-- media -->
-                  <div class="media mg-t-25">
-                    <div>
-                      <i class="icon ion-ios-telephone-outline tx-24 lh-0"></i>
-                    </div>
-                    <div class="media-body mg-l-15 mg-t-4">
-                      <h6 class="tx-14 tx-gray-700">Teléfono</h6>
-                      <span class="d-block"
-                        >+51 {{ infoProveedor.telefono }}</span
-                      >
-                    </div>
-                    <!-- media-body -->
-                  </div>
-                  <!-- media -->
-                  <div class="media mg-t-25">
-                    <div>
-                      <i class="icon ion-ios-email-outline tx-24 lh-0"></i>
-                    </div>
-                    <div class="media-body mg-l-15 mg-t-4">
-                      <h6 class="tx-14 tx-gray-700">Email</h6>
-                      <span class="d-block">{{ infoProveedor.email }}</span>
-                    </div>
-                    <!-- media-body -->
-                  </div>
-                  <!-- media -->
-                  <div class="media mg-t-25">
-                    <div>
-                      <i class="icon ion-location tx-18 lh-0"></i>
-                    </div>
-                    <div class="media-body mg-l-15 mg-t-2">
-                      <h6 class="tx-14 tx-gray-700">
-                        Distrito/Provincia/Departamento - CP
-                      </h6>
-                      <span class="d-block"
-                        >{{ infoProveedor.ciudad }} -
-                        {{ infoProveedor.codPostal }}</span
-                      >
-                    </div>
-                    <!-- media-body -->
-                  </div>
-                  <!-- media -->
-                </div>
-              </div>
-              <!-- col -->
-            </div>
-
-            <div class="row" v-show="total >= 100">
-              <div class="col-md-12">
-                <label class="section-label-sm tx-gray-800 tx-14"
-                  >Adjuntar Proformas (Solo para montos mayores a S/.100)</label
-                ><br />
-                <div class="signup-separator"></div>
-                <p>
-                  seleccionar mínimo 3 proformas y adjuntarlas a la solicitud
-                  del Pedido, se aceptan solo archivos pdfs.
+          <div v-show="step == 1">
+            <label class="slim-card-title"
+              >Proformas para el pedido N°. 000{{ solicitud.idPedido }}</label
+            >
+            <div class="signup-separator"></div>
+            <div
+              class="post-group"
+              v-for="item in detalleProformas"
+              :key="item.idProforma"
+            >
+              <div class="post-item">
+                <span class="post-date text-capitalize">{{
+                  formatDateProforma(item.fRegistro)
+                }}</span>
+                <p class="post-title">
+                  <span>{{ item.razonSocial }}</span>
                 </p>
-                <file-pond-demo
-                  :maxFiles="10"
-                  @changeFile="addFilesToProformas"
-                ></file-pond-demo>
-                <div class="invalid-feedback d-block" v-if="errorsFiles">
-                  {{ errorsFiles }}
-                </div>
+                <p class="tx-12 mg-b-10">
+                  <a
+                    class="tx-bold"
+                    :href="
+                      '/showProforma/' + solicitud.idPedido + '/' + item.archivo
+                    "
+                    target="_blank"
+                    ><i class="fa fa-file-pdf-o"></i> {{ item.archivo }}</a
+                  >
+                </p>
+                <p class="tx-12 mg-b-0">
+                  Monto: {{ item.montoProforma | money }} <br />
+                </p>
               </div>
-              <!-- col -->
+              <!-- post-item -->
             </div>
           </div>
 
-          <div class="row" v-show="step == 2">
+          <div v-show="step == 2">
             <label class="section-label-sm tx-gray-800 tx-14"
               >Resumen de la Solicitud</label
-            ><br />
+            >
             <div class="signup-separator"></div>
+
+            <div>
+              <p class="mg-b-20">
+                La Solicitud de Compra se enviará por
+                <i class="fa fa-envelope ml-1"></i> correo electrónico a los
+                responsables encargados de la aprobación o rechazo, si usted es
+                uno de ellos le llegará un correo y se le recomienda revisar su
+                bandeja de entrada.
+              </p>
+              <p class="mg-b-20">
+                Antes de finalizar, debe escribir una nota en el recuadro
+                inferior referente a la solicitud de Compra.
+              </p>
+              <p class="mg-b-20">
+                Cuando se haya aceptado o rechazado la solicitud, le llegará un
+                correo de respuesta.
+              </p>
+              <p class="mg-b-20">Gracias.</p>
+            </div>
           </div>
         </section>
       </div>
@@ -420,7 +275,7 @@
             <a href="#next" @click="next_step" v-show="step < 2">Siguiente</a>
           </li>
           <li v-show="step == 2">
-            <a href="#finish">Finalizar</a>
+            <a href="#finish" @click="sendSolicitudCompra()">Finalizar</a>
           </li>
         </ul>
       </div>
@@ -434,122 +289,118 @@
       <small>Utiliza las notas para agregar información importante.</small>
     </div>
 
-    <!-- <modal-section maxWidth="lg" @submitted="savePdfsProformas">
-      <template #title> Adjuntar Archivos </template>
+    <!-- Modal pedidos -->
+    <modal-section maxWidth="lg">
+      <template #title> Pedidos</template>
       <template #body>
-        <p class="mg-b-5">
-          Debe seleccionar mínimo 3 proformas y adjuntarlas a la solicitud del
-          Pedido, se aceptan solo archivos pdfs.
+        <p class="tx-12 tx-gray-600">
+          Solo debe seleccionar un pedido a la vez, tambien puede volver a
+          cambiar de pedido para armar la solicitude de compra.
         </p>
-        <file-pond-demo @changeFile="addFilesToProformas"></file-pond-demo>
+        <label class="section-label-sm tx-gray-500"
+          >Detalle de los pedidos</label
+        >
+        <div class="signup-separator"></div>
+        <div class="table-responsive">
+          <table
+            class="table table-invoice table-bordered table-striped table-sm"
+          >
+            <thead class="thead-colored bg-primary">
+              <tr>
+                <th>Pedido</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Nro. Productos</th>
+                <th>Seleccionar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-if="detallePedidos.length > 0">
+                <tr
+                  v-for="d in detallePedidos"
+                  :key="d.idPedido"
+                  @click="selectedFila(d)"
+                >
+                  <td class="valign-middle tx-bold tx-12">
+                    000{{ d.idPedido }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ d.monto | money }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12 text-capitalize">
+                    {{ formatDatePedido(d.fechaPedido) }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ d.nroProducts }} items
+                  </td>
+                  <td class="valign-middle text-center">
+                    <button type="button" class="btn btn-teal btn-sm">
+                      <i class="icon ion-archive"></i>
+                    </button>
+                  </td>
+                </tr>
+              </template>
+              <tr v-else>
+                <td class="text-center valign-middle tx-bold tx-12" colspan="5">
+                  Seleccione un pedido!!
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </template>
       <template #footer>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          class="btn btn-primary"
-          :disabled="files_proformas.length == 0"
-          @click="savePdfsProformas"
-        >
-          <loader-up v-show="isUpLoading"></loader-up>
-          Adjuntar
+        <button type="button" data-dismiss="modal" class="btn btn-primary">
+          Cerrar
         </button>
       </template>
-    </modal-section> -->
+    </modal-section>
   </div>
 </template>
 <script>
 import InfoCompany from "../components/Empresa.vue";
 import ModalSection from "../components/ModalSection.vue";
-import FilePondDemo from "../components/FilePond.vue";
 import HeaderInvoice from "../components/HeaderInvoice.vue";
+import InputDate from "../components/InputGroupDate.vue";
 import moment from "moment";
-import DialogDrag from "vue-dialog-drag";
-import DataTable from "vue-materialize-datatable";
 
 export default {
   props: ["empleado"],
   components: {
     InfoCompany,
-    FilePondDemo,
     ModalSection,
     HeaderInvoice,
-    DialogDrag,
-    DataTable,
+    InputDate,
   },
   mounted() {
     this.fetchOptions();
+    this.getPedidos();
   },
 
   data() {
     return {
       step: 0,
-      proveedor: "",
       solicitud: {
-        idProveedor: "",
-        identificacion: "",
-        razonSocial: "",
-        fInicial: "",
-        fFinal: "",
-        detalle: [],
+        idPedido: "",
+        pedido: "",
+        detalleProformas: [],
+        detallePedido: [],
+        monto: [],
         notas: "",
       },
-      nroSolicitud: "",
+      detallePedidos: [],
       details: [],
       igv: 0.18,
-      descuento: "0",
+      descuento: 0,
+      nroSolicitud: "",
+      detalleProformas: [],
       classes: {
         first: ["first current", "first done", "first done"],
         second: ["disabled", "current", "done"],
         third: ["disabled last", "disabled last", "last current"],
         button_left: ["disabled", "", ""],
       },
-      providers_data: [],
-      keyProveedor: "",
-      infoProveedor: {},
-      dialogs: [],
-      dialogId: 1,
-      styles: [
-        {
-          name: "SELECCIONAR PRODUCTOS",
-          options: {
-            width: 800,
-            left: 260,
-            top: 250,
-            centered: parent,
-          },
-        },
-      ],
-      style: null,
       products: [],
-      columns: [
-        {
-          label: "Producto",
-          field: "product",
-          numeric: false,
-          html: false,
-        },
-        {
-          label: "Categoria",
-          field: "category",
-          numeric: false,
-          html: false,
-        },
-        {
-          label: "Stock",
-          field: "stock",
-        },
-        {
-          label: "Medida",
-          field: "measure",
-          numeric: false,
-          html: false,
-        },
-      ],
-      productsDetails: [],
-      files_proformas: [],
     };
   },
 
@@ -560,24 +411,11 @@ export default {
   },
 
   computed: {
-    errorsFiles() {
-      if (this.files_proformas.length < 3) {
-        return "Adjunte 3 archivos como mínimo";
-      } else return null;
-    },
-
-    notaVencimiento() {
-      moment.locale("es");
-      if (this.solicitud.fFinal) {
-        return moment(this.solicitud.fFinal).format("LLLL");
-      }
-    },
-
     subTotal() {
       let suma = 0;
       if (this.details.length > 0) {
         for (let i in this.details) {
-          suma += this.details[i].precio * this.details[i].cantidad;
+          suma += this.details[i].costoUnitario * this.details[i].cantidad;
         }
       }
       return suma;
@@ -593,36 +431,17 @@ export default {
   },
 
   methods: {
-    addFilesToProformas(values) {
-      this.files_proformas = values;
+    formatDatePedido(value) {
+      moment.locale("es");
+      return moment(value).format("LLLL");
     },
 
-    savePdfsProformas() {
-      this.isUpLoading = true;
-      let fields = new FormData();
-      for (let i = 0; i < this.files_proformas.length; i++) {
-        let file = this.files_proformas[i].file;
-        fields.append("files[" + i + "]", file);
-      }
-      const config = {
-        headers: { "content-type": "multipart/form-data" },
-      };
-      axios
-        .post("/api/savesPdfsProforma", fields, config)
-        .then((res) => {
-          this.files_details = res.data;
-          this.isUpLoading = false;
-          $("#exampleModal").modal("hide");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    formatDateProforma(value) {
+      moment.locale("es");
+      return moment(value).calendar();
     },
 
     next_step() {
-      if (this.step == 1 && this.files_proformas.length < 3) {
-        return;
-      }
       if (this.details.length > 0) {
         this.step += 1;
       }
@@ -643,108 +462,45 @@ export default {
       });
     },
 
-    fetchInfoProvider() {
-      var el = this;
-
-      axios.get("/api/provider/" + this.keyProveedor).then((res) => {
-        // Update options
-        el.infoProveedor = res.data;
-      });
+    async getPedidos() {
+      const res = await axios.get("/api/solicitudes/pedidos");
+      this.detallePedidos = res.data;
     },
 
-    async getProducts() {
-      this.loadingTable = true;
-      const res = await axios.get("/api/products/proforma");
-      this.loadingTable = false;
-      this.products = res.data;
-    },
-
-    newDialog(sId) {
-      if (sId === null) sId = Math.floor(Math.random() * this.styles.length);
-      this.dialogs.push(this.dialog(this.styles[sId]));
-      this.getProducts();
-    },
-
-    removeDialog(dialog) {
-      let id = dialog.id;
-      let index = this.findDialog(id);
-      this.dialogs.splice(index, 1);
-    },
-
-    findDialog(id, dialogs) {
-      if (!dialogs) dialogs = this.dialogs;
-      let index = dialogs.findIndex((val) => {
-        return val.id === id;
-      });
-      return index > -1 ? index : null;
-    },
-
-    dialog(style) {
-      let id = String(this.dialogId);
-      let name = style.name;
-      let options = {};
-      if (style.options) options = Object.assign({}, style.options);
-      // if (!options.left) options.left = 30 * id;
-      // if (!options.top) options.top = 30 * id;
-      // if (!options.centered) options.centered = 30 * id;
-      return { id, name, options };
-    },
-
-    addProductToDetails(row, e) {
-      console.log(row);
-      if (e.target.checked == true) {
-        let fila = {
-          idProducto: row.id,
-          image: "",
-          producto: row.product,
-          precio: row.precioC,
-          cantidad: 1,
-          medida: row.measure,
-          total: "",
-        };
-        this.details.push(fila);
-      } else {
-        this.removeItem(row.id);
-      }
-    },
-
-    removeItem(key) {
-      const index = this.details.findIndex(
-        (element) => element.idProducto === key
+    selectedFila(value) {
+      $("#exampleModal").modal("hide");
+      this.$awn.asyncBlock(
+        axios.get("/api/pedidos/detalle/" + value.idPedido),
+        (resp) => {
+          this.details = resp.data;
+          this.$awn.success(`Se han cargado ${resp.data.length} registros`);
+        }
       );
-      this.details.splice(index, 1);
+      this.solicitud.idPedido = value.idPedido;
+      this.solicitud.pedido = value;
+      axios.get("/api/pedidos/" + value.idPedido + "/proformas").then((res) => {
+        this.detalleProformas = res.data;
+      });
     },
 
-    openModalUpload() {
-      $("#exampleModal").modal("show");
-    },
-  },
-
-  watch: {
-    proveedor(value) {
-      if (value) {
-        localStorage.proveedor = value;
-        let datos = value.split("_");
-        this.proforma.idProveedor = datos[0];
-        this.proforma.identificacion = datos[1];
-        this.proforma.razonSocial = datos[2];
-      } else {
-        localStorage.removeItem("proveedor");
-        this.proveedor = "";
-        this.proforma.idProveedor = "";
-        this.proforma.identificacion = "";
-        this.proforma.razonSocial = "";
+    sendSolicitudCompra() {
+      if (!this.solicitud.notas) {
+        $.toast({
+          content: "Por favor ingrese una nota!",
+        });
+        return;
       }
+      this.solicitud.detalleProformas = this.detalleProformas;
+      this.solicitud.detallePedido = this.details;
+      this.solicitud.monto = this.total;
+      this.$awn.async(
+        axios.post("/solicitud/enviar/", this.solicitud),
+        (res) => {
+          console.log(res.data);
+          this.$awn.success(res.data);
+        }
+      );
     },
-    // fInicial(value) {
-    //   localStorage.fInicial = value;
-    //   console.log(value);
-    // },
-
-    // fFinal(value) {
-    //   localStorage.fFinal = value;
-    //   console.log(value);
-    // },
   },
 };
 </script>
