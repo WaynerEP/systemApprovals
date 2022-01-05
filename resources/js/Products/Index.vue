@@ -14,7 +14,7 @@
                 <img
                   src="http://via.placeholder.com/200x300"
                   class="card-img"
-                  alt="product{{pro.idProducto}}"
+                  alt="product"
                 />
               </a>
               <h5 class="mg-t-10 mg-b-5">

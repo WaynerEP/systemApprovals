@@ -62,11 +62,8 @@ Route::get('/depas', [cargosController::class, 'getDepartamentoEmpresa']);
 Route::get('/depas/areas/{idDepa}', [cargosController::class, 'getAreasByDepartamento']);
 Route::get('/depas/areas/cargos/{idArea}', [cargosController::class, 'getCargos']);
 
-<<<<<<< HEAD
 // Nos trae todos los proveedores que
-=======
 //Nos trae todos los proveedores que
->>>>>>> ad1bc9bae672d93da8bc46ab1e6332d330e06c88
 // tienen de estado 1
 Route::get('/dataProviders', function () {
     $data = DB::select('exec listProviders');
@@ -79,11 +76,7 @@ Route::get('/provider/{id}', function ($id) {
     $data = Proveedor::find($id)->first();
     return response()->json($data);
 });
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> ad1bc9bae672d93da8bc46ab1e6332d330e06c88
 // Nos trae todos los ciudadanos que
 // no son ni empleados ni
 // proveedores
