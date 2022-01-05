@@ -45,7 +45,7 @@ class PermissionsController extends Controller
             'name' => $request['name'],
         ]);
 
-        return response('Permiso creado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     /**
@@ -88,7 +88,7 @@ class PermissionsController extends Controller
             'name' => $request['name'],
         ]);
 
-        return response('Permiso actualizado!.', 200);
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     /**

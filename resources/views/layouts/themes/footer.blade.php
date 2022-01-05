@@ -1,6 +1,6 @@
 <div class="slim-footer">
     <div class="container">
-        <p>Copyright 2018 © All Rights Reserved. Slim Dashboard Template</p>
-        <p>Designed by: <a href="">ThemePixels</a></p>
+        <p>Copyright 2022 © Todos los derechos reservados.</p>
+        <p>Diseñado por: <a href="">Comercial El Valle</a></p>
     </div><!-- container -->
 </div>
