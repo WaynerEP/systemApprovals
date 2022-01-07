@@ -9,7 +9,8 @@ use App\Http\Controllers\Providers\ProviderController;
 use App\Http\Controllers\Compras\PedidoController;
 use App\Http\Controllers\Aprobaciones\orderController;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Profile\UserProfileController;
+
 // use App\Models\User;
 // use GuzzleHttp\Middleware;
 
@@ -59,9 +60,6 @@ Route::middleware('auth')->group(function () {
         return view('Proveedores.Index');
     })->name('providers');
 
-    //Ruta para todavia no sirve
-    Route::view('/new-purchase', 'Compras.index')
-        ->name('new-purchase');
 
     //ruta productos
     Route::get('/items/products', function () {
@@ -73,21 +71,34 @@ Route::middleware('auth')->group(function () {
         return view('Items.Categories');
     })->name('categories');
 
+
     // Rutas para pedidos
-    Route::view('/compras-pedidos', 'Compras.Pedidos')
-        ->name('pedidos');
+    Route::view('/compras-pedidos', 'Pedidos.Create')
+        ->name('pedidos.create');
+
+    // Rutas para listar pedidos 
+    Route::view('/compras-pedidos/list', 'Pedidos.Index')
+        ->name('pedidos.list');
     // end ruta pedidos
 
     // Rutas para proformas
-    Route::view('/compras-proformas', 'Compras.Proformas')
-        ->name('proformas');
+    Route::view('/compras-proformas', 'Proformas.Create')
+        ->name('proformas.create');
+
+    // Rutas para listar proformas
+    Route::view('/compras-proformas/list', 'Proformas.Index')
+        ->name('proformas.list');
     // end ruta proformas
 
     // ruta para solicitudes
     Route::get('/compras-request', function () {
         $data = DB::select('exec sp_EmpleadoArea ' . Auth::user()->id);
-        return view('Compras.Solicitud', compact('data'));
-    })->name('purchase-request');
+        return view('Solicitudes.Create', compact('data'));
+    })->name('purchase-request.create');
+
+    // ruta para listar solicitudes
+    Route::view('/compras-request/list', 'Solicitudes.Index')
+        ->name('purchase-request.list');
 
 
     // ruta ordenes
@@ -149,6 +160,10 @@ Route::post('/solicitud/enviar', [PedidoController::class, 'storeSolicitud']);
 Route::get('orders/{idEmpleado}/{idPedido}', [orderController::class, 'index'])->name('order');
 Route::post('/response-request', [orderController::class, 'store'])->name('response-request');
 
+//update profile
+Route::resource('/update-profile', UserProfileController::class)->middleware('auth');
+
+Route::post('/update-password', [UserProfileController::class, 'updatePassword'])->middleware('auth');
 
 //no usable
 // Route::view('/email', 'Orders.Email');

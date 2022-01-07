@@ -139,8 +139,17 @@ Route::get('/pedidos/{idPedido}/proformas', function ($idPedido) {
     return response()->json(DB::select('exec spProformasMenorPrecio ' . $idPedido));
 });
 
-
+//devuelve las ordenes por aprobar de un empleado
 Route::get('/orders/list/{id}/{status}', function ($id, $status) {
     $data = DB::select('Exec spOrdersListByEmpleado ?,?', array($id, $status));
     return response()->json($data);
 });
+
+//devuelve los datos el usuario
+Route::get('/user-profile/{user_id}', function ($user_id) {
+    $user_info = DB::select('Exec spUserProfile ?', array($user_id));
+    return response()->json($user_info);
+});
+
+//
+

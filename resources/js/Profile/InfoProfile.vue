@@ -1,21 +1,20 @@
 <template>
   <card-profile>
     <template #body>
-      <img src="http://via.placeholder.com/500x500" alt="" />
+      <file-pond
+        styleLayout="compact circle"
+        fileTypes="image/png, image/jpeg, image/gif"
+        :myFiles="myfiles"
+        @changeFile="changeImageProfile"
+        classes="wd-200 ht-200"
+        ref="filePondComponente"
+      ></file-pond>
       <div class="media-body">
-        <h3 class="card-profile-name">Katherine Lumaad</h3>
+        <h3 class="card-profile-name">{{ user.name }}</h3>
         <p class="card-profile-position">
-          Executive Director at <a href="">ThemePixels, Inc.</a>
+          {{ user.role }} de <a href="">Comercial El Valle.</a>
         </p>
-        <p>San Francisco, California</p>
-
-        <p class="mg-b-0">
-          A consummate human capital management professional with international
-          training and talent management implementations experience across the
-          entire universe...<a href="">Read more</a>
-        </p>
-      <file-pond></file-pond>
-
+        <p>{{ user.address }}, {{ user.city }}</p>
       </div>
       <!-- media-body -->
     </template>
@@ -24,7 +23,8 @@
         >http://thmpxls.me/profile?id=katherine</a
       >
       <div>
-        <a href="">Profile Settings</a>
+        <a href="">Editar Perfil</a>
+        <a href="">Configuración de la cuenta</a>
       </div>
     </template>
   </card-profile>
@@ -34,9 +34,56 @@ import CardProfile from "../components/CardProfile.vue";
 import FilePond from "../components/FilePond.vue";
 
 export default {
+  props: {
+    user: {
+      type: Object,
+    },
+  },
+
+  watch: {
+    user(values) {
+      if (values.avatar == null) this.myfiles.push("storage/avatars/user.png");
+      else this.myfiles.push(values.avatar);
+    },
+  },
+
+  data() {
+    return {
+      myfiles: [],
+      user_data: {
+        password: "",
+        password_verification: "",
+      },
+    };
+  },
   components: {
     CardProfile,
     FilePond,
+  },
+
+  methods: {
+    changeImageProfile: function (values) {
+      if (values.length > 0) {
+        let file = values[0].file;
+        console.log(file);
+        let fields = new FormData();
+        fields.append("image", file);
+
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+        axios
+          .post("/update-profile", fields, config)
+          .then((res) => {
+            // this.$awn.success(res.data);
+            console.log(res.data);
+          })
+          .catch((e) => {
+            this.$awn.alert("La acción ha fallado!.");
+          });
+      } else {
+      }
+    },
   },
 };
 </script>

@@ -66,6 +66,7 @@
             >
             <file-pond-demo
               :maxFiles="1"
+              fileTypes="application/pdf"
               @changeFile="addFilesToProformas"
               ref="fileComponente"
             ></file-pond-demo>
@@ -200,7 +201,7 @@
               <template v-if="detallePedidos.length > 0">
                 <tr v-for="d in detallePedidos" :key="d.idPedido">
                   <td class="valign-middle tx-bold tx-12">
-                   000{{ d.idPedido }}
+                    000{{ d.idPedido }}
                   </td>
                   <td class="valign-middle tx-bold tx-12">
                     {{ d.monto | money }}

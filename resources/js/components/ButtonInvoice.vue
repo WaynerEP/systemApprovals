@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="btn btn-outline-primary btn-sm mb-4"
+    class="btn btn-outline-info btn-sm mb-4"
     data-toggle="modal"
     data-target="#exampleModal"
   >

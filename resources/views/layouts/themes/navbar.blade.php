@@ -64,22 +64,22 @@
                     <div class="col-lg mg-t-30 mg-lg-t-0">
                       <label class="section-label">Pedidos</label>
                       <ul>
-                        <li><a href="#">Listar Pedidos</a></li>
-                        <li><a href="{{ route('pedidos') }}">Armar Nuevo Pedido</a></li>
+                        <li><a href="{{ route('pedidos.list') }}">Listar Pedidos</a></li>
+                        <li><a href="{{ route('pedidos.create') }}">Armar Nuevo Pedido</a></li>
                       </ul>
                     </div><!-- col -->
                     <div class="col-lg mg-t-30 mg-lg-t-0">
                       <label class="section-label">Proformas</label>
                       <ul>
-                        <li><a href="#">Listar Proformas</a></li>
-                        <li><a href="{{ route('proformas') }}">Nuevo registro</a></li>
+                        <li><a href="{{ route('proformas.list') }}">Listar Proformas</a></li>
+                        <li><a href="{{ route('proformas.create') }}">Nuevo registro</a></li>
                       </ul>
                     </div><!-- col -->
                     <div class="col-lg mg-t-30 mg-lg-t-0">
                       <label class="section-label">Solicitudes</label>
                       <ul>
-                        <li><a href="#">Listar Solicitudes</a></li>
-                        <li><a href="{{ route('purchase-request') }}">Nueva Solicitud de Compra</a></li>
+                        <li><a href="{{ route('purchase-request.list') }}">Listar Solicitudes</a></li>
+                        <li><a href="{{ route('purchase-request.create') }}">Nueva Solicitud de Compra</a></li>
                       </ul>
                     </div><!-- col -->
                   
