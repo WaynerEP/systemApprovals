@@ -4,30 +4,29 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
-    
+
     public function index()
     {
         $data = Role::with('permissions')->get();
-        return $data;
+        return response()->json($data);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles',
-            'permissions' => 'required',
+            'rol' => 'required|string|max:255|unique:roles,name',
+            'permisos' => 'required',
         ]);
 
         $role = Role::create([
-            'name' => $request['name'],
+            'name' => $request['rol'],
         ]);
-        $arrayPermisos = $request['permissions'];
+        $arrayPermisos = $request['permisos'];
         $role->syncPermissions($arrayPermisos);
 
         return response('La acción ha sido exitosa!.', 200);
@@ -36,29 +35,24 @@ class RolesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name,'.$id,
-            'permissions' => 'required',
+            'rol' => 'required|string|max:255|unique:roles,name,' . $id,
+            'permisos' => 'required',
         ]);
 
         $role = Role::find($id);
-        $role ->Update([
-            'name' => $request['name'],
+        $role->Update([
+            'name' => $request['rol'],
         ]);
-        
-        $arrayPermisos = $request['permissions'];
+
+        $arrayPermisos = $request['permisos'];
         $role->permissions()->sync($arrayPermisos);
 
         return response('La acción ha sido exitosa!.', 200);
     }
 
-    public function destroy($id)
-    {
-        //
-    }
-
     public function getPermissions()
     {
         $data = Permission::select('id', 'name')->get();
-        return $data;
+        return response()->json($data);
     }
 }

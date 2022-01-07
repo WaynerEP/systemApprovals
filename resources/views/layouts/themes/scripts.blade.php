@@ -1,5 +1,5 @@
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script> 
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('assets/js/slim.js') }}"></script>
 <script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/lib/datatables-responsive/js/dataTables.responsive.js') }}"></script>
@@ -9,7 +9,7 @@
 <script>
     $(function() {
         'use strict';
-        $('.select2').select2({
+        $('.select2, #select2-a').select2({
             minimumResultsForSearch: Infinity
         });
         // Datepicker

@@ -18,11 +18,6 @@ use DB;
 class PedidoController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $request->validate([

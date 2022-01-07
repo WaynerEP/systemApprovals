@@ -1,13 +1,14 @@
 @extends('layouts.App')
 
 @section('title')
-    Mi Perfil
+    Nueva Solicitud
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Perfil</li>
+    <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
 @endsection
-
 @section('content')
-    <user-profile :user_id="{{ json_encode(Auth::user()->id) }}"></user-profile>
+    <div class="card card-invoice">
+       Hello Listado de Solicitudes
+    </div>
 @endsection

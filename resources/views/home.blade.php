@@ -10,7 +10,7 @@
                 ?>
                 @switch($hora)
                     @case($hora<6)
-                        Hoy has madrugado mucho..
+                        Hoy has madrugado mucho
                     @break
                     @case($hora<12)
                         Buenos días

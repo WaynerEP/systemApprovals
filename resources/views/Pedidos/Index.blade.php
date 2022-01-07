@@ -5,10 +5,10 @@
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Compras</li>
+    <li class="breadcrumb-item active" aria-current="page">Listado</li>
 @endsection
 @section('content')
     <div class="section-wrapper">
-        <solicitudes-component></solicitudes-component>
+        Hello
     </div>
 @endsection

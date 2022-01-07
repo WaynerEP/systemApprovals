@@ -4,8 +4,7 @@
       <div class="col-md-6 col-lg-3 mb-3" v-for="r in roles" :key="r.id">
         <div class="card card-todo">
           <h6 class="slim-card-title">{{ r.name }}</h6>
-        <div class="signup-separator"></div>
-
+          <div class="signup-separator"></div>
           <div class="todo-list">
             <div class="todo-item" v-for="p in r.permissions" :key="p.id">
               <p class="mg-b-0">
@@ -15,12 +14,15 @@
             </div>
           </div>
           <div class="mt-4">
-            <button @click="editForm(r)" class="btn  btn-icon">
+            <button
+              @click="editForm(r)"
+              class="btn btn-oblong btn-outline-info btn-icon"
+            >
               <div class="tx-20">
                 <i class="fa fa-pencil"></i>
               </div>
             </button>
-            <button class="btn btn-icon">
+            <button class="btn btn-oblong btn-outline-teal btn-icon">
               <div class="tx-20">
                 <i class="fa fa-eye"></i>
               </div>
@@ -39,15 +41,17 @@
     <div class="col-md-6 col-lg-3 mb-3">
       <div class="card card-todo">
         <div class="card-body">
-          <a
-            href="#"
+          <button
             @click="openModal()"
+            class="btn bg-white"
             data-toggle="modal"
             data-target="#exampleModal"
-            ><img src="/assets/img/4.png" class="img-fluid" alt="" />
-            
-            <p class="section-label text-center">Agregar <i class="fa fa-plus"></i></p>
-          </a>
+          >
+            <img src="/assets/img/4.png" class="img-fluid" alt="Nuevo Rol" />
+            <p class="section-label text-center">
+              Agregar <i class="fa fa-plus"></i>
+            </p>
+          </button>
         </div>
       </div>
     </div>
@@ -58,23 +62,25 @@
       </template>
       <template #body>
         <div class="form-group">
-          <label class="form-control-label" for="inputAutocomplete"
+          <label class="form-control-label" for="inputRoles"
             >Nombre de Rol <span class="tx-danger">*</span></label
           >
           <input
             type="text"
-            v-model="role.name"
+            v-model="role.rol"
             class="form-control"
-            :class="{ 'is-invalid': errors && errors.name }"
-            id="inputAutocomplete"
-            placeholder="Escriba un nombre de rol"
+            :class="{ 'is-invalid': errors && errors.rol }"
+            id="inputRoles"
+            placeholder="Ingrese un nombre de rol"
           />
-          <div class="invalid-feedback d-block" v-if="errors && errors.name">
-            {{ errors.name[0] }}
+          <div class="invalid-feedback d-block" v-if="errors && errors.rol">
+            {{ errors.rol[0] }}
           </div>
         </div>
         <div class="form-group">
-          <label for="">Permisos de rol <span class="tx-danger">*</span></label>
+          <label class="section-label-sm"
+            >Permisos de rol <span class="tx-danger">*</span></label
+          >
           <div class="form-row">
             <label class="col-sm-4 form-control-label"
               >Acceso de administrador <span class="tx-danger">*</span></label
@@ -102,7 +108,7 @@
                 <input
                   type="checkbox"
                   :value="p.id"
-                  v-model="role.permissions"
+                  v-model="role.permisos"
                   :id="'gridCheck' + p.id"
                   :disabled="isCheckedDisabled"
                 /><span>{{ p.name }}</span>
@@ -111,9 +117,9 @@
           </div>
           <div
             class="invalid-feedback d-block"
-            v-if="errors && errors.permissions"
+            v-if="errors && errors.permisos"
           >
-            {{ errors.permissions[0] }}
+            {{ errors.permisos[0] }}
           </div>
         </div>
       </template>
@@ -145,6 +151,8 @@ import Loading from "../components/Loader.vue";
 import LoaderAction from "../components/LoaderAction.vue";
 
 export default {
+  name:"Roles",
+  
   components: {
     ModalSection,
     Loading,
@@ -161,8 +169,8 @@ export default {
       roles: [],
       permissions: [],
       role: {
-        name: "",
-        permissions: [],
+        rol: "",
+        permisos: [],
       },
       errors: [],
       selected_id: "",
@@ -190,12 +198,12 @@ export default {
 
     onChange(e) {
       if (e.target.checked == true) {
-        this.role.permissions = [];
+        this.role.permisos = [];
         let size = this.permissions.length;
         this.formPermissions(size, this.permissions);
         this.isCheckedDisabled = true;
       } else {
-        this.role.permissions = [];
+        this.role.permisos = [];
         this.isCheckedDisabled = false;
       }
     },
@@ -208,9 +216,9 @@ export default {
           .post("/roles/list/", this.role)
           .then((res) => {
             $("#exampleModal").modal("hide");
-            this.getRoles();
             this.$awn.success(res.data);
             this.isLoadingSubmit = false;
+            this.getRoles();
           })
           .catch((e) => {
             this.existsErrors(e);
@@ -231,7 +239,6 @@ export default {
     },
 
     editForm(data) {
-      // const res = await axios.get("/roles/permissions");
       this.errors = [];
       let n = data.permissions.length;
       let size = this.permissions.length;
@@ -243,7 +250,7 @@ export default {
         this.formPermissions(n, data.permissions);
       }
       this.isActionNew = false;
-      this.role.name = data.name;
+      this.role.rol = data.name;
       this.selected_id = data.id;
       $("#exampleModal").modal("show");
     },
@@ -251,7 +258,7 @@ export default {
     formPermissions(size, data) {
       for (let index = 0; index < size; index++) {
         const element = data[index].id;
-        this.role.permissions.push(element);
+        this.role.permisos.push(element);
       }
     },
 
@@ -269,12 +276,12 @@ export default {
     },
 
     resetForm() {
-      this.role.name = "";
+      this.role.rol = "";
       this.checked = false;
       this.isActionNew = true;
       this.isCheckedDisabled = false;
       this.errors = [];
-      this.role.permissions = [];
+      this.role.permisos = [];
     },
   },
 };
