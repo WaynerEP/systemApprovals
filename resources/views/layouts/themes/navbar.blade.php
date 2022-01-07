@@ -78,7 +78,7 @@
                     <div class="col-lg mg-t-30 mg-lg-t-0">
                       <label class="section-label">Solicitudes</label>
                       <ul>
-                        <li><a href="{{ route('purchase-request.list') }}">Listar Solicitudes</a></li>
+                        <li><a href="{{ route('purchase-request.list') }}">Listar Solicitudes de Compra</a></li>
                         <li><a href="{{ route('purchase-request.create') }}">Nueva Solicitud de Compra</a></li>
                       </ul>
                     </div><!-- col -->
