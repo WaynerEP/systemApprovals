@@ -127,79 +127,72 @@
             <i class="fas fa-plus"></i> Agregar Pedido
           </button>
           <!-- table responsivo detalle -->
-          <div class="table-responsive" v-show="step == 0">
-            <table class="table table-invoice table-sm">
-              <thead class="thead-colored bg-primary">
-                <tr>
-                  <th></th>
-                  <th class="wd-30p">Concepto</th>
-                  <th>Cantidad</th>
-                  <th>Medida</th>
-                  <th>Precio</th>
-                  <th class="wd-15p">Precio Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-if="details.length > 0">
-                  <tr v-for="d in details" :key="d.idProducto">
-                    <td>
-                      <img
-                        src="http://via.placeholder.com/800x533"
-                        class="wd-55"
-                        :alt="d.descripcionProducto"
-                      />
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ d.descripcionProducto }}
-                    </td>
-                    <td class="valign-middle tx-bold">
-                      {{ d.cantidad }}
-                    </td>
-                    <td class="valign-middle tx-bold">
-                      {{ d.medida }}
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ d.costoUnitario | money }}
-                    </td>
-                    <td class="tx-right valign-middle">
-                      {{ (d.cantidad * d.costoUnitario) | money }}
-                    </td>
-                  </tr>
-                </template>
-                <tr v-else>
-                  <td
-                    class="text-center valign-middle tx-bold tx-12"
-                    colspan="6"
-                  >
-                    Seleccione un pedido!!
+          <table-invoice v-show="step == 0">
+            <template #thead>
+              <th></th>
+              <th class="wd-30p">Concepto</th>
+              <th>Cantidad</th>
+              <th>Medida</th>
+              <th>Precio</th>
+              <th class="wd-15p">Precio Total</th>
+            </template>
+            <template #tbody>
+              <template v-if="details.length > 0">
+                <tr v-for="d in details" :key="d.idProducto">
+                  <td>
+                    <img
+                      src="http://via.placeholder.com/800x533"
+                      class="wd-55"
+                      :alt="d.descripcionProducto"
+                    />
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ d.descripcionProducto }}
+                  </td>
+                  <td class="valign-middle tx-bold">
+                    {{ d.cantidad }}
+                  </td>
+                  <td class="valign-middle tx-bold">
+                    {{ d.medida }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ d.costoUnitario | money }}
+                  </td>
+                  <td class="tx-right valign-middle">
+                    {{ (d.cantidad * d.costoUnitario) | money }}
                   </td>
                 </tr>
-                <tr>
-                  <td colspan="3" rowspan="4" class="valign-middle"></td>
-                  <td class="tx-right tx-12">Sub-Total</td>
-                  <td colspan="2" class="tx-right">{{ subTotal | money }}</td>
-                </tr>
-                <tr>
-                  <td class="tx-right tx-12">Igv (18%)</td>
-                  <td colspan="2" class="tx-right">{{ igvTotal | money }}</td>
-                </tr>
-                <tr>
-                  <td class="tx-right tx-12">Descuento</td>
-                  <td colspan="2" class="tx-right">{{ descuento | money }}</td>
-                </tr>
-                <tr>
-                  <td class="tx-right tx-uppercase tx-bold tx-inverse tx-12">
-                    Total
-                  </td>
-                  <td colspan="2" class="tx-right">
-                    <h4 class="tx-primary tx-bold tx-lato">
-                      {{ total | money }}
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              </template>
+              <tr v-else>
+                <td class="text-center valign-middle tx-bold tx-12" colspan="6">
+                  Seleccione un pedido!!
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" rowspan="4" class="valign-middle"></td>
+                <td class="tx-right tx-12">Sub-Total</td>
+                <td colspan="2" class="tx-right">{{ subTotal | money }}</td>
+              </tr>
+              <tr>
+                <td class="tx-right tx-12">Igv (18%)</td>
+                <td colspan="2" class="tx-right">{{ igvTotal | money }}</td>
+              </tr>
+              <tr>
+                <td class="tx-right tx-12">Descuento</td>
+                <td colspan="2" class="tx-right">{{ descuento | money }}</td>
+              </tr>
+              <tr>
+                <td class="tx-right tx-uppercase tx-bold tx-inverse tx-12">
+                  Total
+                </td>
+                <td colspan="2" class="tx-right">
+                  <h4 class="tx-primary tx-bold tx-lato">
+                    {{ total | money }}
+                  </h4>
+                </td>
+              </tr>
+            </template>
+          </table-invoice>
 
           <div v-show="step == 1">
             <label class="slim-card-title"
@@ -295,57 +288,49 @@
           Solo debe seleccionar un pedido a la vez, tambien puede volver a
           cambiar de pedido para armar la solicitude de compra.
         </p>
-        <label class="section-label-sm tx-gray-500"
-          >Detalle de los pedidos</label
-        >
+        <label-section>Detalle de los pedidos</label-section>
         <div class="signup-separator"></div>
-        <div class="table-responsive">
-          <table
-            class="table table-invoice table-bordered table-striped table-sm"
-          >
-            <thead class="thead-colored bg-primary">
-              <tr>
-                <th>Pedido</th>
-                <th>Monto</th>
-                <th>Fecha</th>
-                <th>Nro. Productos</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <template v-if="detallePedidos.length > 0">
-                <tr
-                  v-for="d in detallePedidos"
-                  :key="d.idPedido"
-                  @click="selectedFila(d)"
-                >
-                  <td class="valign-middle tx-bold tx-12">
-                    000{{ d.idPedido }}
-                  </td>
-                  <td class="valign-middle tx-bold tx-12">
-                    {{ d.monto | money }}
-                  </td>
-                  <td class="valign-middle tx-bold tx-12 text-capitalize">
-                    {{ formatDatePedido(d.fechaPedido) }}
-                  </td>
-                  <td class="valign-middle tx-bold tx-12">
-                    {{ d.nroProducts }} items
-                  </td>
-                  <td class="valign-middle text-center">
-                    <button type="button" class="btn btn-teal btn-sm">
-                      <i class="icon ion-archive"></i>
-                    </button>
-                  </td>
-                </tr>
-              </template>
-              <tr v-else>
-                <td class="text-center valign-middle tx-bold tx-12" colspan="5">
-                  Seleccione un pedido!!
+        <table-invoice>
+          <template #thead>
+            <tr>
+              <th>Pedido</th>
+              <th>Monto</th>
+              <th>Fecha</th>
+              <th>Nro. Productos</th>
+              <th>Seleccionar</th>
+            </tr>
+          </template>
+          <template #tbody>
+            <template v-if="detallePedidos.length > 0">
+              <tr
+                v-for="d in detallePedidos"
+                :key="d.idPedido"
+                @click="selectedFila(d)"
+              >
+                <td class="valign-middle tx-bold tx-12">000{{ d.idPedido }}</td>
+                <td class="valign-middle tx-bold tx-12">
+                  {{ d.monto | money }}
+                </td>
+                <td class="valign-middle tx-bold tx-12 text-capitalize">
+                  {{ formatDatePedido(d.fechaPedido) }}
+                </td>
+                <td class="valign-middle tx-bold tx-12">
+                  {{ d.nroProducts }} items
+                </td>
+                <td class="valign-middle text-center">
+                  <button type="button" class="btn btn-teal btn-sm">
+                    <i class="icon ion-archive"></i>
+                  </button>
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
+            </template>
+            <tr v-else>
+              <td class="text-center valign-middle tx-bold tx-12" colspan="5">
+                No se encontraròn resultados!!
+              </td>
+            </tr>
+          </template>
+        </table-invoice>
       </template>
       <template #footer>
         <button type="button" data-dismiss="modal" class="btn btn-primary">
@@ -360,6 +345,7 @@ import InfoCompany from "../components/Empresa.vue";
 import ModalSection from "../components/ModalSection.vue";
 import HeaderInvoice from "../components/HeaderInvoice.vue";
 import InputDate from "../components/InputGroupDate.vue";
+import TableInvoice from "../components/TableInvoice.vue";
 import LabelSection from "../components/SectionLabel.vue";
 import moment from "moment";
 
@@ -368,6 +354,7 @@ export default {
   components: {
     InfoCompany,
     ModalSection,
+    TableInvoice,
     HeaderInvoice,
     LabelSection,
     InputDate,
@@ -490,16 +477,19 @@ export default {
         });
         return;
       }
-      this.solicitud.detalleProformas = this.detalleProformas;
-      this.solicitud.detallePedido = this.details;
-      this.solicitud.monto = this.total;
-      this.$awn.async(
-        axios.post("/solicitud/enviar/", this.solicitud),
-        (res) => {
-          console.log(res.data);
-          this.$awn.success(res.data);
-        }
-      );
+      let onOk = () => {
+        this.solicitud.detalleProformas = this.detalleProformas;
+        this.solicitud.detallePedido = this.details;
+        this.solicitud.monto = this.total;
+        this.$awn.async(
+          axios.post("/solicitud/enviar/", this.solicitud),
+          (res) => {
+            console.log(res.data);
+            this.$awn.success(res.data);
+          }
+        );
+      };
+      this.$awn.confirm("Estás seguro de guardar el pedido?", onOk);
     },
   },
 };
