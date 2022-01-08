@@ -18,9 +18,7 @@
 
     <div class="row mg-t-20">
       <div class="col-md mg-t-10 mg-md-t-0">
-        <label class="section-label-sm tx-gray-500"
-          >Datos del Solicitante</label
-        >
+        <label-section>Datos del Solicitante</label-section>
         <div class="signup-separator"></div>
         <div class="billed-to mt-3">
           <div class="mg-t-8 row">
@@ -76,7 +74,7 @@
       </div>
       <!-- col -->
       <div class="col-md mg-t-30 mg-md-t-0">
-        <label class="section-label-sm tx-gray-500">Información</label>
+        <label-section>Información</label-section>
         <div class="signup-separator"></div>
         <div class="billed-to mt-3">
           <div class="mg-t-8 row">
@@ -362,6 +360,7 @@ import InfoCompany from "../components/Empresa.vue";
 import ModalSection from "../components/ModalSection.vue";
 import HeaderInvoice from "../components/HeaderInvoice.vue";
 import InputDate from "../components/InputGroupDate.vue";
+import LabelSection from "../components/SectionLabel.vue";
 import moment from "moment";
 
 export default {
@@ -370,6 +369,7 @@ export default {
     InfoCompany,
     ModalSection,
     HeaderInvoice,
+    LabelSection,
     InputDate,
   },
   mounted() {

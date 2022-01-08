@@ -60,11 +60,8 @@ Vue.component('proformas-component', require('./Compras/Proformas.vue').default)
 // Solicitudes
 Vue.component('list-solicitudes', require('./Orders/Index.vue').default);
  
-
-
 // Solicitudes
 Vue.component('user-profile', require('./Profile/User-Profile.vue').default);
-
 
 
 /**

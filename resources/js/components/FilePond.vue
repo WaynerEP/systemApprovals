@@ -1,21 +1,30 @@
 <template>
-  <div>
-    <file-pond
-      name="files"
-      ref="pond"
-      class-name="my-pond"
-      label-idle="Suelta los archivos aquí o <span class='filepond--label-action'>selecciona</span>"
-      :allow-multiple="multipleFiles"
-      :max-files="maxFiles"
-      allow-process="true"
-      required="true"
-      label-Invalid-Field="El campo contiene archivos no válidos"
-      label-File-Processing-Complete="Carga completa"
-      v-bind:files="myFiles"
-      v-on:addfile="emitFiles"
-      v-on:removefile="emitFiles"
-    />
-  </div>
+  <file-pond
+    name="files"
+    ref="pond"
+    class-name="my-pond"
+    label-idle="Suelta los archivos aquí o <span class='filepond--label-action'>selecciona</span>"
+    :allow-multiple="multipleFiles"
+    :max-files="maxFiles"
+    :accepted-file-types="fileTypes"
+    allow-process="true"
+    required="true"
+    label-Invalid-Field="El campo contiene archivos no válidos"
+    label-File-Processing-Complete="Carga completa"
+    imagePreviewHeight="160"
+    imageCropAspectRatio="1:1"
+    imageResizeTargetWidth="200"
+    imageResizeTargetHeight="200"
+    :stylePanelLayout="styleLayout"
+    styleLoadIndicatorPosition="center bottom"
+    styleProgressIndicatorPosition="right bottom"
+    styleButtonRemoveItemPosition="left bottom"
+    styleButtonProcessItemPosition="right bottom"
+    v-bind:files="myFiles"
+    v-on:addfile="emitFiles"
+    v-on:removefile="emitFiles"
+    :className="classes"
+  />
 </template>
 
 <script>
@@ -25,19 +34,21 @@ import vueFilePond from "vue-filepond";
 import "filepond/dist/filepond.min.css";
 
 // Import FilePond plugins
-// Please note that you need to install these plugins separately
-
 // Import image preview plugin styles
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
 
 // Import image preview and file type validation plugins
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginImageResize from "filepond-plugin-image-resize";
+import FilePondPluginImageCrop from "filepond-plugin-image-crop";
 
 // Create component
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
-  FilePondPluginImagePreview
+  FilePondPluginImagePreview,
+  FilePondPluginImageResize,
+  FilePondPluginImageCrop
 );
 
 export default {
@@ -51,16 +62,39 @@ export default {
       type: Number,
       default: 1,
     },
+    styleLayout: {
+      type: String,
+      default: "",
+    },
+    fileTypes: {
+      type: String,
+      default: "",
+    },
+    classes: {
+      type: String,
+      default: "",
+    },
+    myFiles: {
+      type: Array,
+    },
   },
   data: function () {
     return {
-      myFiles: [],
+      myFile: [],
     };
   },
 
   components: {
     FilePond,
   },
+
+  // watch: {
+  //   myFiles(val) {
+  //     if (val.length == 0) {
+  //       this.myFile = [];
+  //     } else this.myFile = val;
+  //   },
+  // },
 
   methods: {
     emitFiles: function () {

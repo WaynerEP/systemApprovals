@@ -13,160 +13,152 @@
     <div class="form-layout">
       <div class="row mg-b-25">
         <div class="col-lg-4">
-          <div class="form-group">
-            <label class="form-control-label"
-              >Seleccione Pedido: <span class="tx-danger">*</span></label
-            >
-            <div class="input-group">
-              <input
-                type="text"
-                readonly
-                v-model="idPedido"
-                class="form-control bg-white"
-                placeholder="Seleccione..."
-              />
-              <span class="input-group-btn">
-                <button
-                  type="button"
-                  :disabled="details.length > 0"
-                  class="btn bd bd-l-0 btn-outline-primary"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
+          <div class="form-layout form-layout-2">
+            <div class="no-gutters">
+              <div class="form-group">
+                <label class="form-control-label"
+                  >Pedido: <span class="tx-danger">*</span></label
                 >
-                  <i class="fas fa-plus"></i>
-                </button>
-              </span>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    readonly
+                    v-model="idPedido"
+                    class="form-control bg-white"
+                    placeholder="Seleccione..."
+                  />
+                  <span class="input-group-btn">
+                    <button
+                      type="button"
+                      :disabled="details.length > 0"
+                      class="btn btn-oblong bd ml-2 btn-outline-primary"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                    >
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <!-- col-4 -->
+              <div class="form-group">
+                <label class="form-control-label"
+                  >Proveedor: <span class="tx-danger">*</span></label
+                >
+                <select
+                  class="form-control"
+                  v-model="proveedor"
+                  @change="setProveedor"
+                >
+                  <option value="">Seleccione</option>
+                  <option
+                    :value="p.keyPro + '|' + p.businessName"
+                    v-for="p in providers_data"
+                    :key="p.keyPro"
+                  >
+                    {{ p.businessName }}
+                  </option>
+                </select>
+              </div>
+              <!-- col-4 -->
+              <div class="form-group">
+                <label class="form-control-label"
+                  >Adjuntar Proforma: <span class="tx-danger">*</span></label
+                >
+                <file-pond-demo
+                  :maxFiles="1"
+                  fileTypes="application/pdf"
+                  @changeFile="addFilesToProformas"
+                  ref="fileComponente"
+                ></file-pond-demo>
+              </div>
+              <!-- col-4 -->
+              <div class="form-group">
+                <label class="form-control-label"
+                  >Monto de la Proforma: <span class="tx-danger">*</span></label
+                >
+                <input
+                  type="number"
+                  v-model="pedido.monto"
+                  class="form-control"
+                  placeholder="0.00"
+                />
+              </div>
+              <!-- col-8 -->
             </div>
-          </div>
-          <!-- col-4 -->
-          <div class="form-group">
-            <label class="form-control-label"
-              >Proveedor: <span class="tx-danger">*</span></label
-            >
-            <select
-              class="form-control"
-              v-model="proveedor"
-              @change="setProveedor"
-              data-placeholder="Seleccione"
-            >
-              <option label="Seleccione"></option>
-              <option
-                :value="p.keyPro + '|' + p.businessName"
-                v-for="p in providers_data"
-                :key="p.keyPro"
+            <!-- row -->
+            <div class="form-layout-footer bd pd-20 bd-t-0 mb-3 text-center">
+              <button
+                class="btn btn-info btn-sm bd-0 valign-middle"
+                @click="addProformaToDetails"
               >
-                {{ p.businessName }}
-              </option>
-            </select>
+                Agregar <i class="icon ion-arrow-down-a ml-1"></i>
+              </button>
+            </div>
+            <!-- form-group -->
           </div>
-          <!-- col-4 -->
-          <div class="form-group">
-            <label class="form-control-label"
-              >Proforma: <span class="tx-danger">*</span></label
-            >
-            <file-pond-demo
-              :maxFiles="1"
-              @changeFile="addFilesToProformas"
-              ref="fileComponente"
-            ></file-pond-demo>
-          </div>
-          <!-- col-4 -->
-
-          <div class="form-group">
-            <label class="form-control-label"
-              >Monto de Proforma: <span class="tx-danger">*</span></label
-            >
-            <input
-              type="number"
-              v-model="pedido.monto"
-              class="form-control"
-              placeholder="0.00"
-            />
-          </div>
-          <!-- col-4 -->
-
-          <div class="form-group mt-2">
-            <button
-              class="btn btn-teal bd-0 btn-block valign-middle"
-              :disabled="disabled"
-              @click="addProductToDetails"
-            >
-              Agregar <i class="icon ion-arrow-down-a ml-1"></i>
-            </button>
-          </div>
-          <!-- col-4 -->
         </div>
 
         <div class="col-lg-8">
-          <label class="section-label-sm tx-gray-500"
-            >Detalle de los pedidos seleccionados</label
-          >
+          <label-section>Detalle de los pedidos seleccionados</label-section>
           <div class="signup-separator"></div>
-          <div class="table-responsive">
-            <table class="table table-invoice table-sm">
-              <thead class="thead-colored bg-primary">
-                <tr>
-                  <th></th>
-                  <th>Pedido</th>
-                  <th class="wd-30p">Proveedor</th>
-                  <th class="wd-30p">Proforma</th>
-                  <th>Monto</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-if="details.length > 0">
-                  <tr v-for="(d, index) in details" :key="index">
-                    <td class="valign-middle">
-                      <button type="button" class="btn btn-sm">
-                        <i class="fa fa-close text-danger"></i>
-                      </button>
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].idPedido }}
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].proveedor }}
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].fileName }}
-                    </td>
-                    <td class="valign-middle tx-bold tx-12">
-                      {{ details[index].monto | money }}
-                    </td>
-                  </tr>
-                </template>
-                <tr v-else>
-                  <td
-                    class="text-center valign-middle tx-bold tx-12"
-                    colspan="5"
-                  >
-                    Seleccione un pedido!!
+          <table-invoice>
+            <template #thead>
+              <th></th>
+              <th>Pedido</th>
+              <th class="wd-30p">Proveedor</th>
+              <th class="wd-30p">Proforma</th>
+              <th>Monto</th>
+            </template>
+            <template #tbody>
+              <template v-if="details.length > 0">
+                <tr v-for="(d, index) in details" :key="index">
+                  <td class="valign-middle">
+                    <button type="button" class="btn btn-sm">
+                      <i class="fa fa-close text-danger"></i>
+                    </button>
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ details[index].idPedido }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ details[index].proveedor }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ details[index].fileName }}
+                  </td>
+                  <td class="valign-middle tx-bold tx-12">
+                    {{ details[index].monto | money }}
                   </td>
                 </tr>
-              </tbody>
-            </table>
-            <!---->
-          </div>
-          <div
-            class="invalid-feedback d-block"
-            v-if="errors && errors.detalleProforma"
-          >
-            {{ errors.detalleProforma[0] }}
-          </div>
+              </template>
+              <tr v-else>
+                <td class="text-center valign-middle tx-bold tx-12" colspan="5">
+                  Seleccione un pedido!!
+                </td>
+              </tr>
+            </template>
+            <div
+              class="invalid-feedback d-block"
+              v-if="errors && errors.detalleProforma"
+            >
+              {{ errors.detalleProforma[0] }}
+            </div>
+          </table-invoice>
         </div>
       </div>
       <!-- row -->
 
       <div class="form-layout-footer text-right">
         <button
-          class="btn btn-teal bd-0 valign-middle"
+          class="btn btn-info btn-sm bd-0 valign-middle"
           :disabled="details.length == 0"
           @click="saveProformas"
         >
           <Loading v-show="isLoading" />
           Guardar
         </button>
-        <button class="btn btn-secondary bd-0" @click="cancelActions">
+        <button class="btn btn-secondary btn-sm bd-0" @click="resetForm()">
           Cancelar
         </button>
       </div>
@@ -174,6 +166,7 @@
     </div>
     <!-- form-layout -->
 
+    <!-- modal-section -->
     <modal-section maxWidth="lg">
       <template #title> Pedidos</template>
       <template #body>
@@ -185,61 +178,54 @@
           >Detalle de los pedidos</label
         >
         <div class="signup-separator"></div>
-        <div class="table-responsive">
-          <table class="table table-invoice table-sm">
-            <thead class="thead-colored bg-primary">
-              <tr>
-                <th>Pedido</th>
-                <th>Monto</th>
-                <th>Fecha</th>
-                <th>Nro. Items</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <template v-if="detallePedidos.length > 0">
-                <tr v-for="d in detallePedidos" :key="d.idPedido">
-                  <td class="valign-middle tx-bold tx-12">
-                   000{{ d.idPedido }}
-                  </td>
-                  <td class="valign-middle tx-bold tx-12">
-                    {{ d.monto | money }}
-                  </td>
-                  <td class="valign-middle tx-bold tx-12 text-capitalize">
-                    {{ formatDatePedido(d.fechaPedido) }}
-                  </td>
-                  <td class="valign-middle tx-bold tx-12">
-                    {{ d.nroProducts }} items
-                  </td>
-                  <td class="valign-middle text-center">
-                    <button
-                      type="button"
-                      @click="addPedidoDetail(d, d.idPedido)"
-                      class="btn btn-teal btn-sm"
-                    >
-                      <i class="icon ion-archive"></i>
-                    </button>
-                  </td>
-                </tr>
-              </template>
-              <tr v-else>
-                <td class="text-center valign-middle tx-bold tx-12" colspan="5">
-                  Seleccione un pedido!!
+        <table-invoice>
+          <template #thead>
+            <th>Pedido</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Nro. Items</th>
+            <th>Acción</th>
+          </template>
+          <template #tbody>
+            <template v-if="detallePedidos.length > 0">
+              <tr
+                v-for="d in detallePedidos"
+                :key="d.idPedido"
+                @click="addPedidoDetail(d)"
+                style="cursor: pointer"
+              >
+                <td class="valign-middle tx-bold tx-12">000{{ d.idPedido }}</td>
+                <td class="valign-middle tx-bold tx-12">
+                  {{ d.monto | money }}
+                </td>
+                <td class="valign-middle tx-bold tx-12 text-capitalize">
+                  {{ formatDateAsString(d.fechaPedido) }}
+                </td>
+                <td class="valign-middle tx-bold tx-12">
+                  {{ d.nroProducts }} items
+                </td>
+                <td class="valign-middle text-center">
+                  <button type="button" class="btn btn-teal btn-sm">
+                    <i class="icon ion-archive"></i>
+                  </button>
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
+            </template>
+            <tr v-else>
+              <td class="text-center valign-middle tx-bold tx-12" colspan="5">
+                Seleccione un pedido!!
+              </td>
+            </tr>
+          </template>
+          <div
+            class="invalid-feedback d-block"
+            v-if="errors && errors.detalleProforma"
+          >
+            {{ errors.detalleProforma[0] }}
+          </div>
+        </table-invoice>
       </template>
       <template #footer>
-        <button
-          type="button"
-          v-show="deshacer"
-          @click="deshacerAction()"
-          class="btn btn-teal"
-        >
-          <i class="icon ion-reply-all"></i> Deshacer
-        </button>
         <button type="button" data-dismiss="modal" class="btn btn-primary">
           Cerrar
         </button>
@@ -251,6 +237,8 @@
 <script>
 import InfoCompany from "../components/Empresa.vue";
 import InputDate from "../components/InputGroupDate.vue";
+import LabelSection from "../components/SectionLabel.vue";
+import TableInvoice from "../components/TableInvoice.vue";
 import ModalSection from "../components/ModalSection.vue";
 import FilePondDemo from "../components/FilePond.vue";
 import Loading from "../components/LoaderAction.vue";
@@ -262,14 +250,16 @@ export default {
   components: {
     InfoCompany,
     InputDate,
+    LabelSection,
+    TableInvoice,
     Loading,
     ModalSection,
     FilePondDemo,
   },
 
   mounted() {
-    this.getPedidos();
-    this.fetchOptions();
+    this.getAsyncPedidos();
+    this.getAsyncProviders();
   },
 
   data() {
@@ -287,10 +277,7 @@ export default {
       proveedor: "",
       fielP: "",
       details: [],
-      array_tem_pedido: {},
       isLoading: false,
-      deshacer: false,
-      index: 0,
       errors: [],
     };
   },
@@ -315,42 +302,24 @@ export default {
     },
   },
   methods: {
-    async getPedidos() {
+    async getAsyncPedidos() {
       const res = await axios.get("/api/proformas/pedidos");
       this.detallePedidos = res.data;
     },
 
-    async fetchOptions() {
-      var el = this;
-      // AJAX request
+    async getAsyncProviders() {
       const res = await axios.get("/api/dataProviders");
-      el.providers_data = res.data;
+      this.providers_data = res.data;
     },
 
-    formatDatePedido(value) {
+    formatDateAsString(value) {
       moment.locale("es");
       return moment(value).format("LLLL");
     },
 
-    addPedidoDetail(values, idPedido) {
-      if (Object.keys(this.array_tem_pedido).length != 0) {
-        this.deshacerAction();
-      }
-      this.array_tem_pedido = values;
+    addPedidoDetail(values) {
       this.idPedido = "000" + values.idPedido;
-      this.index = this.detallePedidos.findIndex(
-        (element) => element.idPedido == idPedido
-      );
-      this.detallePedidos.splice(this.index, 1);
-      this.deshacer = true;
-    },
-
-    deshacerAction() {
-      this.idPedido = "";
-      let fila = this.array_tem_pedido;
-      this.detallePedidos.splice(this.index, 0, fila);
-      this.array_tem_pedido = {};
-      this.deshacer = false;
+      $("#exampleModal").modal("hide");
     },
 
     setProveedor() {
@@ -360,7 +329,6 @@ export default {
     },
 
     addFilesToProformas(values) {
-      console.log(values);
       if (values.length > 0) {
         this.fielP = values[0].file;
         this.pedido.urlNameProforma = this.fielP.name;
@@ -369,13 +337,26 @@ export default {
       }
     },
 
-    addProductToDetails() {
+    addProformaToDetails() {
       let i = this.details.findIndex(
         (el) => el.idProveedor == this.pedido.idProveedor
       );
       if (i != -1) {
         $.toast({
-          content: "Seleccione otro Proveedor!",
+          content: "Seleccione otro proveedor.",
+        });
+        return;
+      }
+      if (
+        !this.idPedido ||
+        !this.pedido.urlNameProforma ||
+        !this.pedido.idProveedor ||
+        !this.pedido.proveedor ||
+        !this.fielP ||
+        !this.pedido.monto
+      ) {
+        $.toast({
+          content: "Complete los campos.",
         });
         return;
       }
@@ -390,35 +371,51 @@ export default {
       this.details.push(fila);
       this.resetFieldsNewDetails();
       $.toast({
-        content: "Proforma agregada al Pedido!",
+        content: "Proforma agregada al Pedido.",
       });
     },
 
     saveProformas() {
-      this.isLoading = true;
-      let fields = new FormData();
-      for (let i = 0; i < this.details.length; i++) {
-        const element = this.details[i];
-        fields.append("detalleProforma[" + i + "]", element.file);
-        fields.append("idProveedor[" + i + "]", element.idProveedor);
-        fields.append("montos[" + i + "]", element.monto);
-      }
-      fields.append("idPedido", this.details[0].idPedido);
-
-      const config = {
-        headers: { "content-type": "multipart/form-data" },
-      };
-      axios
-        .post("/pedidos/proformas", fields, config)
-        .then((res) => {
-          this.isLoading = false;
-          this.$awn.success(res.data);
-        })
-        .catch((err) => {
-          this.existsErrors(e);
+      if (this.details.length == 0) {
+        $.toast({
+          content: "Complete los campos.",
         });
+        return;
+      }
+
+      let onOk = () => {
+        this.isLoading = true;
+        let fields = new FormData();
+        for (let i = 0; i < this.details.length; i++) {
+          const element = this.details[i];
+          fields.append("detalleProforma[" + i + "]", element.file);
+          fields.append("idProveedor[" + i + "]", element.idProveedor);
+          fields.append("montos[" + i + "]", element.monto);
+        }
+        fields.append("idPedido", this.details[0].idPedido);
+
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+        axios
+          .post("/pedidos/proformas", fields, config)
+          .then((res) => {
+            this.isLoading = false;
+            this.$awn.success(res.data);
+          })
+          .catch((err) => {
+            this.existsErrors(e);
+          });
+      };
+
+      this.$awn.confirm("Estás seguro de guardar el registro?", onOk);
     },
 
+    resetForm() {
+      this.details = [];
+      this.idPedido = "";
+      this.resetFieldsNewDetails();
+    },
     resetFieldsNewDetails() {
       this.pedido.idProveedor = "";
       this.pedido.proveedor = "";
@@ -427,11 +424,6 @@ export default {
       this.fielP = "";
       this.$refs.fileComponente.removeFiles();
       this.proveedor = "";
-    },
-
-    cancelActions() {
-      this.details = [];
-      this.resetFieldsNewDetails();
     },
 
     existsErrors(e) {

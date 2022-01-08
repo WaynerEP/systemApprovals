@@ -22,10 +22,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'empleado' => 'required',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'dni' => 'required|string|min:8',
-            'role' => 'required',
+            'rol' => 'required',
             'status' => 'required'
         ]);
 
@@ -37,7 +38,7 @@ class UserController extends Controller
             'status' => $request['status']
         ]);
 
-        $user->assignRole($request['role']);
+        $user->assignRole($request['rol']);
 
         $user->notify(new WelcomeToTheApplication());
 
@@ -50,7 +51,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'role' => 'required',
+            'rol' => 'required',
             'status' => 'required'
         ]);
 
@@ -61,7 +62,7 @@ class UserController extends Controller
             'status' => $request['status']
         ]);
 
-        $user->roles()->sync($request['role']);
+        $user->roles()->sync($request['rol']);
 
         return response('La acción ha sido exitosa!.', 200);
     }
@@ -69,7 +70,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
         $user->status = 0;
         $user->save();
         return response('La acción ha sido exitosa!.', 200);

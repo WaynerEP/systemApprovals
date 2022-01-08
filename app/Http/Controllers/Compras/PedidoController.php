@@ -18,11 +18,6 @@ use DB;
 class PedidoController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -50,21 +45,18 @@ class PedidoController extends Controller
         return "Pedido registrado con éxito!.";
     }
 
-    public function show($id)
-    {
-        //
-    }
-
 
     public function storeProformas(Request $request)
     {
         $request->validate([
             'detalleProforma' => 'required',
+            'idProveedor' => 'required',
+            'montos' => 'required',
+            'idPedido' => 'required',
         ]);
         $idPedido = ltrim($request->idPedido, '0');
         $idProveedores = $request->idProveedor;
         $montos = $request->montos;
-        $date = date('Y-m-d');
 
         if ($request->hasFile('detalleProforma')) {
             foreach ($request->file('detalleProforma')  as $index => $file) {
