@@ -3711,6 +3711,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -88485,7 +88486,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "mg-b-20" }, [
-        _vm._v("\n    Estimado " + _vm._s(_vm.user_name) + ", "),
+        _vm._v("\n    Estimado " + _vm._s(_vm.user_name) + ",\n    "),
         _vm.orders.length == 0
           ? _c("span", [
               _vm._v("por el momento no tiene ninguna solicitud de compra."),

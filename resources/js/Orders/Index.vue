@@ -2,7 +2,8 @@
   <div class="section-wrapper">
     <label class="section-title">Nueva solicitud de Compra</label>
     <p class="mg-b-20">
-      Estimado {{ user_name }}, <span v-if="orders.length == 0"
+      Estimado {{ user_name }},
+      <span v-if="orders.length == 0"
         >por el momento no tiene ninguna solicitud de compra.</span
       >
       <span v-else>
