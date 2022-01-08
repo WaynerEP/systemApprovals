@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas para pedidos
     Route::view('/compras-pedidos', 'Pedidos.Create')
-        ->name('pedidos.create');
+        ->name('pedidos.new');
 
     // Rutas para listar pedidos 
     Route::view('/compras-pedidos/list', 'Pedidos.Index')

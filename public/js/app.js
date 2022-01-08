@@ -2514,9 +2514,500 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Empresa_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Empresa.vue */ "./resources/js/components/Empresa.vue");
 /* harmony import */ var _components_InputGroupDate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/InputGroupDate.vue */ "./resources/js/components/InputGroupDate.vue");
-/* harmony import */ var _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ModalSection.vue */ "./resources/js/components/ModalSection.vue");
-/* harmony import */ var _components_FilePond_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/FilePond.vue */ "./resources/js/components/FilePond.vue");
-/* harmony import */ var _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/LoaderAction.vue */ "./resources/js/components/LoaderAction.vue");
+/* harmony import */ var _components_SectionLabel_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SectionLabel.vue */ "./resources/js/components/SectionLabel.vue");
+/* harmony import */ var _components_TableInvoice_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/TableInvoice.vue */ "./resources/js/components/TableInvoice.vue");
+/* harmony import */ var _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/ModalSection.vue */ "./resources/js/components/ModalSection.vue");
+/* harmony import */ var _components_FilePond_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/FilePond.vue */ "./resources/js/components/FilePond.vue");
+/* harmony import */ var _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/LoaderAction.vue */ "./resources/js/components/LoaderAction.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "Proformas",
+  components: {
+    InfoCompany: _components_Empresa_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    InputDate: _components_InputGroupDate_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    LabelSection: _components_SectionLabel_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    TableInvoice: _components_TableInvoice_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Loading: _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    ModalSection: _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    FilePondDemo: _components_FilePond_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
+  mounted: function mounted() {
+    this.getAsyncPedidos();
+    this.getAsyncProviders();
+  },
+  data: function data() {
+    return {
+      idPedido: "",
+      pedido: {
+        fechaRecepcion: "",
+        idProveedor: "",
+        proveedor: "",
+        urlNameProforma: "",
+        monto: ""
+      },
+      detallePedidos: [],
+      providers_data: [],
+      proveedor: "",
+      fielP: "",
+      details: [],
+      isLoading: false,
+      errors: []
+    };
+  },
+  filters: {
+    money: function money(val) {
+      return "S/." + Number.parseFloat(val).toFixed(2);
+    }
+  },
+  computed: {
+    disabled: function disabled() {
+      if (this.idPedido && this.pedido.idProveedor && this.pedido.urlNameProforma && this.pedido.monto) {
+        return false;
+      }
+
+      return true;
+    }
+  },
+  methods: {
+    getAsyncPedidos: function getAsyncPedidos() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/api/proformas/pedidos");
+
+              case 2:
+                res = _context.sent;
+                _this.detallePedidos = res.data;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getAsyncProviders: function getAsyncProviders() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get("/api/dataProviders");
+
+              case 2:
+                res = _context2.sent;
+                _this2.providers_data = res.data;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    formatDateAsString: function formatDateAsString(value) {
+      moment__WEBPACK_IMPORTED_MODULE_8___default().locale("es");
+      return moment__WEBPACK_IMPORTED_MODULE_8___default()(value).format("LLLL");
+    },
+    addPedidoDetail: function addPedidoDetail(values) {
+      this.idPedido = "000" + values.idPedido;
+      $("#exampleModal").modal("hide");
+    },
+    setProveedor: function setProveedor() {
+      var array = this.proveedor.split("|");
+      this.pedido.idProveedor = array[0];
+      this.pedido.proveedor = array[1];
+    },
+    addFilesToProformas: function addFilesToProformas(values) {
+      if (values.length > 0) {
+        this.fielP = values[0].file;
+        this.pedido.urlNameProforma = this.fielP.name;
+      } else {
+        this.pedido.urlNameProforma = "";
+      }
+    },
+    addProformaToDetails: function addProformaToDetails() {
+      var _this3 = this;
+
+      var i = this.details.findIndex(function (el) {
+        return el.idProveedor == _this3.pedido.idProveedor;
+      });
+
+      if (i != -1) {
+        $.toast({
+          content: "Seleccione otro proveedor."
+        });
+        return;
+      }
+
+      if (!this.idPedido || !this.pedido.urlNameProforma || !this.pedido.idProveedor || !this.pedido.proveedor || !this.fielP || !this.pedido.monto) {
+        $.toast({
+          content: "Complete los campos."
+        });
+        return;
+      }
+
+      var fila = {
+        idPedido: this.idPedido,
+        idProveedor: this.pedido.idProveedor,
+        proveedor: this.pedido.proveedor,
+        fileName: this.pedido.urlNameProforma,
+        file: this.fielP,
+        monto: this.pedido.monto
+      };
+      this.details.push(fila);
+      this.resetFieldsNewDetails();
+      $.toast({
+        content: "Proforma agregada al Pedido."
+      });
+    },
+    saveProformas: function saveProformas() {
+      var _this4 = this;
+
+      if (this.details.length == 0) {
+        $.toast({
+          content: "Complete los campos."
+        });
+        return;
+      }
+
+      var onOk = function onOk() {
+        _this4.isLoading = true;
+        var fields = new FormData();
+
+        for (var i = 0; i < _this4.details.length; i++) {
+          var element = _this4.details[i];
+          fields.append("detalleProforma[" + i + "]", element.file);
+          fields.append("idProveedor[" + i + "]", element.idProveedor);
+          fields.append("montos[" + i + "]", element.monto);
+        }
+
+        fields.append("idPedido", _this4.details[0].idPedido);
+        var config = {
+          headers: {
+            "content-type": "multipart/form-data"
+          }
+        };
+        axios.post("/pedidos/proformas", fields, config).then(function (res) {
+          _this4.isLoading = false;
+
+          _this4.$awn.success(res.data);
+        })["catch"](function (err) {
+          _this4.existsErrors(e);
+        });
+      };
+
+      this.$awn.confirm("Estás seguro de guardar el registro?", onOk);
+    },
+    resetForm: function resetForm() {
+      this.details = [];
+      this.idPedido = "";
+      this.resetFieldsNewDetails();
+    },
+    resetFieldsNewDetails: function resetFieldsNewDetails() {
+      this.pedido.idProveedor = "";
+      this.pedido.proveedor = "";
+      this.pedido.urlNameProforma = "";
+      this.pedido.monto = "";
+      this.fielP = "";
+      this.$refs.fileComponente.removeFiles();
+      this.proveedor = "";
+    },
+    existsErrors: function existsErrors(e) {
+      if (e.response.status == 422) {
+        this.errors = e.response.data.errors;
+      } else {
+        this.$awn.alert("La acción ha fallado!.");
+      }
+
+      this.isLoading = false;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Compras/Solicitudes.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Compras/Solicitudes.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Empresa_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Empresa.vue */ "./resources/js/components/Empresa.vue");
+/* harmony import */ var _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ModalSection.vue */ "./resources/js/components/ModalSection.vue");
+/* harmony import */ var _components_HeaderInvoice_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/HeaderInvoice.vue */ "./resources/js/components/HeaderInvoice.vue");
+/* harmony import */ var _components_InputGroupDate_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/InputGroupDate.vue */ "./resources/js/components/InputGroupDate.vue");
+/* harmony import */ var _components_SectionLabel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/SectionLabel.vue */ "./resources/js/components/SectionLabel.vue");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
 
@@ -2776,617 +3267,113 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Proformas",
-  components: {
-    InfoCompany: _components_Empresa_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    InputDate: _components_InputGroupDate_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Loading: _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    ModalSection: _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    FilePondDemo: _components_FilePond_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
-  },
-  mounted: function mounted() {
-    this.getPedidos();
-    this.fetchOptions();
-  },
-  data: function data() {
-    return {
-      idPedido: "",
-      pedido: {
-        fechaRecepcion: "",
-        idProveedor: "",
-        proveedor: "",
-        urlNameProforma: "",
-        monto: ""
-      },
-      detallePedidos: [],
-      providers_data: [],
-      proveedor: "",
-      fielP: "",
-      details: [],
-      array_tem_pedido: {},
-      isLoading: false,
-      deshacer: false,
-      index: 0,
-      errors: []
-    };
-  },
-  filters: {
-    money: function money(val) {
-      return "S/." + Number.parseFloat(val).toFixed(2);
-    }
-  },
-  computed: {
-    disabled: function disabled() {
-      if (this.idPedido && this.pedido.idProveedor && this.pedido.urlNameProforma && this.pedido.monto) {
-        return false;
-      }
-
-      return true;
-    }
-  },
-  methods: {
-    getPedidos: function getPedidos() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios.get("/api/proformas/pedidos");
-
-              case 2:
-                res = _context.sent;
-                _this.detallePedidos = res.data;
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    fetchOptions: function fetchOptions() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var el, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                el = _this2; // AJAX request
-
-                _context2.next = 3;
-                return axios.get("/api/dataProviders");
-
-              case 3:
-                res = _context2.sent;
-                el.providers_data = res.data;
-
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    formatDatePedido: function formatDatePedido(value) {
-      moment__WEBPACK_IMPORTED_MODULE_6___default().locale("es");
-      return moment__WEBPACK_IMPORTED_MODULE_6___default()(value).format("LLLL");
-    },
-    addPedidoDetail: function addPedidoDetail(values, idPedido) {
-      if (Object.keys(this.array_tem_pedido).length != 0) {
-        this.deshacerAction();
-      }
-
-      this.array_tem_pedido = values;
-      this.idPedido = "000" + values.idPedido;
-      this.index = this.detallePedidos.findIndex(function (element) {
-        return element.idPedido == idPedido;
-      });
-      this.detallePedidos.splice(this.index, 1);
-      this.deshacer = true;
-    },
-    deshacerAction: function deshacerAction() {
-      this.idPedido = "";
-      var fila = this.array_tem_pedido;
-      this.detallePedidos.splice(this.index, 0, fila);
-      this.array_tem_pedido = {};
-      this.deshacer = false;
-    },
-    setProveedor: function setProveedor() {
-      var array = this.proveedor.split("|");
-      this.pedido.idProveedor = array[0];
-      this.pedido.proveedor = array[1];
-    },
-    addFilesToProformas: function addFilesToProformas(values) {
-      console.log(values);
-
-      if (values.length > 0) {
-        this.fielP = values[0].file;
-        this.pedido.urlNameProforma = this.fielP.name;
-      } else {
-        this.pedido.urlNameProforma = "";
-      }
-    },
-    addProductToDetails: function addProductToDetails() {
-      var _this3 = this;
-
-      var i = this.details.findIndex(function (el) {
-        return el.idProveedor == _this3.pedido.idProveedor;
-      });
-
-      if (i != -1) {
-        $.toast({
-          content: "Seleccione otro Proveedor!"
-        });
-        return;
-      }
-
-      var fila = {
-        idPedido: this.idPedido,
-        idProveedor: this.pedido.idProveedor,
-        proveedor: this.pedido.proveedor,
-        fileName: this.pedido.urlNameProforma,
-        file: this.fielP,
-        monto: this.pedido.monto
-      };
-      this.details.push(fila);
-      this.resetFieldsNewDetails();
-      $.toast({
-        content: "Proforma agregada al Pedido!"
-      });
-    },
-    saveProformas: function saveProformas() {
-      var _this4 = this;
-
-      this.isLoading = true;
-      var fields = new FormData();
-
-      for (var i = 0; i < this.details.length; i++) {
-        var element = this.details[i];
-        fields.append("detalleProforma[" + i + "]", element.file);
-        fields.append("idProveedor[" + i + "]", element.idProveedor);
-        fields.append("montos[" + i + "]", element.monto);
-      }
-
-      fields.append("idPedido", this.details[0].idPedido);
-      var config = {
-        headers: {
-          "content-type": "multipart/form-data"
-        }
-      };
-      axios.post("/pedidos/proformas", fields, config).then(function (res) {
-        _this4.isLoading = false;
-
-        _this4.$awn.success(res.data);
-      })["catch"](function (err) {
-        _this4.existsErrors(e);
-      });
-    },
-    resetFieldsNewDetails: function resetFieldsNewDetails() {
-      this.pedido.idProveedor = "";
-      this.pedido.proveedor = "";
-      this.pedido.urlNameProforma = "";
-      this.pedido.monto = "";
-      this.fielP = "";
-      this.$refs.fileComponente.removeFiles();
-      this.proveedor = "";
-    },
-    cancelActions: function cancelActions() {
-      this.details = [];
-      this.resetFieldsNewDetails();
-    },
-    existsErrors: function existsErrors(e) {
-      if (e.response.status == 422) {
-        this.errors = e.response.data.errors;
-      } else {
-        this.$awn.alert("La acción ha fallado!.");
-      }
-
-      this.isLoading = false;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Compras/Solicitudes.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Compras/Solicitudes.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Empresa_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Empresa.vue */ "./resources/js/components/Empresa.vue");
-/* harmony import */ var _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ModalSection.vue */ "./resources/js/components/ModalSection.vue");
-/* harmony import */ var _components_HeaderInvoice_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/HeaderInvoice.vue */ "./resources/js/components/HeaderInvoice.vue");
-/* harmony import */ var _components_InputGroupDate_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/InputGroupDate.vue */ "./resources/js/components/InputGroupDate.vue");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3398,6 +3385,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     InfoCompany: _components_Empresa_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     ModalSection: _components_ModalSection_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     HeaderInvoice: _components_HeaderInvoice_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    LabelSection: _components_SectionLabel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     InputDate: _components_InputGroupDate_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   mounted: function mounted() {
@@ -3456,12 +3444,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     formatDatePedido: function formatDatePedido(value) {
-      moment__WEBPACK_IMPORTED_MODULE_5___default().locale("es");
-      return moment__WEBPACK_IMPORTED_MODULE_5___default()(value).format("LLLL");
+      moment__WEBPACK_IMPORTED_MODULE_6___default().locale("es");
+      return moment__WEBPACK_IMPORTED_MODULE_6___default()(value).format("LLLL");
     },
     formatDateProforma: function formatDateProforma(value) {
-      moment__WEBPACK_IMPORTED_MODULE_5___default().locale("es");
-      return moment__WEBPACK_IMPORTED_MODULE_5___default()(value).calendar();
+      moment__WEBPACK_IMPORTED_MODULE_6___default().locale("es");
+      return moment__WEBPACK_IMPORTED_MODULE_6___default()(value).calendar();
     },
     next_step: function next_step() {
       if (this.details.length > 0) {
@@ -88067,278 +88055,352 @@ var render = function () {
       _c("div", { staticClass: "form-layout" }, [
         _c("div", { staticClass: "row mg-b-25" }, [
           _c("div", { staticClass: "col-lg-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.idPedido,
-                      expression: "idPedido",
-                    },
-                  ],
-                  staticClass: "form-control bg-white",
-                  attrs: {
-                    type: "text",
-                    readonly: "",
-                    placeholder: "Seleccione...",
-                  },
-                  domProps: { value: _vm.idPedido },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.idPedido = $event.target.value
-                    },
-                  },
-                }),
+            _c("div", { staticClass: "form-layout form-layout-2" }, [
+              _c("div", { staticClass: "no-gutters" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.idPedido,
+                          expression: "idPedido",
+                        },
+                      ],
+                      staticClass: "form-control bg-white",
+                      attrs: {
+                        type: "text",
+                        readonly: "",
+                        placeholder: "Seleccione...",
+                      },
+                      domProps: { value: _vm.idPedido },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.idPedido = $event.target.value
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "input-group-btn" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-oblong bd ml-2 btn-outline-primary",
+                          attrs: {
+                            type: "button",
+                            disabled: _vm.details.length > 0,
+                            "data-toggle": "modal",
+                            "data-target": "#exampleModal",
+                          },
+                        },
+                        [_c("i", { staticClass: "fas fa-plus" })]
+                      ),
+                    ]),
+                  ]),
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "input-group-btn" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.proveedor,
+                          expression: "proveedor",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: [
+                          function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.proveedor = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          _vm.setProveedor,
+                        ],
+                      },
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Seleccione"),
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.providers_data, function (p) {
+                        return _c(
+                          "option",
+                          {
+                            key: p.keyPro,
+                            domProps: {
+                              value: p.keyPro + "|" + p.businessName,
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(p.businessName) +
+                                "\n                "
+                            ),
+                          ]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("file-pond-demo", {
+                      ref: "fileComponente",
+                      attrs: { maxFiles: 1, fileTypes: "application/pdf" },
+                      on: { changeFile: _vm.addFilesToProformas },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.pedido.monto,
+                        expression: "pedido.monto",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "0.00" },
+                    domProps: { value: _vm.pedido.monto },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.pedido, "monto", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "form-layout-footer bd pd-20 bd-t-0 mb-3 text-center",
+                },
+                [
                   _c(
                     "button",
                     {
-                      staticClass: "btn bd bd-l-0 btn-outline-primary",
-                      attrs: {
-                        type: "button",
-                        disabled: _vm.details.length > 0,
-                        "data-toggle": "modal",
-                        "data-target": "#exampleModal",
-                      },
+                      staticClass: "btn btn-info btn-sm bd-0 valign-middle",
+                      on: { click: _vm.addProformaToDetails },
                     },
-                    [_c("i", { staticClass: "fas fa-plus" })]
+                    [
+                      _vm._v("\n              Agregar "),
+                      _c("i", { staticClass: "icon ion-arrow-down-a ml-1" }),
+                    ]
                   ),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.proveedor,
-                      expression: "proveedor",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  attrs: { "data-placeholder": "Seleccione" },
-                  on: {
-                    change: [
-                      function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.proveedor = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      _vm.setProveedor,
-                    ],
-                  },
-                },
-                [
-                  _c("option", { attrs: { label: "Seleccione" } }),
-                  _vm._v(" "),
-                  _vm._l(_vm.providers_data, function (p) {
-                    return _c(
-                      "option",
-                      {
-                        key: p.keyPro,
-                        domProps: { value: p.keyPro + "|" + p.businessName },
-                      },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(p.businessName) +
-                            "\n            "
-                        ),
-                      ]
-                    )
-                  }),
-                ],
-                2
-              ),
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("file-pond-demo", {
-                  ref: "fileComponente",
-                  attrs: { maxFiles: 1, fileTypes: "application/pdf" },
-                  on: { changeFile: _vm.addFilesToProformas },
-                }),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.pedido.monto,
-                    expression: "pedido.monto",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", placeholder: "0.00" },
-                domProps: { value: _vm.pedido.monto },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.pedido, "monto", $event.target.value)
-                  },
-                },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group mt-2" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-teal bd-0 btn-block valign-middle",
-                  attrs: { disabled: _vm.disabled },
-                  on: { click: _vm.addProductToDetails },
-                },
-                [
-                  _vm._v("\n            Agregar "),
-                  _c("i", { staticClass: "icon ion-arrow-down-a ml-1" }),
                 ]
               ),
             ]),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-8" }, [
-            _c("label", { staticClass: "section-label-sm tx-gray-500" }, [
-              _vm._v("Detalle de los pedidos seleccionados"),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "signup-separator" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-invoice table-sm" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  [
-                    _vm.details.length > 0
-                      ? _vm._l(_vm.details, function (d, index) {
-                          return _c("tr", { key: index }, [
-                            _vm._m(6, true),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "valign-middle tx-bold tx-12" },
-                              [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(_vm.details[index].idPedido) +
-                                    "\n                  "
-                                ),
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "valign-middle tx-bold tx-12" },
-                              [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(_vm.details[index].proveedor) +
-                                    "\n                  "
-                                ),
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "valign-middle tx-bold tx-12" },
-                              [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(_vm.details[index].fileName) +
-                                    "\n                  "
-                                ),
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "valign-middle tx-bold tx-12" },
-                              [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(
-                                      _vm._f("money")(_vm.details[index].monto)
-                                    ) +
-                                    "\n                  "
-                                ),
-                              ]
-                            ),
-                          ])
-                        })
-                      : _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "text-center valign-middle tx-bold tx-12",
-                              attrs: { colspan: "5" },
-                            },
-                            [
-                              _vm._v(
-                                "\n                  Seleccione un pedido!!\n                "
-                              ),
-                            ]
-                          ),
-                        ]),
-                  ],
-                  2
-                ),
+          _c(
+            "div",
+            { staticClass: "col-lg-8" },
+            [
+              _c("label-section", [
+                _vm._v("Detalle de los pedidos seleccionados"),
               ]),
-            ]),
-            _vm._v(" "),
-            _vm.errors && _vm.errors.detalleProforma
-              ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(_vm.errors.detalleProforma[0]) +
-                      "\n        "
-                  ),
-                ])
-              : _vm._e(),
-          ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "signup-separator" }),
+              _vm._v(" "),
+              _c(
+                "table-invoice",
+                {
+                  scopedSlots: _vm._u([
+                    {
+                      key: "thead",
+                      fn: function () {
+                        return [
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Pedido")]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "wd-30p" }, [
+                            _vm._v("Proveedor"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "wd-30p" }, [
+                            _vm._v("Proforma"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Monto")]),
+                        ]
+                      },
+                      proxy: true,
+                    },
+                    {
+                      key: "tbody",
+                      fn: function () {
+                        return [
+                          _vm.details.length > 0
+                            ? _vm._l(_vm.details, function (d, index) {
+                                return _c("tr", { key: index }, [
+                                  _c("td", { staticClass: "valign-middle" }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-sm",
+                                        attrs: { type: "button" },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa fa-close text-danger",
+                                        }),
+                                      ]
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "valign-middle tx-bold tx-12",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(_vm.details[index].idPedido) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "valign-middle tx-bold tx-12",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(_vm.details[index].proveedor) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "valign-middle tx-bold tx-12",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(_vm.details[index].fileName) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "valign-middle tx-bold tx-12",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(
+                                            _vm._f("money")(
+                                              _vm.details[index].monto
+                                            )
+                                          ) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  ),
+                                ])
+                              })
+                            : _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass:
+                                      "text-center valign-middle tx-bold tx-12",
+                                    attrs: { colspan: "5" },
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                Seleccione un pedido!!\n              "
+                                    ),
+                                  ]
+                                ),
+                              ]),
+                        ]
+                      },
+                      proxy: true,
+                    },
+                  ]),
+                },
+                [
+                  _vm._v(" "),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.detalleProforma
+                    ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(_vm.errors.detalleProforma[0]) +
+                            "\n          "
+                        ),
+                      ])
+                    : _vm._e(),
+                ]
+              ),
+            ],
+            1
+          ),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-layout-footer text-right" }, [
           _c(
             "button",
             {
-              staticClass: "btn btn-teal bd-0 valign-middle",
+              staticClass: "btn btn-info btn-sm bd-0 valign-middle",
               attrs: { disabled: _vm.details.length == 0 },
               on: { click: _vm.saveProformas },
             },
@@ -88361,8 +88423,12 @@ var render = function () {
           _c(
             "button",
             {
-              staticClass: "btn btn-secondary bd-0",
-              on: { click: _vm.cancelActions },
+              staticClass: "btn btn-secondary btn-sm bd-0",
+              on: {
+                click: function ($event) {
+                  return _vm.resetForm()
+                },
+              },
             },
             [_vm._v("\n        Cancelar\n      ")]
           ),
@@ -88395,135 +88461,163 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "signup-separator" }),
                 _vm._v(" "),
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table table-invoice table-sm" }, [
-                    _c("thead", { staticClass: "thead-colored bg-primary" }, [
-                      _c("tr", [
-                        _c("th", [_vm._v("Pedido")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Monto")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Fecha")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Nro. Items")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Acción")]),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      [
-                        _vm.detallePedidos.length > 0
-                          ? _vm._l(_vm.detallePedidos, function (d) {
-                              return _c("tr", { key: d.idPedido }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "valign-middle tx-bold tx-12",
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  000" +
-                                        _vm._s(d.idPedido) +
-                                        "\n                "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "valign-middle tx-bold tx-12",
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  " +
-                                        _vm._s(_vm._f("money")(d.monto)) +
-                                        "\n                "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "valign-middle tx-bold tx-12 text-capitalize",
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  " +
-                                        _vm._s(
-                                          _vm.formatDatePedido(d.fechaPedido)
-                                        ) +
-                                        "\n                "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "valign-middle tx-bold tx-12",
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  " +
-                                        _vm._s(d.nroProducts) +
-                                        " items\n                "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticClass: "valign-middle text-center" },
-                                  [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-teal btn-sm",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.addPedidoDetail(
-                                              d,
-                                              d.idPedido
-                                            )
-                                          },
+                _c(
+                  "table-invoice",
+                  {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "thead",
+                        fn: function () {
+                          return [
+                            _c("th", [_vm._v("Pedido")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Monto")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Fecha")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Nro. Items")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Acción")]),
+                          ]
+                        },
+                        proxy: true,
+                      },
+                      {
+                        key: "tbody",
+                        fn: function () {
+                          return [
+                            _vm.detallePedidos.length > 0
+                              ? _vm._l(_vm.detallePedidos, function (d) {
+                                  return _c(
+                                    "tr",
+                                    {
+                                      key: d.idPedido,
+                                      staticStyle: { cursor: "pointer" },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.addPedidoDetail(d)
                                         },
                                       },
-                                      [
-                                        _c("i", {
-                                          staticClass: "icon ion-archive",
-                                        }),
-                                      ]
-                                    ),
-                                  ]
-                                ),
-                              ])
-                            })
-                          : _c("tr", [
-                              _c(
-                                "td",
-                                {
-                                  staticClass:
-                                    "text-center valign-middle tx-bold tx-12",
-                                  attrs: { colspan: "5" },
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                Seleccione un pedido!!\n              "
+                                    },
+                                    [
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "valign-middle tx-bold tx-12",
+                                        },
+                                        [_vm._v("000" + _vm._s(d.idPedido))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "valign-middle tx-bold tx-12",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                " +
+                                              _vm._s(_vm._f("money")(d.monto)) +
+                                              "\n              "
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "valign-middle tx-bold tx-12 text-capitalize",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                " +
+                                              _vm._s(
+                                                _vm.formatDateAsString(
+                                                  d.fechaPedido
+                                                )
+                                              ) +
+                                              "\n              "
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "valign-middle tx-bold tx-12",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                " +
+                                              _vm._s(d.nroProducts) +
+                                              " items\n              "
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "valign-middle text-center",
+                                        },
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-teal btn-sm",
+                                              attrs: { type: "button" },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "icon ion-archive",
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  )
+                                })
+                              : _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "text-center valign-middle tx-bold tx-12",
+                                      attrs: { colspan: "5" },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n              Seleccione un pedido!!\n            "
+                                      ),
+                                    ]
                                   ),
-                                ]
-                              ),
-                            ]),
-                      ],
-                      2
-                    ),
-                  ]),
-                ]),
+                                ]),
+                          ]
+                        },
+                        proxy: true,
+                      },
+                    ]),
+                  },
+                  [
+                    _vm._v(" "),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.detalleProforma
+                      ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(_vm.errors.detalleProforma[0]) +
+                              "\n        "
+                          ),
+                        ])
+                      : _vm._e(),
+                  ]
+                ),
               ]
             },
             proxy: true,
@@ -88532,31 +88626,6 @@ var render = function () {
             key: "footer",
             fn: function () {
               return [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.deshacer,
-                        expression: "deshacer",
-                      },
-                    ],
-                    staticClass: "btn btn-teal",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function ($event) {
-                        return _vm.deshacerAction()
-                      },
-                    },
-                  },
-                  [
-                    _c("i", { staticClass: "icon ion-reply-all" }),
-                    _vm._v(" Deshacer\n      "),
-                  ]
-                ),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -88597,7 +88666,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "form-control-label" }, [
-      _vm._v("Seleccione Pedido: "),
+      _vm._v("Pedido: "),
       _c("span", { staticClass: "tx-danger" }, [_vm._v("*")]),
     ])
   },
@@ -88615,7 +88684,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "form-control-label" }, [
-      _vm._v("Proforma: "),
+      _vm._v("Adjuntar Proforma: "),
       _c("span", { staticClass: "tx-danger" }, [_vm._v("*")]),
     ])
   },
@@ -88624,36 +88693,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "form-control-label" }, [
-      _vm._v("Monto de Proforma: "),
+      _vm._v("Monto de la Proforma: "),
       _c("span", { staticClass: "tx-danger" }, [_vm._v("*")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-colored bg-primary" }, [
-      _c("tr", [
-        _c("th"),
-        _vm._v(" "),
-        _c("th", [_vm._v("Pedido")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "wd-30p" }, [_vm._v("Proveedor")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "wd-30p" }, [_vm._v("Proforma")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Monto")]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "valign-middle" }, [
-      _c("button", { staticClass: "btn btn-sm", attrs: { type: "button" } }, [
-        _c("i", { staticClass: "fa fa-close text-danger" }),
-      ]),
     ])
   },
 ]
@@ -88734,110 +88775,124 @@ var render = function () {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "row mg-t-20" }, [
-        _c("div", { staticClass: "col-md mg-t-10 mg-md-t-0" }, [
-          _c("label", { staticClass: "section-label-sm tx-gray-500" }, [
-            _vm._v("Datos del Solicitante"),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "signup-separator" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "billed-to mt-3" }, [
-            _c("div", { staticClass: "mg-t-8 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-3 form-control-label",
-                  attrs: { for: "" },
-                },
-                [_vm._v("Solicitante")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-9" }, [
-                _c("div", { staticClass: "d-flex" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control form-control-sm",
-                    attrs: { type: "text", readonly: "" },
-                    domProps: { value: _vm.empleado[0].cargo },
-                  }),
-                ]),
-              ]),
-            ]),
+        _c(
+          "div",
+          { staticClass: "col-md mg-t-10 mg-md-t-0" },
+          [
+            _c("label-section", [_vm._v("Datos del Solicitante")]),
             _vm._v(" "),
-            _c("div", { staticClass: "mg-t-8 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-3 form-control-label",
-                  attrs: { for: "" },
-                },
-                [_vm._v("Nombre")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-9" }, [
-                _c("input", {
-                  staticClass: "form-control form-control-sm",
-                  attrs: { type: "text", readonly: "", id: "" },
-                  domProps: { value: _vm.empleado[0].name },
-                }),
-              ]),
-            ]),
+            _c("div", { staticClass: "signup-separator" }),
             _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "mg-t-8 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-3 form-control-label",
-                  attrs: { for: "" },
-                },
-                [_vm._v("Area")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-9" }, [
-                _c("select", { staticClass: "form-control form-control-sm" }, [
-                  _c("option", { domProps: { value: _vm.empleado[0].area } }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.empleado[0].area) +
-                        "\n              "
-                    ),
+            _c("div", { staticClass: "billed-to mt-3" }, [
+              _c("div", { staticClass: "mg-t-8 row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-sm-3 form-control-label",
+                    attrs: { for: "" },
+                  },
+                  [_vm._v("Solicitante")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("div", { staticClass: "d-flex" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control form-control-sm",
+                      attrs: { type: "text", readonly: "" },
+                      domProps: { value: _vm.empleado[0].cargo },
+                    }),
                   ]),
                 ]),
               ]),
-            ]),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md mg-t-30 mg-md-t-0" }, [
-          _c("label", { staticClass: "section-label-sm tx-gray-500" }, [
-            _vm._v("Información"),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "signup-separator" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "billed-to mt-3" }, [
-            _c("div", { staticClass: "mg-t-8 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-3 form-control-label",
-                  attrs: { for: "inputStart" },
-                },
-                [_vm._v("Emisión")]
-              ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-sm-9" },
-                [_c("input-date", { attrs: { size: "form-control-sm" } })],
-                1
-              ),
+              _c("div", { staticClass: "mg-t-8 row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-sm-3 form-control-label",
+                    attrs: { for: "" },
+                  },
+                  [_vm._v("Nombre")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    staticClass: "form-control form-control-sm",
+                    attrs: { type: "text", readonly: "", id: "" },
+                    domProps: { value: _vm.empleado[0].name },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "mg-t-8 row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-sm-3 form-control-label",
+                    attrs: { for: "" },
+                  },
+                  [_vm._v("Area")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c(
+                    "select",
+                    { staticClass: "form-control form-control-sm" },
+                    [
+                      _c(
+                        "option",
+                        { domProps: { value: _vm.empleado[0].area } },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empleado[0].area) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
             ]),
-          ]),
-        ]),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md mg-t-30 mg-md-t-0" },
+          [
+            _c("label-section", [_vm._v("Información")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "signup-separator" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "billed-to mt-3" }, [
+              _c("div", { staticClass: "mg-t-8 row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-sm-3 form-control-label",
+                    attrs: { for: "inputStart" },
+                  },
+                  [_vm._v("Emisión")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-9" },
+                  [_c("input-date", { attrs: { size: "form-control-sm" } })],
+                  1
+                ),
+              ]),
+            ]),
+          ],
+          1
+        ),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "wizard wizard-style-2 clearfixx mt-5" }, [
