@@ -33,7 +33,7 @@
                   <img
                     :src="u.avatar ? u.avatar : '/storage/avatars/user.png'"
                     loading="lazy"
-                    class="wd-200 ht-200 rounded-circle"
+                    class="wd-40 rounded-circle"
                     alt="Image"
                   />
                 </td>

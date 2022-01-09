@@ -410,7 +410,7 @@ export default {
           headers: { "content-type": "multipart/form-data" },
         };
         axios
-          .post("/pedidos/proformas", fields, config)
+          .post("/api/proformas", fields, config)
           .then((res) => {
             this.isLoading = false;
             this.$awn.success(res.data);

@@ -19,9 +19,23 @@ class SolicitudesController extends Controller
      */
     public function index()
     {
-        $data = Solicitud::select('idSolicitud', 'idPedido', 'fechaSolicitud', 'estado')
-            ->with(['aprobaciones', 'aprobaciones.empleado', 'aprobaciones.empleado.cargo:idCargo,cargo', 'aprobaciones.empleado.ciudadano:dniCiudadano,nombres'])
-            ->get();
+        $paginate = request('paginate', 1);
+        $search = request('search');
+        if (request('inicio') && request('fin')) {
+            $date1 = request('inicio') . ' 00:00:00.0000000';
+            $date2 = request('fin') . ' 23:59:59.0000000';
+            $data = Solicitud::select('idSolicitud', 'idPedido', 'fechaSolicitud', 'estado')
+                ->with(['aprobaciones', 'aprobaciones.empleado', 'aprobaciones.empleado.cargo:idCargo,cargo', 'aprobaciones.empleado.ciudadano:dniCiudadano,nombres'])
+                ->where('idSolicitud', 'like', "%$search%")
+                ->whereBetween('fechaSolicitud', [$date1, $date2])
+                ->paginate($paginate);
+        } else {
+            $data = Solicitud::select('idSolicitud', 'idPedido', 'fechaSolicitud', 'estado')
+                ->with(['aprobaciones', 'aprobaciones.empleado', 'aprobaciones.empleado.cargo:idCargo,cargo', 'aprobaciones.empleado.ciudadano:dniCiudadano,nombres'])
+                ->where('idSolicitud', 'like', "%$search%")
+                ->paginate($paginate);
+        }
+
         return response()->json($data);
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ProformaProveedor;
+use App\Models\Pedido;
 use Illuminate\Support\Facades\Storage;
 
 class ProformasController extends Controller
@@ -17,7 +18,10 @@ class ProformasController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pedido::with(['proformas' => function ($query) {
+            $query->where('proformaProveedor.idProforma', '<>', null);
+        }])->get();
+        return response()->json($data);
     }
 
     /**
