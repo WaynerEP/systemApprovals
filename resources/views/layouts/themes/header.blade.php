@@ -47,11 +47,10 @@
                     <nav class="nav">
                         <a href="{{ route('profile') }}" class="nav-link"><i class="icon ion-person"></i>
                             {{ __('Ver Perfil') }}</a>
-                        <a href="page-activity.html" class="nav-link"><i class="icon ion-ios-bolt"></i>
+                        {{-- <a href="page-activity.html" class="nav-link"><i class="icon ion-ios-bolt"></i>
                             {{ __('Actividades') }}</a>
                         <a href="page-settings.html" class="nav-link"><i class="icon ion-ios-gear"></i>
-                            {{ __('Configuración') }}</a>
-
+                            {{ __('Configuración') }}</a> --}}
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();" class="nav-link"><i
                                 class="icon ion-forward"></i> {{ __('Cerrar sesión') }}</a>
