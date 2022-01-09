@@ -1,7 +1,7 @@
 @extends('layouts.App')
 
 @section('title')
-    Solicitudes de Compra
+    Listado de Pedidos
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>

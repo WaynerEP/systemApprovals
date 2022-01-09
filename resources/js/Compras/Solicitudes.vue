@@ -478,7 +478,7 @@ export default {
         this.solicitud.detallePedido = this.details;
         this.solicitud.monto = this.total;
         this.$awn.async(
-          axios.post("/solicitud/enviar/", this.solicitud),
+          axios.post("/api/solicitud", this.solicitud),
           (res) => {
             console.log(res.data);
             this.$awn.success(res.data);

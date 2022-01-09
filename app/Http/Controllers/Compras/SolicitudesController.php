@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SolicitudCompra;
+use App\Models\Aprobaciones;
+use App\Models\Solicitud;
 use DB;
 
 class SolicitudesController extends Controller
@@ -17,7 +19,10 @@ class SolicitudesController extends Controller
      */
     public function index()
     {
-        //
+        $data = Solicitud::select('idSolicitud', 'idPedido', 'fechaSolicitud', 'estado')
+            ->with(['aprobaciones', 'aprobaciones.empleado', 'aprobaciones.empleado.cargo:idCargo,cargo', 'aprobaciones.empleado.ciudadano:dniCiudadano,nombres'])
+            ->get();
+        return response()->json($data);
     }
 
     /**

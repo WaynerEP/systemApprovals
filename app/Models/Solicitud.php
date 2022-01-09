@@ -12,9 +12,20 @@ class Solicitud extends Model
     protected $primaryKey = "idSolicitud";
     protected $fillable = [
         'idPedido',
-        'nota',
         'fechaSolicitud',
         'estado',
+        'nota',
+        'codEmpleado',
     ];
     public $timestamps = false;
+
+    public function aprobaciones()
+    {
+        return $this->hasMany(Aprobaciones::class, 'idSolicitud', 'idSolicitud');
+    }
+
+    public function empleado()
+    {
+        return $this->hasOne(Empleado::class, 'codEmpleado', 'codEmpleado');
+    }
 }

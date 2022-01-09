@@ -18,4 +18,9 @@ class Aprobaciones extends Model
         'estado',
     ];
     public $timestamps = false;
+
+    public function empleado()
+    {
+        return $this->hasOne(Empleado::class, 'codEmpleado', 'codEmpleado');
+    }
 }
