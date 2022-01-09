@@ -48,7 +48,7 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
         ]);
-
+        
         if ($request->hasFile('fileImage')) {
             $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
 
@@ -65,11 +65,8 @@ class ProductController extends Controller
             'image' => '/storage/products/' . $customFileName
         ]);
 
-            return response('La acción ha sido exitosa!.', 200);
-            // return response()->json("OK");
+        return response('La acción ha sido exitosa!.', 200);
 
-        
-        // return response('La acción ha sido exitosa!.', 200);
     }
 
     /**
@@ -112,15 +109,29 @@ class ProductController extends Controller
             'stock' => 'required',
             'fileImage' => 'required',
         ]);
+        
+        if ($request->hasFile('fileImage')) {
+            $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
 
-        Product::find($id)->update([
+            Storage::putFileAs('/public/products/', $request->file('fileImage'), $customFileName);
+        } 
+
+        $product = Product::find($id);
+
+        if ($customFileName != null) {
+            if (file_exists($product->image)) {
+                unlink($product->image);
+            }
+        }
+
+        $product->update([
             'descripcionProducto' => $request['descriptionProduct'],
             'idTipo' => $request['type'],
             'medida' => $request['measure'],
             'precioC' => $request['price'],
             'stock' => $request['stock'],
             'estado' => $request['status'],
-            'image' => $request['fileImage']
+            'image' => '/storage/products/' . $customFileName
         ]);
 
         return response('La acción ha sido exitosa!.', 200);
