@@ -8,7 +8,5 @@
     <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
 @endsection
 @section('content')
-    <div class="card card-invoice">
-       Hello Listado de Solicitudes
-    </div>
+    <listar-solicitudes></listar-solicitudes>
 @endsection
