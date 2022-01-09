@@ -111,7 +111,7 @@
               <file-pond
                 styleLayout="compact circle"
                 fileTypes="image/png, image/jpeg, image/gif"
-                :myFiles="myfiles"
+                :myFiles="myFiles"
                 @changeFile="changeImageProduct"
                 classes="wd-150 ht-150"
                 ref="filePondComponente"
@@ -295,7 +295,7 @@ export default {
 
   data() {
     return {
-      myfiles: [],
+      myFiles: [],
       categories: [],
       newCategories: [],
       products: [],
@@ -307,7 +307,7 @@ export default {
         price: "",
         stock: "",
         status: "1",
-        image: {},
+        image: "",
       },
 
       errors: [],
@@ -401,7 +401,7 @@ export default {
           return;
         }
         let fields = new FormData();
-        fields.append("fileImage", this.product.image);
+        // fields.append("fileImage", this.product.image);
         fields.append("descriptionProduct", this.product.descriptionProduct);
         fields.append("type", this.product.type);
         fields.append("measure", this.product.measure);
@@ -433,22 +433,28 @@ export default {
           return;
         }
 
-        let fields = new FormData();
-        fields.append("fileImage", this.product.image);
-        fields.append("descriptionProduct", this.product.descriptionProduct);
-        fields.append("type", this.product.type);
-        fields.append("measure", this.product.measure);
-        fields.append("price", this.product.price);
-        fields.append("stock", this.product.stock);
-        fields.append("status", this.product.status);
+        let data = new FormData();
+        data.append("fileImage", this.product.image);
+        data.append("descriptionProduct", this.product.descriptionProduct);
+        data.append("type", this.product.type);
+        data.append("measure", this.product.measure);
+        data.append("price", this.product.price);
+        data.append("stock", this.product.stock);
+        data.append("status", this.product.status);
+        data.append("_method", "put");
+
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
 
         axios
-          .put("/products/" + this.selected_id, fields)
+          .post("/products/" + this.selected_id, data, config)
           .then((res) => {
-            this.getCategories();
-            this.getProducts(0);
-            $("#exampleModal").modal("hide");
-            this.$awn.success(res.data);
+            // this.getCategories();
+            // this.getProducts(0);
+            // $("#exampleModal").modal("hide");
+            // this.$awn.success(res.data);
+            console.log(res.data);
             this.isLoading = false;
           })
           .catch((e) => {
@@ -465,14 +471,12 @@ export default {
       this.product.measure = data.medida;
       this.product.price = data.precioC;
       this.product.stock = data.stock;
-      this.product.image = data.image;
       this.product.type = data.idTipo;
-      // this.myfiles.push(data.image);
       if (data.image) {
-        this.myfiles.push(data.image);
+        this.myFiles.push(data.image);
+        console.log(this.myFiles);
       }
 
-      // console.log(data.image);
       this.selected_id = data.idProducto;
       $("#exampleModal").modal("show");
     },
@@ -514,16 +518,19 @@ export default {
       this.product.stock = "";
       this.product.type = "";
       this.product.status = "1";
+      this.product.image = "";
       this.$refs.filePondComponente.removeFiles();
+      this.myFiles = [];
       this.selected_id = "";
     },
 
     // Aquí vamos a agregar las imagénes
-    changeImageProduct(e) {
-      if (e.length > 0) {
-        this.product.image = e[0].file;
+    changeImageProduct(val) {
+      console.log(val);
+      if (val.length > 0) {
+        this.product.image = val[0].file;
       } else {
-        this.product.image = {};
+        this.product.image = "";
       }
     },
   },

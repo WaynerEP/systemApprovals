@@ -7,6 +7,7 @@ use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
 use App\Http\Controllers\Compras\PedidoController;
 use App\Http\Controllers\Compras\SolicitudesController;
+use App\Http\Controllers\Compras\ProformasController;
 use App\Models\Organizacion;
 use App\Models\Area;
 use App\Models\DetallePedidos;
@@ -110,6 +111,14 @@ Route::apiResource('/pedidos', PedidoController::class);
 //solicitudes api
 Route::resource('/solicitud', SolicitudesController::class);
 
+//proformas api
+Route::resource('/proformas', ProformasController::class);
+
+
+//numero de pedido se incrementa + 1
+Route::get('/aprobaciones/detail/{idAprobaciones}', function ($id) {
+    return response()->json(DB::select('exec spDetailAprobaciones ?', array($id)));
+});
 
 
 //numero de pedido se incrementa + 1

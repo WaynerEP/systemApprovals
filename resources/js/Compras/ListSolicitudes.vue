@@ -15,7 +15,7 @@
           v-model="paginate"
           class="form-control form-control-sm rounded-5"
         >
-          <option value="3">3</option>
+          <option value="1">1</option>
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="30">30</option>
@@ -47,7 +47,7 @@
         <div class="input-group mg-t-10 mg-md-t-0">
           <input
             type="search"
-            v-model="search"
+            v-model.lazy="search"
             placeholder="Search for..."
             class="form-control form-control-sm rounded-5"
           />
@@ -77,8 +77,8 @@
           </tr>
         </thead>
         <tbody>
-          <template v-if="solicitudes.length > 0">
-            <tr v-for="s in solicitudes" :key="s.idSolicitud">
+          <template v-if="solicitudes.total > 0">
+            <tr v-for="s in solicitudes.data" :key="s.idSolicitud">
               <td class="text-center">{{ s.idSolicitud }}</td>
               <td>Jefe de áreas de compras</td>
               <td>{{ formatDateAsString(s.fechaSolicitud) }}</td>
@@ -108,7 +108,8 @@
                     <span class="badge bg-danger tx-white mr-2" v-else>
                       RECHAZADA POR
                     </span>
-                    {{ sa.empleado.ciudadano.nombres }} - {{ sa.empleado.cargo.cargo }}
+                    {{ sa.empleado.ciudadano.nombres }} -
+                    {{ sa.empleado.cargo.cargo }}
                   </li>
                 </ol>
               </td>
@@ -139,7 +140,7 @@
           </template>
         </tbody>
       </table>
-      <!-- <div
+      <div
         class="
           pagination-wrapper
           flex-md-row flex-column
@@ -148,28 +149,31 @@
         "
       >
         <span class="section-label-sm mg-t-20 mg-md-t-0"
-          >Mostrando {{ pedidos.current_page }} a {{ pedidos.to }} de
-          {{ pedidos.total }} entradas</span
+          >Mostrando {{ solicitudes.current_page }} a {{ solicitudes.to }} de
+          {{ solicitudes.total }} entradas</span
         >
         <div class="d-flex justify-content-between">
           <pagination
-            :data="pedidos"
+            :data="solicitudes"
             @pagination-change-page="loadAsyncData"
           ></pagination>
         </div>
-      </div> -->
+      </div>
     </div>
     <!-- table-responsive -->
 
     <!-- start modal detalles -->
     <modal-section maxWidth="lg" class="wd-100v">
-      <template #title> Detalle </template>
+      <template #title>
+        Detalle para la Solicitud N°.{{ selected_id }}
+      </template>
       <template #body>
         <label class="section-label-sm tx-gray-500"
-          >----------------------------------------------Detalle de su
+          >----------------------------------------------Detalle de la
           Solicitudes de
           Compra----------------------------------------------</label
         >
+        <div class="signup-separator"></div>
         <details-solicitud ref="detalle"></details-solicitud>
       </template>
       <template #footer>
@@ -197,8 +201,8 @@ export default {
   },
   data() {
     return {
-      solicitudes: [],
-      paginate: "3",
+      solicitudes: {},
+      paginate: "1",
       search: "",
       date1: "",
       date2: "",
@@ -206,6 +210,7 @@ export default {
       isSearch: false,
       isNoEmpty: true,
       loadingSearch: false,
+      selected_id: "",
     };
   },
 
@@ -217,12 +222,13 @@ export default {
 
   methods: {
     showDetailsSolicitud(val) {
+      this.selected_id = val;
       this.$refs.detalle.details = [];
       this.$refs.detalle.fetchData(val);
     },
 
     reloadData() {
-      this.paginate = "3";
+      this.paginate = "1";
       this.search = "";
       this.date1 = "";
       this.date2 = "";
@@ -235,11 +241,28 @@ export default {
     },
 
     async loadAsyncData(page = 1) {
-      const res = await axios.get("/api/solicitud");
+      if (this.search) {
+        this.isSearch = true;
+      }
+      const res = await axios.get(
+        "/api/solicitud?page=" +
+          page +
+          "&paginate=" +
+          this.paginate +
+          "&search=" +
+          this.search +
+          "&inicio=" +
+          this.date1 +
+          "&fin=" +
+          this.date2 +
+          "&search=" +
+          this.search
+      );
       this.solicitudes = res.data;
       if (res.data) {
         this.isNoEmpty = false;
       }
+      this.isSearch = false;
     },
   },
 

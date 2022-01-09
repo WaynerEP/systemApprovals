@@ -7,9 +7,5 @@
     <li class="breadcrumb-item active" aria-current="page">Listado</li>
 @endsection
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 mg-lg-t-0">
-            Hello listado de proformas
-        </div>
-    </div>
+    <list-proformas></list-proformas>
 @endsection

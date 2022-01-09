@@ -18,4 +18,8 @@ class Pedido extends Model
     ];
     public $timestamps = false;
 
+    public function proformas()
+    {
+        return $this->hasMany(ProformaProveedor::class, 'idPedido', 'idPedido');
+    }
 }
