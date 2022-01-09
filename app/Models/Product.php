@@ -15,7 +15,6 @@ class Product extends Model
         'descripcionProducto',
         'medida',
         'precioC',
-        'precioV',
         'stock',
         'estado',
         'image',

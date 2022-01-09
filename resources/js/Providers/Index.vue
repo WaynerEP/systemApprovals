@@ -7,8 +7,10 @@
         class="btn btn-outline-primary"
         data-toggle="modal"
         data-target="#exampleModal"
-        ><i class="fa fa-plus"></i> Agregar</a
       >
+        <i class="fa fa-plus"></i>
+        Agregar
+      </a>
     </div>
     <div
       class="col-md-4 mt-4 mg-md-t-0"

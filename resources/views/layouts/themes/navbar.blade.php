@@ -42,7 +42,7 @@
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="{{ route('productos') }}">Productos</a></li>
+                        <li><a href="{{ route('productos')}}">Productos</a></li>
                         {{-- <li><a href="{{ route('proformas') }}">Proformas</a></li> --}}
                         {{-- <li class="sub-with-sub">
                             <a href="#">Solicitudes de Compra</a>

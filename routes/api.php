@@ -54,6 +54,7 @@ Route::get('/depas', [cargosController::class, 'getDepartamentoEmpresa']);
 Route::get('/depas/areas/{idDepa}', [cargosController::class, 'getAreasByDepartamento']);
 Route::get('/depas/areas/cargos/{idArea}', [cargosController::class, 'getCargos']);
 
+// Nos trae todos los proveedores que
 //Nos trae todos los proveedores que
 // tienen de estado 1
 Route::get('/dataProviders', function () {
