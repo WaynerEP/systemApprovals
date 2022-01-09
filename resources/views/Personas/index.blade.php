@@ -1,6 +1,6 @@
 @extends('layouts.App')
 @section('title')
-    <h6 class="slim-pagetitle">Personas</h6>
+    Personas
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>

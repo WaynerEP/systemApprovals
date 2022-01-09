@@ -49,5 +49,18 @@
                 {{ __('Login') }}
             </button>
         </div>
+
+        <div class="signup-separator"><span>o</span></div>
+        <a href="{{ route('auth-google') }}"
+            class="btn btn-facebook btn-block d-flex justify-content-center text-white">Iniciar
+            sesión usando Google <div class="ml-2"><i class="fa fa-google-plus"></i></div></a>
+        @if (Session::has('errorAuthGoogle'))
+            <div class="alert alert-solid alert-danger mt-3" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+               {!! Session::get('errorAuthGoogle') !!}.
+            </div>
+        @endif
     </form>
 @endsection

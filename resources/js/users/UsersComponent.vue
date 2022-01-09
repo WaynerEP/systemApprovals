@@ -5,25 +5,24 @@
         class="card-header d-flex align-items-center justify-content-between"
       >
         <h6 class="slim-card-title">Lista de Usuarios</h6>
-        <a
+        <button
+          type="button"
           @click="openModal()"
-          href=""
-          class="btn btn-outline-primary"
+          class="btn btn-outline-info"
           data-toggle="modal"
           data-target="#exampleModal"
-          ><i class="fa fa-plus"></i> Agregar</a
         >
+          <i class="fa fa-plus"></i> Agregar
+        </button>
       </div>
 
       <div class="card-body">
         <table-component>
           <template #thead>
-            <th class="wd-5p pd-y-5">Image</th>
+            <th class="pd-y-5"></th>
             <th class="pd-y-5">Usuario</th>
             <th class="pd-y-5">Email</th>
             <th class="pd-y-5">Rol</th>
-            <th class="pd-y-5">Última Sesión</th>
-            <th class="pd-y-5">Fecha</th>
             <th class="pd-y-5">Estado</th>
             <th class="pd-y-5">Acciones</th>
           </template>
@@ -32,13 +31,14 @@
               <tr v-for="u in users" :key="u.id">
                 <td class="valign-middle pd-l-20">
                   <img
-                    src="http://via.placeholder.com/500x500"
-                    class="wd-36 rounded-circle"
+                    :src="u.avatar ? u.avatar : '/storage/avatars/user.png'"
+                    loading="lazy"
+                    class="wd-200 ht-200 rounded-circle"
                     alt="Image"
                   />
                 </td>
                 <td class="valign-middle">
-                  <span class="tx-inverse tx-14 tx-medium d-block">
+                  <span class="tx-medium">
                     {{ u.name }}
                   </span>
                 </td>
@@ -48,23 +48,6 @@
                     {{ r.name }}
                   </template>
                 </td>
-                <td class="valign-middle tx-12">
-                  <template v-if="u.last_login">
-                    <span
-                      class="square-8 bg-success mg-r-5 rounded-circle"
-                    ></span>
-                    {{ getHumanDate(u.last_login) }}
-                  </template>
-                  <template v-else
-                    ><span
-                      class="square-8 bg-warning mg-r-5 rounded-circle"
-                    ></span>
-                    Nunca</template
-                  >
-                </td>
-                <td class="valign-middle">
-                  {{ getCreatedDate(u.created_at) }}
-                </td>
                 <td class="valign-middle">
                   <span class="tx-success" v-if="u.status == 1"
                     >Habilitado</span
@@ -73,15 +56,17 @@
                 </td>
                 <td class="valign-middle">
                   <button
+                    type="button"
                     @click="editUser(u)"
-                    class="btn btn-outline-primary btn-sm"
+                    class="btn btn-outline-info btn-sm"
                   >
                     <i class="fa fa-pencil"></i>
                   </button>
                   <button
+                    type="button"
                     :disabled="u.status == 0"
                     @click="deleteUser(u.id)"
-                    class="btn btn-outline-danger btn-sm"
+                    class="btn btn-sm btn-outline-secondary"
                   >
                     <i class="fa fa-close"></i>
                   </button>
@@ -91,10 +76,10 @@
 
             <template v-else>
               <tr class="text-center">
-                <td colspan="8" v-if="isNoEmpty">
+                <td colspan="8" v-if="isNoEmpty" class="text-info">
                   <Loading></Loading>
                 </td>
-                <td colspan="8" v-else>No se encontraron resultados</td>
+                <td colspan="8" v-else>No se encontraron resultados!!</td>
               </tr>
             </template>
           </template>
@@ -102,105 +87,165 @@
       </div>
     </div>
 
-    <modal-section @submitted="store" @close="resetForm()">
+    <modal-section maxWidth="lg" @submitted="store" @close="resetForm()">
       <template #title>
         {{ isActionNew ? "Nuevo Usuario" : "Actualizar Usuario" }}
       </template>
       <template #body>
-        <div class="form-group">
-          <label class="form-control-label" for="inputAutocomplete"
-            >Persona/Empleado</label
-          >
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              v-model="user.name"
-              :class="{ 'is-invalid': errors && errors.name }"
-              placeholder="Buscar..."
-            />
-            <span class="input-group-btn">
-              <button class="btn bd bd-l-0 bg-white tx-gray-600" type="button">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
-          <div class="invalid-feedback d-block" v-if="errors && errors.name">
-            {{ errors.name[0] }}
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-4" v-show="isActionNew">
-            <label class="form-control-label" for="inputDni">Documento</label>
-            <input
-              type="number"
-              v-model="user.dni"
-              class="form-control"
-              :class="{ 'is-invalid': errors && errors.dni }"
-              id="inputDni"
-              placeholder="Dni"
-            />
-            <div class="invalid-feedback" v-if="errors && errors.dni">
-              {{ errors.dni[0] }}
+        <div class="form-layout">
+          <div class="row mg-b-25">
+            <div class="col-lg-6" v-show="isActionNew">
+              <div class="form-group">
+                <label class="form-control-label"
+                  >Empleado: <span class="tx-danger">*</span></label
+                >
+                <select
+                  class="form-control"
+                  v-model="user.empleado"
+                  :disabled="!isActionNew"
+                  :class="{ 'is-invalid': errors && errors.empleado }"
+                  @change="selectedPersona(user.empleado)"
+                >
+                  <option value="">Seleccione</option>
+                  <option
+                    v-for="employee in employees"
+                    :key="employee.codEmpleado"
+                    :value="
+                      employee.codEmpleado +
+                      '_' +
+                      employee.dni +
+                      '_' +
+                      employee.email +
+                      '_' +
+                      employee.names
+                    "
+                  >
+                    {{ employee.names }}
+                  </option>
+                </select>
+                <div
+                  class="invalid-feedback d-block"
+                  v-if="errors && errors.empleado"
+                >
+                  {{ errors.empleado[0] }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group col">
-            <label class="form-control-label" for="inputEmail">Correo</label>
-            <input
-              type="email"
-              v-model="user.email"
-              class="form-control"
-              :class="{ 'is-invalid': errors && errors.email }"
-              id="inputEmail"
-              placeholder="Email"
-            />
-            <div class="invalid-feedback" v-if="errors && errors.email">
-              {{ errors.email[0] }}
+            <!-- col-12 -->
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="inputUser"
+                  >Username: <span class="tx-danger">*</span></label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  id="inputUser"
+                  v-model="user.name"
+                  :class="{ 'is-invalid': errors && errors.name }"
+                  placeholder="Username"
+                />
+                <div
+                  class="invalid-feedback d-block"
+                  v-if="errors && errors.name"
+                >
+                  {{ errors.name[0] }}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label class="form-control-label" for="inputStatus">Estado</label>
-            <select
-              id="inputStatus"
-              v-model="user.status"
-              class="form-control"
-              :class="{ 'is-invalid': errors && errors.status }"
-            >
-              <option value="">Seleccione...</option>
-              <option value="1">Habilitado</option>
-              <option value="0">Inhabilitado</option>
-            </select>
-            <div
-              class="invalid-feedback d-block"
-              role="alert"
-              v-if="errors && errors.status"
-            >
-              {{ errors.status[0] }}
+            <!-- col-12 -->
+            <div class="col-lg-6" v-show="isActionNew">
+              <div class="form-group">
+                <label class="form-control-label" for="inputDni"
+                  >Documento: <span class="tx-danger">*</span></label
+                >
+                <input
+                  type="number"
+                  readonly
+                  v-model="user.dni"
+                  class="form-control bg-white"
+                  :class="{ 'is-invalid': errors && errors.dni }"
+                  id="inputDni"
+                  placeholder="Dni"
+                />
+                <div class="invalid-feedback" v-if="errors && errors.dni">
+                  {{ errors.dni[0] }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label class="form-control-label" for="inputRole">Rol</label>
-            <select
-              id="inputRole"
-              v-model="user.role"
-              class="form-control"
-              :class="{ 'is-invalid': errors && errors.role }"
-            >
-              <option value="">Seleccione...</option>
-              <option :value="r.id" v-for="r in roles" :key="r.id">
-                {{ r.name }}
-              </option>
-            </select>
-            <div
-              class="invalid-feedback d-block"
-              role="alert"
-              v-if="errors && errors.role"
-            >
-              {{ errors.role[0] }}
+            <!-- col-12 -->
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="inputEmail"
+                  >Email: <span class="tx-danger">*</span></label
+                >
+                <input
+                  type="email"
+                  v-model="user.email"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors && errors.email }"
+                  id="inputEmail"
+                  placeholder="Email"
+                />
+                <div class="invalid-feedback" v-if="errors && errors.email">
+                  {{ errors.email[0] }}
+                </div>
+              </div>
             </div>
+            <!-- col-12 -->
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="inputStatus"
+                  >Estado: <span class="tx-danger">*</span></label
+                >
+                <select
+                  id="inputStatus"
+                  v-model="user.status"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors && errors.status }"
+                >
+                  <option value="">Seleccione...</option>
+                  <option value="1">Habilitado</option>
+                  <option value="0">Inhabilitado</option>
+                </select>
+                <div
+                  class="invalid-feedback d-block"
+                  role="alert"
+                  v-if="errors && errors.status"
+                >
+                  {{ errors.status[0] }}
+                </div>
+              </div>
+            </div>
+            <!-- col-12 -->
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="inputRole"
+                  >Roles: <span class="tx-danger">*</span></label
+                >
+                <select
+                  id="inputRole"
+                  v-model="user.rol"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors && errors.rol }"
+                >
+                  <option value="">Seleccione...</option>
+                  <option :value="r.id" v-for="r in roles" :key="r.id">
+                    {{ r.name }}
+                  </option>
+                </select>
+                <div
+                  class="invalid-feedback d-block"
+                  role="alert"
+                  v-if="errors && errors.rol"
+                >
+                  {{ errors.rol[0] }}
+                </div>
+              </div>
+            </div>
+            <!-- col-4 -->
           </div>
+          <!-- row -->
         </div>
         <small>
           Nota: El password del usuario será su número de Dni y podrá cambiarla
@@ -221,7 +266,7 @@
           class="btn"
           :class="{ 'btn-primary': isActionNew, 'btn-info': !isActionNew }"
         >
-          <loader-action v-show="isLoading"></loader-action>
+          <Loading v-show="isLoading"></Loading>
           Guardar
         </button>
       </template>
@@ -231,10 +276,8 @@
 
 <script>
 import TableComponent from "../components/Table.vue";
-import moment from "moment";
 import ModalSection from "../components/ModalSection.vue";
-import Loading from "../components/Loader.vue";
-import LoaderAction from "../components/LoaderAction.vue";
+import Loading from "../components/LoaderAction.vue";
 
 export default {
   name: "Users",
@@ -243,11 +286,11 @@ export default {
     ModalSection,
     Loading,
     TableComponent,
-    LoaderAction,
   },
 
   mounted() {
     this.getUsers();
+    this.getEmployees();
     this.getRoles();
   },
 
@@ -255,11 +298,14 @@ export default {
     return {
       users: [],
       roles: [],
+      employees: [],
       user: {
+        empleado: "",
         name: "",
         email: "",
         dni: "",
-        role: "",
+        codeEmpleado: "",
+        rol: "",
         status: "1",
       },
       errors: [],
@@ -271,20 +317,32 @@ export default {
   },
 
   methods: {
-    getHumanDate: function (date) {
-      moment.locale("es");
-      return moment(date, "YYYY-MM-DD h:mm:ss").fromNow();
-    },
-
-    getCreatedDate: function (date) {
-      return moment(date).format("DD/MM/YYYY");
-    },
-
     async getUsers() {
       const res = await axios.get("/users/list");
       this.users = res.data;
       if (res) {
         this.isNoEmpty = false;
+      }
+    },
+
+    async getEmployees() {
+      const res = await axios.get("/api/users/employees");
+      this.employees = res.data;
+    },
+
+    async getRoles() {
+      const res = await axios.get("/users/roles");
+      this.roles = res.data;
+    },
+
+    selectedPersona(value) {
+      if (this.isActionNew) {
+        let el = this;
+        let datos = value.split("_");
+        el.user.codeEmpleado = datos[0];
+        el.user.dni = datos[1];
+        el.user.email = datos[2];
+        el.user.name = datos[3];
       }
     },
 
@@ -302,6 +360,7 @@ export default {
           .then((res) => {
             $("#exampleModal").modal("hide");
             this.getUsers();
+            this.getEmployees();
             this.$awn.success(res.data);
             this.isLoading = false;
           })
@@ -349,38 +408,32 @@ export default {
       this.user.name = data.name;
       this.user.email = data.email;
       this.user.status = data.status;
-      data.roles[0]
-        ? (this.user.role = data.roles[0].id)
-        : (this.user.role = "");
+      data.roles[0] ? (this.user.rol = data.roles[0].id) : (this.user.rol = "");
       this.selected_id = data.id;
       $("#exampleModal").modal("show");
-    },
-
-    async getRoles() {
-      const res = await axios.get("/users/roles");
-      this.roles = res.data;
     },
 
     existsErrors(e) {
       if (e.response.status === 422) {
         this.errors = e.response.data.errors;
       } else {
-        this.$awn.alert("Ha ocurrido un error!.");
+        this.$awn.alert("La acción ha fallado!.");
       }
       this.isLoading = false;
     },
 
     resetForm() {
       this.isLoading = false;
+      this.user.empleado = "";
       this.user.name = "";
       this.user.email = "";
       this.user.dni = "";
-      this.user.role = "";
+      this.user.rol = "";
       this.user.status = "1";
-      this.isActionNew = true;
       this.errors = [];
-      this.roles = [];
+      this.isActionNew = true;
     },
   },
 };
 </script>
+

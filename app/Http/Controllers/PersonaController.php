@@ -17,7 +17,6 @@ class PersonaController extends Controller
     }
 
 
-
     public function create()
     {
         $depas = Departamento::all();

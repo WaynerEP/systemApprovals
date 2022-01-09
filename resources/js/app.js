@@ -11,7 +11,7 @@ import VueAWN from "vue-awesome-notifications"
 // Your custom options
 let options = {
     labels: {
-        success: "Exito!",
+        success: "Éxito!",
         confirm: "Confirmación requerida",
     }
 }
@@ -29,6 +29,9 @@ Vue.use(VueAWN, options)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+//pagination vue laravel
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 // Management Users
 Vue.component('users-component', require('./users/UsersComponent.vue').default);
 
@@ -41,13 +44,28 @@ Vue.component('permissions-component', require('./users/PermissionsComponent.vue
 //Management Providers
 Vue.component('providers-component', require('./Providers/Index.vue').default);
 
+//Management Products
+Vue.component('products-component', require('./Products/Index.vue').default);
 //Personas
 // Vue.component('people-component', require('./Personas/Index.vue').default);
 // Vue.component('people-create-component', require('./Personas/Create.vue').default);
- 
-// //Empleados and Proveedores
-// Vue.component('employees-component', require('./Empleados/Index.vue').default);
-// Vue.component('providers-component', require('./Proveedores/Index.vue').default);
+
+// Solicitudes
+Vue.component('solicitud-component', require('./Compras/Solicitudes.vue').default);
+Vue.component('listar-solicitudes', require('./Compras/ListSolicitudes.vue').default);
+
+// Pedidos
+Vue.component('pedidos-component', require('./Compras/Pedidos.vue').default);
+Vue.component('list-pedidos', require('./Compras/ListPedidos.vue').default);
+
+// Solicitudes
+Vue.component('proformas-component', require('./Compras/Proformas.vue').default);
+
+// Solicitudes
+Vue.component('list-solicitudes', require('./Orders/Index.vue').default);
+
+// Solicitudes
+Vue.component('user-profile', require('./Profile/User-Profile.vue').default);
 
 
 /**
