@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use DB;
 use App\Models\Product;
@@ -18,6 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         //
+        return view('Productos.index');
     }
 
     /**
@@ -39,6 +41,35 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'descriptionProduct' => 'required|string|max:100|unique:productos,descripcionProducto',
+            'type' => 'required',
+            'measure' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+        ]);
+
+        if ($request->hasFile('fileImage')) {
+            $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
+
+            Storage::putFileAs('/public/products/', $request->file('fileImage'), $customFileName);
+        } 
+
+        Product::create([
+            'descripcionProducto' => $request['descriptionProduct'],
+            'idTipo' => $request['type'],
+            'medida' => $request['measure'],
+            'precioC' => $request['price'],
+            'stock' => $request['stock'],
+            'estado' => $request['status'],
+            'image' => '/storage/products/' . $customFileName
+        ]);
+
+            return response('La acción ha sido exitosa!.', 200);
+            // return response()->json("OK");
+
+        
+        // return response('La acción ha sido exitosa!.', 200);
     }
 
     /**
@@ -73,6 +104,26 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'descriptionProduct' => 'required|string|max:100|unique:productos,descripcionProducto,'.$id.',idProducto',
+            'type' => 'required',
+            'measure' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'fileImage' => 'required',
+        ]);
+
+        Product::find($id)->update([
+            'descripcionProducto' => $request['descriptionProduct'],
+            'idTipo' => $request['type'],
+            'medida' => $request['measure'],
+            'precioC' => $request['price'],
+            'stock' => $request['stock'],
+            'estado' => $request['status'],
+            'image' => $request['fileImage']
+        ]);
+
+        return response('La acción ha sido exitosa!.', 200);
     }
 
     /**
@@ -84,5 +135,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        Product::find($id)->delete();
+        // $product=Product::find($id);
+        // $product->estado = 0;
+        // $product->save();
+
+        return response('La acción ha sido exitosa!.', 200);
     }
 }

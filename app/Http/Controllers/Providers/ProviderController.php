@@ -50,6 +50,8 @@ class ProviderController extends Controller
         ]);
 
         return response('La acción ha sido exitosa!.', 200);
+
+        
     }
 
     /**

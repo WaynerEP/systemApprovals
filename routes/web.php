@@ -11,6 +11,8 @@ use App\Http\Controllers\Aprobaciones\orderController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Profile\UserProfileController;
 
+use App\Http\Controllers\Products\ProductController;
+
 // use App\Models\User;
 // use GuzzleHttp\Middleware;
 
@@ -146,9 +148,11 @@ Route::post('/pedidos/proformas', [PedidoController::class, 'storeProformas'])->
 Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit')->middleware('auth');
 //Proveedores
 
-// ruta para productos,categorias
-Route::view('/productos', 'Productos.index')
-    ->name('productos')->middleware('auth');
+//ruta productos
+Route::view('/productos','Productos.index')->name('productos');
+
+// ruta para productos
+Route::resource('/products', ProductController::class)->except('create', 'show', 'edit')->middleware('auth');
 
 //ruta para mostrar las proformas
 Route::get('/showProforma/{idPedido}/{value}', [PedidoController::class, 'showProforma']);
