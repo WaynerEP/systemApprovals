@@ -150,7 +150,7 @@ Route::resource('/pedidos/proformas', ProformasController::class)->middleware('a
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
 //ruta post para guardar la solicitud y hacer el envio de correos
-Route::resource('/solicitud/enviar', SolicitudesControllerController::class);
+// Route::resource('/solicitud/enviar', SolicitudesControllerController::class);
 
 
 // Aquí estará la data que cree a proveedores

@@ -101,28 +101,29 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // return $request;
+
         $request->validate([
             'descriptionProduct' => 'required|string|max:100|unique:productos,descripcionProducto,'.$id.',idProducto',
             'type' => 'required',
             'measure' => 'required',
             'price' => 'required',
             'stock' => 'required',
-            'fileImage' => 'required',
         ]);
         
-        if ($request->hasFile('fileImage')) {
-            $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
+        // if ($request->hasFile('fileImage')) {
+        //     $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
 
-            Storage::putFileAs('/public/products/', $request->file('fileImage'), $customFileName);
-        } 
+        //     Storage::putFileAs('/public/products/', $request->file('fileImage'), $customFileName);
+        // } 
 
         $product = Product::find($id);
 
-        if ($customFileName != null) {
-            if (file_exists($product->image)) {
-                unlink($product->image);
-            }
-        }
+        // if ($customFileName != null) {
+        //     if (file_exists($product->image)) {
+        //         unlink($product->image);
+        //     }
+        // }
 
         $product->update([
             'descripcionProducto' => $request['descriptionProduct'],
@@ -131,7 +132,7 @@ class ProductController extends Controller
             'precioC' => $request['price'],
             'stock' => $request['stock'],
             'estado' => $request['status'],
-            'image' => '/storage/products/' . $customFileName
+            'image' => '/storage/products/'
         ]);
 
         return response('La acción ha sido exitosa!.', 200);

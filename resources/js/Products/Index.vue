@@ -445,6 +445,7 @@ export default {
         axios
           .put("/products/" + this.selected_id, fields)
           .then((res) => {
+            console.log(res.data);
             this.getCategories();
             this.getProducts(0);
             $("#exampleModal").modal("hide");
@@ -458,6 +459,7 @@ export default {
     },
 
     editProduct(data) {
+      this.resetForm();
       this.errors = [];
       this.isActionNew = false; //Aquí
       this.isLoading = false;
@@ -465,8 +467,10 @@ export default {
       this.product.measure = data.medida;
       this.product.price = data.precioC;
       this.product.stock = data.stock;
-      this.product.image = data.image;
+      // this.product.image = data.image;
       this.product.type = data.idTipo;
+      // console.log(this.product.image);
+      // console.log();
       // this.myfiles.push(data.image);
       if (data.image) {
         this.myfiles.push(data.image);
@@ -508,8 +512,10 @@ export default {
       this.isLoading = false;
       this.isActionNew = true;
       this.errors = [];
+      this.myfiles = [];
       this.product.descriptionProduct = "";
       this.product.measure = "";
+      this.product.image = "";
       this.product.price = "";
       this.product.stock = "";
       this.product.type = "";

@@ -4608,6 +4608,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _fields.append("status", this.product.status);
 
         axios.put("/products/" + this.selected_id, _fields).then(function (res) {
+          console.log(res.data);
+
           _this3.getCategories();
 
           _this3.getProducts(0);
@@ -4623,6 +4625,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     editProduct: function editProduct(data) {
+      this.resetForm();
       this.errors = [];
       this.isActionNew = false; //Aquí
 
@@ -4630,9 +4633,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.product.descriptionProduct = data.descripcionProducto;
       this.product.measure = data.medida;
       this.product.price = data.precioC;
-      this.product.stock = data.stock;
-      this.product.image = data.image;
-      this.product.type = data.idTipo; // this.myfiles.push(data.image);
+      this.product.stock = data.stock; // this.product.image = data.image;
+
+      this.product.type = data.idTipo; // console.log(this.product.image);
+      // console.log();
+      // this.myfiles.push(data.image);
 
       if (data.image) {
         this.myfiles.push(data.image);
@@ -4674,8 +4679,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isLoading = false;
       this.isActionNew = true;
       this.errors = [];
+      this.myfiles = [];
       this.product.descriptionProduct = "";
       this.product.measure = "";
+      this.product.image = "";
       this.product.price = "";
       this.product.stock = "";
       this.product.type = "";
