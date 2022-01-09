@@ -29,6 +29,9 @@ Vue.use(VueAWN, options)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+//pagination vue laravel
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 // Management Users
 Vue.component('users-component', require('./users/UsersComponent.vue').default);
 
@@ -53,6 +56,7 @@ Vue.component('solicitud-component', require('./Compras/Solicitudes.vue').defaul
  
 // Pedidos
 Vue.component('pedidos-component', require('./Compras/Pedidos.vue').default);
+Vue.component('list-pedidos', require('./Compras/ListPedidos.vue').default);
  
 // Solicitudes
 Vue.component('proformas-component', require('./Compras/Proformas.vue').default);

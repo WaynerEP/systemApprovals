@@ -7,7 +7,9 @@ use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\Providers\ProviderController;
 use App\Http\Controllers\Compras\PedidoController;
+use App\Http\Controllers\Compras\ProformasController;
 use App\Http\Controllers\Aprobaciones\orderController;
+use App\Http\Controllers\Compras\SolicitudesController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Profile\UserProfileController;
 
@@ -85,7 +87,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas para proformas
     Route::view('/compras-proformas', 'Proformas.Create')
-        ->name('proformas.create');
+        ->name('proformas.new');
 
     // Rutas para listar proformas
     Route::view('/compras-proformas/list', 'Proformas.Index')
@@ -138,11 +140,18 @@ Route::resource('/permissions/list', PermissionsController::class)->except('crea
 //routes para personas
 Route::resource('personas', PersonaController::class)->middleware('auth');
 
+
 //Routes para pedidos
-Route::resource('pedidos', PedidoController::class)->middleware('auth');
+// Route::resource('pedidos', PedidoController::class)->middleware('auth');
 
 //Routes para proformas
-Route::post('/pedidos/proformas', [PedidoController::class, 'storeProformas'])->middleware('auth');
+Route::resource('/pedidos/proformas', ProformasController::class)->middleware('auth');
+//ruta para mostrar las proformas
+Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
+
+//ruta post para guardar la solicitud y hacer el envio de correos
+Route::resource('/solicitud/enviar', SolicitudesControllerController::class);
+
 
 // Aquí estará la data que cree a proveedores
 Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit')->middleware('auth');
@@ -154,11 +163,6 @@ Route::view('/productos','Productos.index')->name('productos');
 // ruta para productos
 Route::resource('/products', ProductController::class)->except('create', 'show', 'edit')->middleware('auth');
 
-//ruta para mostrar las proformas
-Route::get('/showProforma/{idPedido}/{value}', [PedidoController::class, 'showProforma']);
-
-//ruta post para guardar la solicitud y hacer el envio de correos
-Route::post('/solicitud/enviar', [PedidoController::class, 'storeSolicitud']);
 
 //orders
 Route::get('orders/{idEmpleado}/{idPedido}', [orderController::class, 'index'])->name('order');

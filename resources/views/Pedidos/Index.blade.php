@@ -8,7 +8,5 @@
     <li class="breadcrumb-item active" aria-current="page">Listado</li>
 @endsection
 @section('content')
-    <div class="section-wrapper">
-        Hello
-    </div>
+    <list-pedidos></list-pedidos>
 @endsection

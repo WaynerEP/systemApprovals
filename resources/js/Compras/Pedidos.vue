@@ -310,7 +310,7 @@ export default {
 
     getNroPedido() {
       return axios
-        .get("/api/pedidos/number")
+        .get("/api/pedido/number")
         .then((response) => "0000" + response.data.max);
     },
 
@@ -354,7 +354,7 @@ export default {
         this.pedido.detalle = this.details;
         this.pedido.total = this.total;
         axios
-          .post("/pedidos", this.pedido)
+          .post("/api/pedidos", this.pedido)
           .then((res) => {
             this.$awn.success(res.data);
             this.isLoading = false;

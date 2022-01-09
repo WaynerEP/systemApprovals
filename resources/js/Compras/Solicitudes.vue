@@ -39,7 +39,6 @@
               </div>
             </div>
           </div>
-
           <div class="mg-t-8 row">
             <label for="" class="col-sm-3 form-control-label">Nombre</label>
             <div class="col-sm-9">
@@ -117,15 +116,7 @@
       <div class="content clearfix">
         <section class="body current">
           <!-- agregar nuevo producto -->
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#exampleModal"
-            class="btn btn-outline-primary btn-sm mb-4"
-            v-show="step == 0"
-          >
-            <i class="fas fa-plus"></i> Agregar Pedido
-          </button>
+          <button-invoice v-show="step == 0">Agregar Pedido</button-invoice>
           <!-- table responsivo detalle -->
           <table-invoice v-show="step == 0">
             <template #thead>
@@ -292,13 +283,11 @@
         <div class="signup-separator"></div>
         <table-invoice>
           <template #thead>
-            <tr>
-              <th>Pedido</th>
-              <th>Monto</th>
-              <th>Fecha</th>
-              <th>Nro. Productos</th>
-              <th>Seleccionar</th>
-            </tr>
+            <th>Pedido</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Nro. Productos</th>
+            <th>Seleccionar</th>
           </template>
           <template #tbody>
             <template v-if="detallePedidos.length > 0">
@@ -306,6 +295,7 @@
                 v-for="d in detallePedidos"
                 :key="d.idPedido"
                 @click="selectedFila(d)"
+                style="cursor: pointer"
               >
                 <td class="valign-middle tx-bold tx-12">000{{ d.idPedido }}</td>
                 <td class="valign-middle tx-bold tx-12">
@@ -333,7 +323,11 @@
         </table-invoice>
       </template>
       <template #footer>
-        <button type="button" data-dismiss="modal" class="btn btn-primary">
+        <button
+          type="button"
+          data-dismiss="modal"
+          class="btn btn-primary btn-sm"
+        >
           Cerrar
         </button>
       </template>
@@ -346,6 +340,7 @@ import ModalSection from "../components/ModalSection.vue";
 import HeaderInvoice from "../components/HeaderInvoice.vue";
 import InputDate from "../components/InputGroupDate.vue";
 import TableInvoice from "../components/TableInvoice.vue";
+import ButtonInvoice from "../components/ButtonInvoice.vue";
 import LabelSection from "../components/SectionLabel.vue";
 import moment from "moment";
 
@@ -355,6 +350,7 @@ export default {
     InfoCompany,
     ModalSection,
     TableInvoice,
+    ButtonInvoice,
     HeaderInvoice,
     LabelSection,
     InputDate,

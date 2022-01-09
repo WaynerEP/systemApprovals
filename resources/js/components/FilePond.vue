@@ -13,8 +13,8 @@
     label-File-Processing-Complete="Carga completa"
     imagePreviewHeight="160"
     imageCropAspectRatio="1:1"
-    imageResizeTargetWidth="200"
-    imageResizeTargetHeight="200"
+    :imageResizeTargetWidth="imageWidth"
+    :imageResizeTargetHeight="imageHeight"
     :stylePanelLayout="styleLayout"
     styleLoadIndicatorPosition="center bottom"
     styleProgressIndicatorPosition="right bottom"
@@ -76,6 +76,14 @@ export default {
     },
     myFiles: {
       type: Array,
+    },
+    imageWidth: {
+      type: Number,
+      default: 200,
+    },
+    imageHeight: {
+      type: Number,
+      default: 200,
     },
   },
   data: function () {
