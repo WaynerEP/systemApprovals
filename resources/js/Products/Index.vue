@@ -15,7 +15,7 @@
                   :src="
                     pro.image ? pro.image : 'http://via.placeholder.com/200x200'
                   "
-                  class="card-img"
+                  class="card-img wd-120 ht-120"
                   alt="product"
                 />
               </a>
@@ -295,6 +295,7 @@ export default {
 
   data() {
     return {
+      myfiles: [],
       categories: [],
       newCategories: [],
       products: [],
@@ -393,7 +394,6 @@ export default {
     store() {
       // Save Element
       if (this.isActionNew) {
-        // console.log(this.product);
         if (!this.product.image) {
           $.toast({
             content: "Complete los campos.",
@@ -425,12 +425,28 @@ export default {
           });
       } else {
         this.isLoading = true;
+        // console.log(this.product);
+        if (!this.product.image) {
+          $.toast({
+            content: "Complete los campos.",
+          });
+          return;
+        }
+
+        let fields = new FormData();
+        fields.append("fileImage", this.product.image);
+        fields.append("descriptionProduct", this.product.descriptionProduct);
+        fields.append("type", this.product.type);
+        fields.append("measure", this.product.measure);
+        fields.append("price", this.product.price);
+        fields.append("stock", this.product.stock);
+        fields.append("status", this.product.status);
+
         axios
-          .put("/products/" + this.selected_id, this.product)
+          .put("/products/" + this.selected_id, fields)
           .then((res) => {
             this.getCategories();
             this.getProducts(0);
-
             $("#exampleModal").modal("hide");
             this.$awn.success(res.data);
             this.isLoading = false;
@@ -451,6 +467,12 @@ export default {
       this.product.stock = data.stock;
       this.product.image = data.image;
       this.product.type = data.idTipo;
+      // this.myfiles.push(data.image);
+      if (data.image) {
+        this.myfiles.push(data.image);
+      }
+
+      // console.log(data.image);
       this.selected_id = data.idProducto;
       $("#exampleModal").modal("show");
     },

@@ -4419,6 +4419,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      myfiles: [],
       categories: [],
       newCategories: [],
       products: [],
@@ -4549,7 +4550,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       // Save Element
       if (this.isActionNew) {
-        // console.log(this.product);
         if (!this.product.image) {
           $.toast({
             content: "Complete los campos."
@@ -4582,8 +4582,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this3.existsErrors(e);
         });
       } else {
-        this.isLoading = true;
-        axios.put("/products/" + this.selected_id, this.product).then(function (res) {
+        this.isLoading = true; // console.log(this.product);
+
+        if (!this.product.image) {
+          $.toast({
+            content: "Complete los campos."
+          });
+          return;
+        }
+
+        var _fields = new FormData();
+
+        _fields.append("fileImage", this.product.image);
+
+        _fields.append("descriptionProduct", this.product.descriptionProduct);
+
+        _fields.append("type", this.product.type);
+
+        _fields.append("measure", this.product.measure);
+
+        _fields.append("price", this.product.price);
+
+        _fields.append("stock", this.product.stock);
+
+        _fields.append("status", this.product.status);
+
+        axios.put("/products/" + this.selected_id, _fields).then(function (res) {
           _this3.getCategories();
 
           _this3.getProducts(0);
@@ -4608,7 +4632,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.product.price = data.precioC;
       this.product.stock = data.stock;
       this.product.image = data.image;
-      this.product.type = data.idTipo;
+      this.product.type = data.idTipo; // this.myfiles.push(data.image);
+
+      if (data.image) {
+        this.myfiles.push(data.image);
+      } // console.log(data.image);
+
+
       this.selected_id = data.idProducto;
       $("#exampleModal").modal("show");
     },
@@ -4903,8 +4933,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_CardProfile_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CardProfile.vue */ "./resources/js/components/CardProfile.vue");
 /* harmony import */ var _components_FilePond_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/FilePond.vue */ "./resources/js/components/FilePond.vue");
-//
-//
 //
 //
 //
@@ -91670,7 +91698,7 @@ var render = function () {
                     _c("div", { staticClass: "tx-center" }, [
                       _c("a", { attrs: { href: "" } }, [
                         _c("img", {
-                          staticClass: "card-img",
+                          staticClass: "card-img wd-120 ht-120",
                           attrs: {
                             src: pro.image
                               ? pro.image
@@ -95331,7 +95359,7 @@ var render = function () {
                                 { staticClass: "valign-middle pd-l-20" },
                                 [
                                   _c("img", {
-                                    staticClass: "wd-36 rounded-circle",
+                                    staticClass: "wd-200 ht-200 rounded-circle",
                                     attrs: {
                                       src: u.avatar
                                         ? u.avatar

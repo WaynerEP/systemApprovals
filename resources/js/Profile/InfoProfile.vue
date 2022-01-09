@@ -19,9 +19,7 @@
       <!-- media-body -->
     </template>
     <template #footer>
-      <a href="" class="card-profile-direct"
-        >.</a
-      >
+      <a href="" class="card-profile-direct">.</a>
       <div>
         <a href="">Editar Perfil</a>
         <a href="">Configuración de la cuenta</a>
