@@ -114,7 +114,11 @@
               <template v-if="details.length > 0">
                 <tr v-for="(d, index) in details" :key="index">
                   <td class="valign-middle">
-                    <button type="button" class="btn btn-sm">
+                    <button
+                      type="button"
+                      class="btn btn-sm"
+                      @click="removeProformaOfDetail(d.idProveedor)"
+                    >
                       <i class="fa fa-close text-danger"></i>
                     </button>
                   </td>
@@ -168,7 +172,7 @@
 
     <!-- modal-section -->
     <modal-section maxWidth="lg">
-      <template #title> Pedidos</template>
+      <template #title>Seleccionar Pedidos</template>
       <template #body>
         <p class="tx-12 tx-gray-600">
           Solo debe seleccionar un pedido a la vez, tambien puede deshacer el
@@ -372,6 +376,14 @@ export default {
       this.resetFieldsNewDetails();
       $.toast({
         content: "Proforma agregada al Pedido.",
+      });
+    },
+
+    removeProformaOfDetail(val) {
+      const index = this.details.findIndex((el) => el.idProveedor == val);
+      this.details.splice(index, 1);
+      $.toast({
+        content: "Se ha quitado la proforma.",
       });
     },
 

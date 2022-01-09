@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
+use App\Http\Controllers\Compras\PedidoController;
 use App\Models\Organizacion;
 use App\Models\Area;
 use App\Models\DetallePedidos;
@@ -101,8 +102,14 @@ Route::get('/products/proforma', function () {
     return response()->json($data);
 });
 
+//tiporecursos api
+Route::apiResource('/pedidos', PedidoController::class);
+
+Route::get('/pedidos/byDate/{date1}/{date2}', [PedidoController::class, 'getByDate']);
+
+
 //numero de pedido se incrementa + 1
-Route::get('/pedidos/number', function () {
+Route::get('/pedido/number', function () {
     return DB::table('pedidos')
         ->select(DB::raw('count(*) + 1 as max'))
         ->first();
@@ -152,4 +159,3 @@ Route::get('/user-profile/{user_id}', function ($user_id) {
 });
 
 //
-

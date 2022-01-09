@@ -17,4 +17,5 @@ class Pedido extends Model
         'fechaPedido',
     ];
     public $timestamps = false;
+
 }

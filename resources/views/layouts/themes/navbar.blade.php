@@ -72,7 +72,7 @@
                             <label class="section-label">Proformas</label>
                             <ul>
                                 <li><a href="{{ route('proformas.list') }}">Listar Proformas</a></li>
-                                <li><a href="{{ route('proformas.create') }}">Nuevo registro</a></li>
+                                <li><a href="{{ route('proformas.new') }}">Nuevo registro</a></li>
                             </ul>
                         </div><!-- col -->
                         <div class="col-lg mg-t-30 mg-lg-t-0">
