@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
-
     <title>Enviar Respuesta</title>
     <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/es/img/favicon.ico?v=a8def514be8a">
     <!-- Bootstrap CSS -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('css/email.css') }}">
-
 </head>
-
 <body>
     <div id="app" class="d-md-flex flex-row-reverse">
         <div class="signin-right">

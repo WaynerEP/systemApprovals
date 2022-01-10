@@ -9,19 +9,18 @@
                 $hora = $today['hours'];
                 ?>
                 @switch($hora)
-                    @case($hora<6)
+                    @case($hora < 6)
                         Hoy has madrugado mucho
                     @break
-                    @case($hora<12)
+                    @case($hora < 12)
                         Buenos días
                     @break
-                    @case($hora<=18)
+                    @case($hora <= 18)
                         Buenas Tardes
                     @break
                     @default
                         Buenas Noches
-                @endswitch,
-                {{ Auth::user()->name }}!
+                @endswitch {{ Auth::user()->name }}!
             </h4>
             <p class="mg-b-0">Hoy es
                 <?php
@@ -45,7 +44,7 @@
             <a href="" class="nav-link active">Vista General</a>
             <a href="" class="nav-link">EMPLEADOS</a>
             <a href="" class="nav-link">PRODUCTOS</a>
-            <a href="" class="nav-link">GASTOS</a>
+            <a href="" class="nav-link">PROVEEDORES</a>
         </nav>
     </div>
 
@@ -53,7 +52,7 @@
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
-                    <h1>420</h1>
+                    <h1>{{ $datos[6]->totales }}</h1>
                     <p>EMPLEADOS TOTALES</p>
                 </div>
                 <div>
@@ -69,16 +68,16 @@
                         <i class="icon ion-man tx-gray-400"></i>
                         <i class="icon ion-man tx-gray-400"></i>
                     </div>
-                    <label>Femenino (66%)</label>
+                    <label>Femenino ({{ $datos[0]->porcentajes }}%)</label>
                     <div class="progress mg-b-10">
-                        <div class="progress-bar bg-primary progress-bar-xs wd-65p" role="progressbar" aria-valuenow="66"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary progress-bar-xs wd-{{ $datos[0]->porcentajes }}p"
+                            role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
 
-                    <label>Masculino (34%)</label>
+                    <label>Masculino ({{ $datos[3]->porcentajes }}%)</label>
                     <div class="progress">
-                        <div class="progress-bar bg-danger progress-bar-xs wd-35p" role="progressbar" aria-valuenow="34"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-danger progress-bar-xs wd-{{ $datos[3]->porcentajes }}p"
+                            role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
                 </div>
             </div><!-- card -->
@@ -86,8 +85,8 @@
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
-                    <h1>55</h1>
-                    <p>PRODUCTOS TOTALES</p>
+                    <h1>{{ $datos[7]->totales }} </h1>
+                    <p>ITEMS TOTALES</p>
                 </div>
                 <div>
                     <div class="tx-16 mg-b-15 tx-center op-5">
@@ -102,16 +101,16 @@
                         <i class="icon ion-cube tx-gray-400"></i>
                         <i class="icon ion-cube tx-gray-400"></i>
                     </div>
-                    <label>Productos digitales (85%)</label>
+                    <label>Productos ({{ $datos[4]->porcentajes }}%)</label>
                     <div class="progress mg-b-10">
-                        <div class="progress-bar bg-success progress-bar-xs wd-85p" role="progressbar" aria-valuenow="85"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success progress-bar-xs wd-{{ $datos[4]->porcentajes }}p"
+                            role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
 
-                    <label>Productos no digitales (15%)</label>
+                    <label>Servicios ({{ $datos[5]->porcentajes }}%)</label>
                     <div class="progress">
-                        <div class="progress-bar bg-warning progress-bar-xs wd-15p" role="progressbar" aria-valuenow="15"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-warning progress-bar-xs wd-{{ $datos[5]->porcentajes }}p"
+                            role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
                 </div>
             </div><!-- card -->
@@ -119,7 +118,7 @@
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
-                    <h1>30</h1>
+                    <h1>{{ $datos[8]->totales }}</h1>
                     <p>PROVEEDORES TOTALES</p>
                 </div>
                 <div>
@@ -135,16 +134,16 @@
                         <i class="icon ion-location tx-gray-400"></i>
                         <i class="icon ion-location tx-gray-400"></i>
                     </div>
-                    <label>Local (75%)</label>
+                    <label>Local ({{ $datos[2]->porcentajes }}%)</label>
                     <div class="progress mg-b-10">
-                        <div class="progress-bar bg-purple progress-bar-xs wd-75p" role="progressbar" aria-valuenow="75"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-purple progress-bar-xs wd-{{ $datos[2]->porcentajes }}p"
+                            role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
 
-                    <label>Internacional (25%)</label>
+                    <label>Internacional ({{ $datos[1]->porcentajes }}%)</label>
                     <div class="progress">
-                        <div class="progress-bar bg-pink progress-bar-xs wd-25p" role="progressbar" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-pink progress-bar-xs wd-{{ $datos[1]->porcentajes }}p"
+                            role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
                 </div>
             </div><!-- card -->
@@ -164,17 +163,7 @@
             </div><!-- card -->
         </div><!-- col-4 -->
     </div>
-    <div class="sk-cube-grid">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
-        <div class="sk-cube sk-cube3"></div>
-        <div class="sk-cube sk-cube4"></div>
-        <div class="sk-cube sk-cube5"></div>
-        <div class="sk-cube sk-cube6"></div>
-        <div class="sk-cube sk-cube7"></div>
-        <div class="sk-cube sk-cube8"></div>
-        <div class="sk-cube sk-cube9"></div>
-    </div>
+
 @endsection
 
 <script>
