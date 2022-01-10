@@ -90,7 +90,7 @@
                 minimumResultsForSearch: Infinity
             });
         });
-        // 
+        //
         function ConfirmarBorrado(id) {
             $('#idPerson').val(id);
             $('#modal-confirmation').modal('show');

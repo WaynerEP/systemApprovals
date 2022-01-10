@@ -59,7 +59,11 @@ Route::middleware('auth')->group(function () {
         return view('Empleados.Index');
     })->name('employees');
 
+<<<<<<< HEAD
+
+=======
     //ruta proveedores
+>>>>>>> da62730d06720ac7911c8b1ce3bd020abf10891e
     Route::get('contacts/providers', function () {
         return view('Proveedores.Index');
     })->name('providers');
