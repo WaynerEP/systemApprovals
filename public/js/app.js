@@ -4399,6 +4399,99 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4448,6 +4541,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         liActive: "active",
         liDisable: "disabled",
         button: "page-link"
+      },
+      // Para categorias
+      idCategorie: "",
+      categorie: {
+        descriptionCategorie: ""
       }
     };
   },
@@ -4509,10 +4607,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context2.sent;
                 _this2.products = res.data;
                 _this2.currentPage = 1;
+                _this2.idCategorie = id;
+
+                if (id > 0) {
+                  _this2.categorie.descriptionCategorie = _this2.categories[id].description;
+                }
 
                 _this2.getDataPage();
 
-              case 8:
+              case 10:
               case "end":
                 return _context2.stop();
             }
@@ -4573,8 +4676,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
           _this3.getProducts(0);
 
-          console.log(_this3.errors);
-
           _this3.$awn.success(res.data);
 
           _this3.isLoading = false;
@@ -4607,9 +4708,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         _fields.append("status", this.product.status);
 
-        axios.put("/products/" + this.selected_id, _fields).then(function (res) {
-          console.log(res.data);
+        _fields.append("status", this.product.status);
 
+        _fields.append("_method", "put");
+
+        axios.post("/products/" + this.selected_id, _fields).then(function (res) {
           _this3.getCategories();
 
           _this3.getProducts(0);
@@ -4625,7 +4728,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     editProduct: function editProduct(data) {
-      this.resetForm();
+      $("#exampleModal").modal("show");
       this.errors = [];
       this.isActionNew = false; //Aquí
 
@@ -4633,11 +4736,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.product.descriptionProduct = data.descripcionProducto;
       this.product.measure = data.medida;
       this.product.price = data.precioC;
-      this.product.stock = data.stock; // this.product.image = data.image;
-
-      this.product.type = data.idTipo; // console.log(this.product.image);
-      // console.log();
-      // this.myfiles.push(data.image);
+      this.product.stock = data.stock;
+      this.product.type = data.idTipo;
 
       if (data.image) {
         this.myfiles.push(data.image);
@@ -4645,7 +4745,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
       this.selected_id = data.idProducto;
-      $("#exampleModal").modal("show");
     },
     deleteProduct: function deleteProduct(id) {
       var _this4 = this;
@@ -4697,6 +4796,77 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else {
         this.product.image = {};
       }
+    },
+    // Aquí están todos los métodos de las categorias
+    openModalCategorie: function openModalCategorie() {
+      this.resetFormCategorie();
+    },
+    resetFormCategorie: function resetFormCategorie() {
+      this.isLoading = false;
+      this.isActionNew = true;
+      this.errors = [];
+    },
+    storeCategorie: function storeCategorie() {
+      var _this5 = this;
+
+      // console.log(this.categorie);
+      if (this.isActionNew) {
+        this.isLoading = true;
+        axios.post("/categorie/", this.categorie).then(function (res) {
+          $("#exampleModal1").modal("hide");
+
+          _this5.getCategories();
+
+          _this5.getProducts(0);
+
+          _this5.$awn.success(res.data);
+
+          _this5.isLoading = false;
+        })["catch"](function (e) {
+          _this5.existsErrors(e);
+        });
+      } else {
+        axios.put("/categorie/" + this.idCategorie, this.categorie).then(function (res) {
+          _this5.getCategories();
+
+          _this5.getProducts(0);
+
+          $("#exampleModal1").modal("hide");
+
+          _this5.$awn.success(res.data);
+        })["catch"](function (e) {
+          _this5.existsErrors(e);
+        });
+      }
+    },
+    editCategorie: function editCategorie(data) {
+      $("#exampleModal1").modal("show");
+      this.errors = [];
+      this.isActionNew = false; //Aquí
+
+      this.isLoading = false;
+      this.categorie.descriptionCategorie = data.descriptionCategorie;
+    },
+    dropCategorie: function dropCategorie(id) {
+      var _this6 = this;
+
+      var onOk = function onOk() {
+        axios["delete"]("/categorie/" + id).then(function (res) {
+          console.log(res.data);
+
+          _this6.getCategories();
+
+          _this6.getProducts(0);
+
+          _this6.$awn.info(res.data);
+        })["catch"](function (e) {
+          _this6.$awn.alert("Algo salió mal!.");
+
+          console.log(e);
+        });
+      };
+
+      this.$awn.confirm("¿Estás seguro de eliminar?, recuerda que se eliminarán todos los productos de está categoria", onOk);
     }
   }
 });
@@ -91683,6 +91853,63 @@ var render = function () {
       _c("div", { staticClass: "manager-right" }, [
         _c(
           "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.idCategorie > 0,
+                expression: "idCategorie > 0",
+              },
+            ],
+            staticClass: "row",
+          },
+          [
+            _c("div", { staticClass: "col-12 d-flex justify-content-end" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-teal btn-lg mr-2",
+                  staticStyle: {
+                    "font-size": "15px",
+                    padding: "10px",
+                    "margin-bottom": "21px",
+                    color: "#fff",
+                  },
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.editCategorie(_vm.categorie)
+                    },
+                  },
+                },
+                [_vm._v("Editar Categoria")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-danger btn-lg",
+                  staticStyle: {
+                    "font-size": "15px",
+                    padding: "10px",
+                    "margin-bottom": "21px",
+                  },
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.dropCategorie(_vm.idCategorie)
+                    },
+                  },
+                },
+                [_vm._v("Eliminar Categoria")]
+              ),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
           { staticClass: "row row-sm" },
           [
             _c("Loading", {
@@ -91703,7 +91930,7 @@ var render = function () {
                 [
                   _c("div", { staticClass: "card-contact border-white" }, [
                     _c("div", { staticClass: "tx-center" }, [
-                      _c("a", { attrs: { href: "" } }, [
+                      _c("a", { attrs: { href: "#!" } }, [
                         _c("img", {
                           staticClass: "card-img wd-120 ht-120",
                           attrs: {
@@ -91754,7 +91981,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          attrs: { href: "#" },
+                          attrs: { href: "#!" },
                           on: {
                             click: function ($event) {
                               return _vm.editProduct(pro)
@@ -91768,7 +91995,7 @@ var render = function () {
                         "a",
                         {
                           staticClass: "text-danger",
-                          attrs: { href: "#" },
+                          attrs: { href: "#!" },
                           on: {
                             click: function ($event) {
                               return _vm.deleteProduct(pro.idProducto)
@@ -91826,7 +92053,7 @@ var render = function () {
               },
             },
           },
-          [_vm._v("Add New")]
+          [_vm._v("Agregar Producto")]
         ),
         _vm._v(" "),
         _c(
@@ -91836,6 +92063,14 @@ var render = function () {
             return _c(
               "a",
               {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: cat.amountProduct > 0,
+                    expression: "cat.amountProduct > 0",
+                  },
+                ],
                 key: cat.id,
                 staticClass: "nav-link",
                 class: _vm.isActive == cat.id ? "active" : "",
@@ -91853,6 +92088,25 @@ var render = function () {
             )
           }),
           0
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-purple btn-block mt-3",
+            staticStyle: { "font-size": "15px", padding: "10px" },
+            attrs: {
+              href: "",
+              "data-toggle": "modal",
+              "data-target": "#exampleModal1",
+            },
+            on: {
+              click: function ($event) {
+                return _vm.openModalCategorie()
+              },
+            },
+          },
+          [_vm._v("Agregar Categoria")]
         ),
       ]),
       _vm._v(" "),
@@ -92290,6 +92544,161 @@ var render = function () {
                     on: {
                       click: function ($event) {
                         return _vm.resetForm()
+                      },
+                    },
+                  },
+                  [_vm._v("\n        Cancelar\n      ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-oblong",
+                    class: {
+                      "btn-teal": _vm.isActionNew,
+                      "btn-info": !_vm.isActionNew,
+                    },
+                    attrs: { type: "submit" },
+                  },
+                  [
+                    _c("loader-action", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.isLoading,
+                          expression: "isLoading",
+                        },
+                      ],
+                    }),
+                    _vm._v("\n        Guardar\n      "),
+                  ],
+                  1
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-section", {
+        attrs: { id: "exampleModal1" },
+        on: {
+          submitted: _vm.storeCategorie,
+          close: function ($event) {
+            return _vm.resetFormCategorie()
+          },
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function () {
+              return [
+                _vm._v(
+                  "\n      " +
+                    _vm._s(
+                      _vm.isActionNew
+                        ? "Nueva Categoria"
+                        : "Actualizar Categoria"
+                    ) +
+                    "\n    "
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c("div", { staticClass: "form-layout" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputCategorie" },
+                        },
+                        [
+                          _vm._v("Categoria "),
+                          _c("span", { staticClass: "tx-danger" }, [
+                            _vm._v("*"),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categorie.descriptionCategorie,
+                            expression: "categorie.descriptionCategorie",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid":
+                            _vm.errors && _vm.errors.descriptionCategorie,
+                        },
+                        attrs: {
+                          type: "text",
+                          maxlength: "100",
+                          id: "inputCategorie",
+                          placeholder: "Ingrese categoria",
+                        },
+                        domProps: { value: _vm.categorie.descriptionCategorie },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.categorie,
+                              "descriptionCategorie",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.descriptionCategorie
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "invalid-feedback",
+                              attrs: { role: "alert" },
+                            },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(_vm.errors.descriptionCategorie[0]) +
+                                  "\n            "
+                              ),
+                            ]
+                          )
+                        : _vm._e(),
+                    ]),
+                  ]),
+                ]),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-pink btn-oblong",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.resetFormCategorie()
                       },
                     },
                   },
