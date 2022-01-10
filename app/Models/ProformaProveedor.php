@@ -14,6 +14,7 @@ class ProformaProveedor extends Model
         'idPedido',
         'idProveedor',
         'archivo',
+        'sizeFile',
         'montoProforma',
     ];
     public $timestamps = false;

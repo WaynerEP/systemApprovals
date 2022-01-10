@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Compras;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\ProformaProveedor;
+use App\Models\Pedido;
 use Illuminate\Support\Facades\Storage;
+use DB;
 
 class ProformasController extends Controller
 {
@@ -17,25 +18,27 @@ class ProformasController extends Controller
      */
     public function index()
     {
-        //
+        $top = request('top', 3);
+        $data = DB::select('Exec spGetListToProformas ?', array($top));
+        $datos = $this->groupBy('date', $data);
+        return response()->json($datos);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function groupBy($key, $data)
     {
-        //
+        $result = array();
+
+        foreach ($data as $val) {
+            if (array_key_exists($key, $val)) {
+                $result[$val->$key][] = $val;
+            } else {
+                $result[""][] = $val;
+            }
+        }
+        return $result;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -52,16 +55,19 @@ class ProformasController extends Controller
             foreach ($request->file('detalleProforma')  as $index => $file) {
                 //guardamos en storage
                 $file_name = $file->getClientOriginalName();
+                $file_size = number_format($file->getSize() / 1000, 2) . 'kb';
                 Storage::putFileAs("/public/proformas/Pedido " . $idPedido . '/', $file, $file_name);
                 //guardamos en Base de datos
                 ProformaProveedor::create([
                     'idPedido' => $idPedido,
                     'idProveedor' => $idProveedores[$index],
                     'archivo' => $file_name,
+                    'sizeFile' => $file_size,
                     'montoProforma' => $montos[$index],
                 ]);
             }
-            return "La acción ha sido exitosa!";
+            return "La acción ha sido exitosa.";
+
         } else {
             return "La acción ha fallado!";
         }

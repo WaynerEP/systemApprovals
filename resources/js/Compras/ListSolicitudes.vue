@@ -66,49 +66,57 @@
 
     <div class="table-responsive tx-13 tx-semibold rounded-5">
       <table class="table table-hover table-bordered mb-3">
-        <thead class="thead-colored bg-info">
+        <thead class="thead-colored bg-secondary">
           <tr>
             <th class="text-center">#</th>
-            <th>MONTO</th>
+            <th>SOLICITANTE</th>
             <th>FECHA DE REGISTRO</th>
-            <th>NRO. ITEMS</th>
             <th>ESTADO</th>
-            <th>DETALLES</th>
+            <th>APROBACIONES/RECHAZOS</th>
+            <th>DETALLE</th>
           </tr>
         </thead>
         <tbody>
-          <template v-if="pedidos.total > 0">
-            <tr v-for="pedido in pedidos.data" :key="pedido.idPedido">
-              <td class="text-center">0000{{ pedido.idPedido }}</td>
-              <td>{{ pedido.monto | money }}</td>
-              <td>{{ formatDateAsString(pedido.fechaPedido) }}</td>
-              <td>{{ pedido.pedido_count }} items</td>
+          <template v-if="solicitudes.total > 0">
+            <tr v-for="s in solicitudes.data" :key="s.idSolicitud">
+              <td class="text-center">{{ s.idSolicitud }}</td>
+              <td>Jefe de áreas de compras</td>
+              <td>{{ formatDateAsString(s.fechaSolicitud) }}</td>
               <td>
-                <span
-                  class="badge bg-success tx-white"
-                  v-if="pedido.estado == 2"
-                  >Procesada en solicitud</span
+                <span class="badge bg-info tx-white" v-if="s.estado == 1"
+                  >Procesada</span
                 >
-                <span
-                  class="badge bg-info tx-white"
-                  v-else-if="pedido.estado == 1"
-                  >Procesada con proformas</span
-                >
-                <span class="badge bg-warning tx-white" v-else
-                  >No procesada</span
-                >
+                <span class="badge bg-warning tx-white" v-else>En proceso</span>
+              </td>
+              <td>
+                <ol>
+                  <li
+                    class="tx-12"
+                    v-for="sa in s.aprobaciones"
+                    :key="sa.idAprobacion"
+                  >
+                    <span
+                      class="badge bg-warning tx-white"
+                      v-if="sa.estado == 0"
+                      >PENDIENTE</span
+                    >
+                    <span
+                      class="badge bg-success tx-white mr-2"
+                      v-else-if="sa.estado == 'A'"
+                      >APROBADA POR</span
+                    >
+                    <span class="badge bg-danger tx-white mr-2" v-else>
+                      RECHAZADA POR
+                    </span>
+                    {{ sa.empleado.ciudadano.nombres }} -
+                    {{ sa.empleado.cargo.cargo }}
+                  </li>
+                </ol>
               </td>
               <td class="valign-middle">
                 <button
                   type="button"
-                  v-if="pedido.estado == 0"
-                  class="btn btn-outline-info btn-sm"
-                >
-                  <i class="icon ion-compose"></i>
-                </button>
-                <button
-                  type="button"
-                  @click="showDetailsPedido(pedido.idPedido)"
+                  @click="showDetailsSolicitud(s.idSolicitud)"
                   class="btn btn-outline-secondary btn-sm"
                 >
                   <i class="icon ion-clipboard"></i> Ver detalle
@@ -141,12 +149,12 @@
         "
       >
         <span class="section-label-sm mg-t-20 mg-md-t-0"
-          >Mostrando {{ pedidos.current_page }} a {{ pedidos.to }} de
-          {{ pedidos.total }} entradas</span
+          >Mostrando {{ solicitudes.current_page }} a {{ solicitudes.to }} de
+          {{ solicitudes.total }} entradas</span
         >
         <div class="d-flex justify-content-between">
           <pagination
-            :data="pedidos"
+            :data="solicitudes"
             @pagination-change-page="loadAsyncData"
           ></pagination>
         </div>
@@ -155,15 +163,18 @@
     <!-- table-responsive -->
 
     <!-- start modal detalles -->
-    <modal-section maxWidth="lg" id="exampleModal2">
-      <template #title> Detalle </template>
+    <modal-section maxWidth="lg" class="wd-100v">
+      <template #title>
+        Detalle para la Solicitud N°.{{ selected_id }}
+      </template>
       <template #body>
         <label class="section-label-sm tx-gray-500"
-          >----------------------------------------------Detalle de su
+          >----------------------------------------------Detalle de la
           Solicitudes de
           Compra----------------------------------------------</label
         >
-        <detail-pedido ref="detalle"></detail-pedido>
+        <div class="signup-separator"></div>
+        <details-solicitud ref="detalle"></details-solicitud>
       </template>
       <template #footer>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -178,6 +189,7 @@ import LoaderAction from "../components/LoaderAction.vue";
 import ModalSection from "../components/ModalSection.vue";
 import moment from "moment";
 import DetailPedido from "../components/DetailsSolicitud.vue";
+import DetailsSolicitud from "../components/DetailsAprobacion.vue";
 
 export default {
   name: "ListaPedidos",
@@ -185,10 +197,11 @@ export default {
     ModalSection,
     DetailPedido,
     LoaderAction,
+    DetailsSolicitud,
   },
   data() {
     return {
-      pedidos: {},
+      solicitudes: {},
       paginate: "8",
       search: "",
       date1: "",
@@ -197,6 +210,7 @@ export default {
       isSearch: false,
       isNoEmpty: true,
       loadingSearch: false,
+      selected_id: "",
     };
   },
 
@@ -207,7 +221,8 @@ export default {
   },
 
   methods: {
-    showDetailsPedido(val) {
+    showDetailsSolicitud(val) {
+      this.selected_id = val;
       this.$refs.detalle.details = [];
       this.$refs.detalle.fetchData(val);
     },
@@ -222,7 +237,7 @@ export default {
 
     formatDateAsString(value) {
       moment.locale("es");
-      return moment(value).format("LLLL");
+      return moment(value).format("L");
     },
 
     async loadAsyncData(page = 1) {
@@ -230,10 +245,12 @@ export default {
         this.isSearch = true;
       }
       const res = await axios.get(
-        "/api/pedidos?page=" +
+        "/api/solicitud?page=" +
           page +
           "&paginate=" +
           this.paginate +
+          "&search=" +
+          this.search +
           "&inicio=" +
           this.date1 +
           "&fin=" +
@@ -241,7 +258,7 @@ export default {
           "&search=" +
           this.search
       );
-      this.pedidos = res.data;
+      this.solicitudes = res.data;
       if (res.data) {
         this.isNoEmpty = false;
       }

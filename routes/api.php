@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
 use App\Http\Controllers\Compras\PedidoController;
+use App\Http\Controllers\Compras\SolicitudesController;
+use App\Http\Controllers\Compras\ProformasController;
 use App\Models\Organizacion;
 use App\Models\Area;
 use App\Models\DetallePedidos;
@@ -106,7 +108,17 @@ Route::get('/products/proforma', function () {
 //tiporecursos api
 Route::apiResource('/pedidos', PedidoController::class);
 
-Route::get('/pedidos/byDate/{date1}/{date2}', [PedidoController::class, 'getByDate']);
+//solicitudes api
+Route::apiResource('/solicitud', SolicitudesController::class);
+
+//proformas api
+Route::apiResource('/proformas', ProformasController::class);
+
+
+//numero de pedido se incrementa + 1
+Route::get('/aprobaciones/detail/{idAprobaciones}', function ($id) {
+    return response()->json(DB::select('exec spDetailAprobaciones ?', array($id)));
+});
 
 
 //numero de pedido se incrementa + 1
@@ -124,7 +136,7 @@ Route::get('/solicitudes/number', function () {
 });
 
 //ruta para traer los pedidos recientes sin proformas
-Route::get('/proformas/pedidos', function () {
+Route::get('/proforma/pedidos', function () {
     return response()->json(DB::select('exec spPedidosNotProformas'));
 });
 

@@ -307,7 +307,7 @@ export default {
   },
   methods: {
     async getAsyncPedidos() {
-      const res = await axios.get("/api/proformas/pedidos");
+      const res = await axios.get("/api/proforma/pedidos");
       this.detallePedidos = res.data;
     },
 
@@ -410,10 +410,12 @@ export default {
           headers: { "content-type": "multipart/form-data" },
         };
         axios
-          .post("/pedidos/proformas", fields, config)
+          .post("/api/proformas", fields, config)
           .then((res) => {
             this.isLoading = false;
             this.$awn.success(res.data);
+            this.resetForm();
+            this.getAsyncPedidos();
           })
           .catch((err) => {
             this.existsErrors(e);

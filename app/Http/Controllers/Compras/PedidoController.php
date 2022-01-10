@@ -14,7 +14,7 @@ class PedidoController extends Controller
 
     public function index()
     {
-        $paginate = request('paginate', 1);
+        $paginate = request('paginate', 8);
         $search = request('search');
 
         if (request('inicio') && request('fin')) {
