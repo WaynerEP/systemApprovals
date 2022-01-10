@@ -5246,7 +5246,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return;
         }
 
-<<<<<<< HEAD
         var _fields = new FormData();
 
         _fields.append("fileImage", this.product.image);
@@ -5268,36 +5267,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _fields.append("_method", "put");
 
         axios.post("/products/" + this.selected_id, _fields).then(function (res) {
-          _this3.getCategories();
-
-          _this3.getProducts(0);
-
-          $("#exampleModal").modal("hide");
-
-          _this3.$awn.success(res.data);
-
-=======
-        var data = new FormData();
-        data.append("fileImage", this.product.image);
-        data.append("descriptionProduct", this.product.descriptionProduct);
-        data.append("type", this.product.type);
-        data.append("measure", this.product.measure);
-        data.append("price", this.product.price);
-        data.append("stock", this.product.stock);
-        data.append("status", this.product.status);
-        data.append("_method", "put");
-        var config = {
-          headers: {
-            "content-type": "multipart/form-data"
-          }
-        };
-        axios.post("/products/" + this.selected_id, data, config).then(function (res) {
           // this.getCategories();
           // this.getProducts(0);
           // $("#exampleModal").modal("hide");
           // this.$awn.success(res.data);
           console.log(res.data);
->>>>>>> 541e7128c335f6960be30406a142ee888d6cebbf
           _this3.isLoading = false;
         })["catch"](function (e) {
           _this3.existsErrors(e);

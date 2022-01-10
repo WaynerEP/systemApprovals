@@ -535,7 +535,6 @@ export default {
           return;
         }
 
-<<<<<<< HEAD
         let fields = new FormData();
         fields.append("fileImage", this.product.image);
         fields.append("descriptionProduct", this.product.descriptionProduct);
@@ -549,24 +548,6 @@ export default {
 
         axios
           .post("/products/" + this.selected_id, fields)
-=======
-        let data = new FormData();
-        data.append("fileImage", this.product.image);
-        data.append("descriptionProduct", this.product.descriptionProduct);
-        data.append("type", this.product.type);
-        data.append("measure", this.product.measure);
-        data.append("price", this.product.price);
-        data.append("stock", this.product.stock);
-        data.append("status", this.product.status);
-        data.append("_method", "put");
-
-        const config = {
-          headers: { "content-type": "multipart/form-data" },
-        };
-
-        axios
-          .post("/products/" + this.selected_id, data, config)
->>>>>>> 541e7128c335f6960be30406a142ee888d6cebbf
           .then((res) => {
             // this.getCategories();
             // this.getProducts(0);

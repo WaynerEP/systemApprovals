@@ -25,7 +25,6 @@ class HomeController extends Controller
     public function index()
     {
         $datos = DB::select('Exec spStatics');
-        // return $datos[0];
         return view('home', compact('datos'));
     }
 }
