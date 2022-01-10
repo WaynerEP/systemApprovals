@@ -19,7 +19,7 @@ class SolicitudesController extends Controller
      */
     public function index()
     {
-        $paginate = request('paginate', 1);
+        $paginate = request('paginate', 8);
         $search = request('search');
         if (request('inicio') && request('fin')) {
             $date1 = request('inicio') . ' 00:00:00.0000000';
@@ -63,11 +63,12 @@ class SolicitudesController extends Controller
         $pedido = $request->pedido;
         $idPedido = $request->idPedido;
         $nota = $request->notas;
+        $empleado = $request->empleado;
         //guardamos la solicitud
         try {
             DB::beginTransaction();
             // insertamos nueva solicitud
-            DB::insert("insert into solicitudes(idPedido, nota) values(?,?)", [$idPedido, $nota]);
+            DB::insert("insert into solicitudes(idPedido, nota,codEmpleado) values(?,?,?)", [$idPedido, $nota, $empleado]);
 
             //obtenemos el ultimo id
             $solicitud = DB::select('select max(idSolicitud) as id from solicitudes');

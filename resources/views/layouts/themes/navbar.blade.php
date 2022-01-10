@@ -35,25 +35,6 @@
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
-            <li class="nav-item with-sub">
-                <a class="nav-link" href="#">
-                    <i class="icon ion-ios-analytics-outline"></i>
-                    <span>Items</span>
-                </a>
-                <div class="sub-item">
-                    <ul>
-                        <li><a href="{{ route('productos')}}">Productos</a></li>
-                        {{-- <li><a href="{{ route('proformas') }}">Proformas</a></li> --}}
-                        {{-- <li class="sub-with-sub">
-                            <a href="#">Solicitudes de Compra</a>
-                            <ul>
-                              <li><a href="{{ route('purchase-request') }}">Listar Solicitudes</a></li>
-                              <li><a href="page-pricing2.html">Nueva Solicitud</a></li>
-                            </ul>
-                          </li> --}}
-                    </ul>
-                </div><!-- dropdown-menu -->
-            </li>
             <li class="nav-item with-sub mega-dropdown {{ request()->is('compras-*') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-book-outline"></i>
@@ -86,6 +67,17 @@
                         </div><!-- col -->
 
                     </div><!-- row -->
+                </div><!-- dropdown-menu -->
+            </li>
+            <li class="nav-item with-sub">
+                <a class="nav-link" href="#">
+                    <i class="icon ion-ios-analytics-outline"></i>
+                    <span>Items</span>
+                </a>
+                <div class="sub-item">
+                    <ul>
+                        <li><a href="{{ route('productos') }}">Productos</a></li>
+                    </ul>
                 </div><!-- dropdown-menu -->
             </li>
             <li class="nav-item {{ request()->is('orders/*') ? 'active' : '' }}">

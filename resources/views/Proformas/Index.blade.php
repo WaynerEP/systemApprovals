@@ -1,6 +1,6 @@
 @extends('layouts.App')
 @section('title')
-    Adjuntar Proformas
+    Proformas
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>

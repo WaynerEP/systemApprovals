@@ -370,6 +370,7 @@ export default {
         detallePedido: [],
         monto: [],
         notas: "",
+        empleado: "",
       },
       detallePedidos: [],
       details: [],
@@ -477,13 +478,11 @@ export default {
         this.solicitud.detalleProformas = this.detalleProformas;
         this.solicitud.detallePedido = this.details;
         this.solicitud.monto = this.total;
-        this.$awn.async(
-          axios.post("/api/solicitud", this.solicitud),
-          (res) => {
-            console.log(res.data);
-            this.$awn.success(res.data);
-          }
-        );
+        this.solicitud.empleado = this.empleado[0].code_empleado;
+        this.$awn.async(axios.post("/api/solicitud", this.solicitud), (res) => {
+          console.log(res.data);
+          this.$awn.success(res.data);
+        });
       };
       this.$awn.confirm("Estás seguro de guardar el pedido?", onOk);
     },

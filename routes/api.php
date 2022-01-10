@@ -109,10 +109,10 @@ Route::get('/products/proforma', function () {
 Route::apiResource('/pedidos', PedidoController::class);
 
 //solicitudes api
-Route::resource('/solicitud', SolicitudesController::class);
+Route::apiResource('/solicitud', SolicitudesController::class);
 
 //proformas api
-Route::resource('/proformas', ProformasController::class);
+Route::apiResource('/proformas', ProformasController::class);
 
 
 //numero de pedido se incrementa + 1
@@ -136,7 +136,7 @@ Route::get('/solicitudes/number', function () {
 });
 
 //ruta para traer los pedidos recientes sin proformas
-Route::get('/proformas/pedidos', function () {
+Route::get('/proforma/pedidos', function () {
     return response()->json(DB::select('exec spPedidosNotProformas'));
 });
 
