@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ __('Comercial - El Valle') }}</title>
-    <link rel="shortcut icon" href="/assets/img/favicon/apple-icon-57x57.png">
+    <link rel="shortcut icon" href="/assets/img/ilustrators/favicon.ico">
 
     <meta name="title" content="Sistema El valle">
     <meta name="description" content="Sistema de Comercial El Valle">
