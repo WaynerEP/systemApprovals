@@ -15,8 +15,8 @@
           v-model="paginate"
           class="form-control form-control-sm rounded-5"
         >
-          <option value="1">1</option>
-          <option value="10">10</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>
@@ -202,7 +202,7 @@ export default {
   data() {
     return {
       solicitudes: {},
-      paginate: "1",
+      paginate: "8",
       search: "",
       date1: "",
       date2: "",
@@ -228,7 +228,7 @@ export default {
     },
 
     reloadData() {
-      this.paginate = "1";
+      this.paginate = "8";
       this.search = "";
       this.date1 = "";
       this.date2 = "";

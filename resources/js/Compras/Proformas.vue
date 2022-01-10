@@ -307,7 +307,7 @@ export default {
   },
   methods: {
     async getAsyncPedidos() {
-      const res = await axios.get("/api/proformas/pedidos");
+      const res = await axios.get("/api/proforma/pedidos");
       this.detallePedidos = res.data;
     },
 
@@ -414,6 +414,8 @@ export default {
           .then((res) => {
             this.isLoading = false;
             this.$awn.success(res.data);
+            this.resetForm();
+            this.getAsyncPedidos();
           })
           .catch((err) => {
             this.existsErrors(e);

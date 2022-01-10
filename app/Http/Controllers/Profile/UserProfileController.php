@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Persona;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
 {

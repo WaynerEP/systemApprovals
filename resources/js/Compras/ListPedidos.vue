@@ -15,8 +15,8 @@
           v-model="paginate"
           class="form-control form-control-sm rounded-5"
         >
-          <option value="3">3</option>
-          <option value="10">10</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>
@@ -47,7 +47,7 @@
         <div class="input-group mg-t-10 mg-md-t-0">
           <input
             type="search"
-            v-model="search"
+            v-model.lazy="search"
             placeholder="Search for..."
             class="form-control form-control-sm rounded-5"
           />
@@ -84,8 +84,15 @@
               <td>{{ formatDateAsString(pedido.fechaPedido) }}</td>
               <td>{{ pedido.pedido_count }} items</td>
               <td>
-                <span class="badge bg-info tx-white" v-if="pedido.estado == 1"
-                  >Procesada</span
+                <span
+                  class="badge bg-success tx-white"
+                  v-if="pedido.estado == 2"
+                  >Procesada en solicitud</span
+                >
+                <span
+                  class="badge bg-info tx-white"
+                  v-else-if="pedido.estado == 1"
+                  >Procesada con proformas</span
                 >
                 <span class="badge bg-warning tx-white" v-else
                   >No procesada</span
@@ -94,8 +101,15 @@
               <td class="valign-middle">
                 <button
                   type="button"
-                  @click="showDetailsPedido(pedido.idPedido)"
+                  v-if="pedido.estado == 0"
                   class="btn btn-outline-info btn-sm"
+                >
+                  <i class="icon ion-compose"></i>
+                </button>
+                <button
+                  type="button"
+                  @click="showDetailsPedido(pedido.idPedido)"
+                  class="btn btn-outline-secondary btn-sm"
                 >
                   <i class="icon ion-clipboard"></i> Ver detalle
                 </button>
@@ -175,7 +189,7 @@ export default {
   data() {
     return {
       pedidos: {},
-      paginate: "3",
+      paginate: "8",
       search: "",
       date1: "",
       date2: "",
@@ -199,7 +213,7 @@ export default {
     },
 
     reloadData() {
-      this.paginate = "3";
+      this.paginate = "8";
       this.search = "";
       this.date1 = "";
       this.date2 = "";
