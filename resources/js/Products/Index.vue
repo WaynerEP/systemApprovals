@@ -1,6 +1,29 @@
 <template>
   <div class="manager-wrapper">
     <div class="manager-right">
+      <div class="row" v-show="idCategorie > 0">
+        <div class="col-12 d-flex justify-content-end">
+          <a
+            href="#!"
+            @click="editCategorie(categorie)"
+            class="btn btn-teal btn-lg mr-2"
+            style="
+              font-size: 15px;
+              padding: 10px;
+              margin-bottom: 21px;
+              color: #fff;
+            "
+            >Editar Categoria</a
+          >
+          <a
+            href="#!"
+            @click="dropCategorie(idCategorie)"
+            class="btn btn-danger btn-lg"
+            style="font-size: 15px; padding: 10px; margin-bottom: 21px"
+            >Eliminar Categoria</a
+          >
+        </div>
+      </div>
       <div class="row row-sm">
         <Loading v-show="this.dataPaginate.length == 0"></Loading>
         <div
@@ -10,7 +33,7 @@
         >
           <div class="card-contact border-white">
             <div class="tx-center">
-              <a href="">
+              <a href="#!">
                 <img
                   :src="
                     pro.image ? pro.image : 'http://via.placeholder.com/200x200'
@@ -49,9 +72,9 @@
             </p>
             <!-- contact-item -->
             <p class="contact-item">
-              <a href="#" @click="editProduct(pro)">Editar</a>
+              <a href="#!" @click="editProduct(pro)">Editar</a>
               <a
-                href="#"
+                href="#!"
                 @click="deleteProduct(pro.idProducto)"
                 class="text-danger"
                 >Eliminar</a
@@ -82,7 +105,7 @@
         class="btn btn-contact-new"
         data-toggle="modal"
         data-target="#exampleModal"
-        >Add New</a
+        >Agregar Producto</a
       >
 
       <nav class="nav">
@@ -92,14 +115,25 @@
           v-for="cat in categories"
           :key="cat.id"
           @click="getProducts(cat.id)"
+          v-show="cat.amountProduct > 0"
         >
           <span>{{ cat.description }}</span>
           <span>{{ cat.amountProduct }}</span>
         </a>
       </nav>
+
+      <a
+        href=""
+        @click="openModalCategorie()"
+        class="btn btn-purple btn-block mt-3"
+        style="font-size: 15px; padding: 10px"
+        data-toggle="modal"
+        data-target="#exampleModal1"
+        >Agregar Categoria</a
+      >
     </div>
     <!-- manager-left -->
-    <!-- Aquí está el formulario -->
+    <!-- Aquí está el formulario para productos-->
     <modal-section maxWidth="lg" @submitted="store" @close="resetForm()">
       <template #title>
         {{ isActionNew ? "Nuevo Producto" : "Actualizar Producto" }}
@@ -268,6 +302,65 @@
       </template>
     </modal-section>
     <!-- Cierre de formulario -->
+
+    <!-- Aquí está el formulario para categorias -->
+    <modal-section
+      id="exampleModal1"
+      @submitted="storeCategorie"
+      @close="resetFormCategorie()"
+    >
+      <template #title>
+        {{ isActionNew ? "Nueva Categoria" : "Actualizar Categoria" }}
+      </template>
+      <template #body>
+        <div class="form-layout">
+          <div class="row">
+            <div class="col-12">
+              <label class="form-control-label" for="inputCategorie"
+                >Categoria <span class="tx-danger">*</span>
+              </label>
+              <input
+                type="text"
+                v-model="categorie.descriptionCategorie"
+                class="form-control"
+                maxlength="100"
+                id="inputCategorie"
+                placeholder="Ingrese categoria"
+                :class="{
+                  'is-invalid': errors && errors.descriptionCategorie,
+                }"
+              />
+              <div
+                class="invalid-feedback"
+                role="alert"
+                v-if="errors && errors.descriptionCategorie"
+              >
+                {{ errors.descriptionCategorie[0] }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template #footer>
+        <button
+          type="button"
+          class="btn btn-pink btn-oblong"
+          data-dismiss="modal"
+          @click="resetFormCategorie()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-oblong"
+          :class="{ 'btn-teal': isActionNew, 'btn-info': !isActionNew }"
+        >
+          <loader-action v-show="isLoading"></loader-action>
+          Guardar
+        </button>
+      </template>
+    </modal-section>
+    <!-- Cierre de formulario -->
   </div>
 </template>
 <script>
@@ -331,6 +424,12 @@ export default {
         liDisable: "disabled",
         button: "page-link",
       },
+
+      // Para categorias
+      idCategorie: "",
+      categorie: {
+        descriptionCategorie: "",
+      },
     };
   },
 
@@ -362,6 +461,10 @@ export default {
       const res = await axios.get("/api/dataProducts/" + id);
       this.products = res.data;
       this.currentPage = 1;
+      this.idCategorie = id;
+      if (id > 0) {
+        this.categorie.descriptionCategorie = this.categories[id].description;
+      }
       this.getDataPage();
     },
 
@@ -416,7 +519,6 @@ export default {
             $("#exampleModal").modal("hide");
             this.getCategories();
             this.getProducts(0);
-            console.log(this.errors);
             this.$awn.success(res.data);
             this.isLoading = false;
           })
@@ -433,6 +535,21 @@ export default {
           return;
         }
 
+<<<<<<< HEAD
+        let fields = new FormData();
+        fields.append("fileImage", this.product.image);
+        fields.append("descriptionProduct", this.product.descriptionProduct);
+        fields.append("type", this.product.type);
+        fields.append("measure", this.product.measure);
+        fields.append("price", this.product.price);
+        fields.append("stock", this.product.stock);
+        fields.append("status", this.product.status);
+        fields.append("status", this.product.status);
+        fields.append("_method", "put");
+
+        axios
+          .post("/products/" + this.selected_id, fields)
+=======
         let data = new FormData();
         data.append("fileImage", this.product.image);
         data.append("descriptionProduct", this.product.descriptionProduct);
@@ -449,6 +566,7 @@ export default {
 
         axios
           .post("/products/" + this.selected_id, data, config)
+>>>>>>> 541e7128c335f6960be30406a142ee888d6cebbf
           .then((res) => {
             // this.getCategories();
             // this.getProducts(0);
@@ -464,6 +582,8 @@ export default {
     },
 
     editProduct(data) {
+      $("#exampleModal").modal("show");
+
       this.errors = [];
       this.isActionNew = false; //Aquí
       this.isLoading = false;
@@ -478,7 +598,6 @@ export default {
       }
 
       this.selected_id = data.idProducto;
-      $("#exampleModal").modal("show");
     },
 
     deleteProduct(id) {
@@ -512,8 +631,10 @@ export default {
       this.isLoading = false;
       this.isActionNew = true;
       this.errors = [];
+      this.myfiles = [];
       this.product.descriptionProduct = "";
       this.product.measure = "";
+      this.product.image = "";
       this.product.price = "";
       this.product.stock = "";
       this.product.type = "";
@@ -532,6 +653,77 @@ export default {
       } else {
         this.product.image = "";
       }
+    },
+
+    // Aquí están todos los métodos de las categorias
+    openModalCategorie() {
+      this.resetFormCategorie();
+    },
+    resetFormCategorie() {
+      this.isLoading = false;
+      this.isActionNew = true;
+      this.errors = [];
+    },
+
+    storeCategorie() {
+      // console.log(this.categorie);
+      if (this.isActionNew) {
+        this.isLoading = true;
+        axios
+          .post("/categorie/", this.categorie)
+          .then((res) => {
+            $("#exampleModal1").modal("hide");
+            this.getCategories();
+            this.getProducts(0);
+            this.$awn.success(res.data);
+            this.isLoading = false;
+          })
+          .catch((e) => {
+            this.existsErrors(e);
+          });
+      } else {
+        axios
+          .put("/categorie/" + this.idCategorie, this.categorie)
+          .then((res) => {
+            this.getCategories();
+            this.getProducts(0);
+            $("#exampleModal1").modal("hide");
+            this.$awn.success(res.data);
+          })
+          .catch((e) => {
+            this.existsErrors(e);
+          });
+      }
+    },
+
+    editCategorie(data) {
+      $("#exampleModal1").modal("show");
+      this.errors = [];
+      this.isActionNew = false; //Aquí
+      this.isLoading = false;
+      this.categorie.descriptionCategorie = data.descriptionCategorie;
+    },
+
+    dropCategorie(id) {
+      let onOk = () => {
+        axios
+          .delete("/categorie/" + id)
+          .then((res) => {
+            console.log(res.data);
+            this.getCategories();
+            this.getProducts(0);
+            this.$awn.info(res.data);
+          })
+          .catch((e) => {
+            this.$awn.alert("Algo salió mal!.");
+            console.log(e);
+          });
+      };
+
+      this.$awn.confirm(
+        "¿Estás seguro de eliminar?, recuerda que se eliminarán todos los productos de está categoria",
+        onOk
+      );
     },
   },
 };

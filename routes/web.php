@@ -70,10 +70,10 @@ Route::middleware('auth')->group(function () {
         return view('Items.Products');
     })->name('items');
 
-    //ruta categorias
-    Route::get('/items/categories', function () {
-        return view('Items.Categories');
-    })->name('categories');
+    // //ruta categorias
+    // Route::get('/items/categories', function () {
+    //     return view('Items.Categories');
+    // })->name('categories');
 
 
     // Rutas para pedidos
@@ -139,7 +139,11 @@ Route::resource('personas', PersonaController::class)->middleware('auth');
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
 //ruta post para guardar la solicitud y hacer el envio de correos
+<<<<<<< HEAD
+// Route::resource('/solicitud/enviar', SolicitudesControllerController::class);
+=======
 // Route::resource('/solicitud/enviar', SolicitudesController::class);
+>>>>>>> 541e7128c335f6960be30406a142ee888d6cebbf
 
 
 // Aquí estará la data que cree a proveedores
@@ -150,8 +154,13 @@ Route::resource('/providers', ProviderController::class)->except('create', 'show
 Route::view('/productos', 'Productos.index')->name('productos');
 
 // ruta para productos
-Route::resource('/products', ProductController::class)->except('create', 'show', 'edit')->middleware('auth');
+Route::resource('/products', ProductController::class)->except('create', 'show', 'edit','storeType','updateType','destroyType')->middleware('auth');
 
+// rutas para agregar, editar y elimnar categorias
+Route::post('/categorie', [ProductController::class, 'storeType'])->middleware('auth');
+Route::put('/categorie/{categorie}', [ProductController::class, 'updateType'])->middleware('auth');
+Route::delete('/categorie/{categorie}', [ProductController::class, 'destroyType'])->middleware('auth');
+//
 
 //orders
 Route::get('orders/{idEmpleado}/{idPedido}', [orderController::class, 'index'])->name('order');

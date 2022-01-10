@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 use DB;
 use App\Models\Product;
+use App\Models\TypeProduct;
 
 class ProductController extends Controller
 {
@@ -62,7 +63,7 @@ class ProductController extends Controller
             'precioC' => $request['price'],
             'stock' => $request['stock'],
             'estado' => $request['status'],
-            'image' => '/storage/products/' . $customFileName
+            'image' => 'storage/products/' . $customFileName
         ]);
 
         return response('La acción ha sido exitosa!.', 200);
@@ -101,13 +102,14 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // return $request;
+
         $request->validate([
             'descriptionProduct' => 'required|string|max:100|unique:productos,descripcionProducto,'.$id.',idProducto',
             'type' => 'required',
             'measure' => 'required',
             'price' => 'required',
             'stock' => 'required',
-            'fileImage' => 'required',
         ]);
         
         if ($request->hasFile('fileImage')) {
@@ -131,7 +133,7 @@ class ProductController extends Controller
             'precioC' => $request['price'],
             'stock' => $request['stock'],
             'estado' => $request['status'],
-            'image' => '/storage/products/' . $customFileName
+            'image' => 'storage/products/'. $customFileName
         ]);
 
         return response('La acción ha sido exitosa!.', 200);
@@ -150,6 +152,46 @@ class ProductController extends Controller
         // $product=Product::find($id);
         // $product->estado = 0;
         // $product->save();
+
+        return response('La acción ha sido exitosa!.', 200);
+    }
+
+
+    //Aqui crearemos y actualizamos el tipoProductos
+    public function storeType(Request $request)
+    {
+        //
+        $request->validate([
+            'descriptionCategorie' => 'required|string|max:100|unique:tipoProducto,descripcion',
+        ]);
+
+        TypeProduct::create([
+            'descripcion' => $request['descriptionCategorie'],
+        ]);
+
+        return response('La acción ha sido exitosa!.', 200);
+
+    }
+
+    public function updateType(Request $request, $id)
+    {
+        //
+        $request->validate([
+            'descriptionCategorie' => 'required|string|max:100|unique:tipoProducto,descripcion,'.$id.',idTipo'
+        ]);
+
+        TypeProduct::find($id)->update([
+            'descripcion' => $request['descriptionCategorie'],
+        ]);
+
+        return response('La acción ha sido exitosa!.', 200);
+    }
+
+    public function destroyType($id)
+    {
+        //
+        Product::where('idTipo',$id)->delete();
+        TypeProduct::find($id)->delete();
 
         return response('La acción ha sido exitosa!.', 200);
     }
