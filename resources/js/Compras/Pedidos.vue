@@ -58,7 +58,11 @@
               </td>
               <td>
                 <img
-                  src="http://via.placeholder.com/800x533"
+                  :src="
+                    d.image
+                      ? '/' + d.image
+                      : 'http://via.placeholder.com/800x533'
+                  "
                   class="wd-55"
                   :alt="details[index].producto"
                 />
@@ -148,7 +152,9 @@
           <Loading v-show="isLoading" />
           Guardar Pedido
         </button>
-        <button class="btn btn-secondary bd-0" @click="resetFields">Cancelar</button>
+        <button class="btn btn-secondary bd-0" @click="resetFields">
+          Cancelar
+        </button>
       </div>
       <!-- form-layout-footer -->
     </div>
@@ -318,7 +324,7 @@ export default {
       if (e.target.checked == true) {
         let fila = {
           idProducto: row.id,
-          image: "",
+          image: row.image,
           producto: row.product,
           precio: row.precioC,
           cantidad: 1,
@@ -348,7 +354,7 @@ export default {
         });
         return;
       }
-      
+
       let onOk = () => {
         this.isLoading = true;
         this.pedido.detalle = this.details;

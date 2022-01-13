@@ -44,10 +44,11 @@ class PedidoController extends Controller
             'total' => 'required',
             'detalle' => 'required',
         ]);
-
+        $date = Carbon::now()->subDays(5);
         $data = Pedido::create([
             'monto' => $request->total,
-            'notas' => $request->notas
+            'notas' => $request->notas,
+            'fechaPedido' => $date,
         ]);
 
         $id = $data->idPedido;

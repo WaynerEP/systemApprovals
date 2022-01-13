@@ -3128,6 +3128,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3254,7 +3260,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (e.target.checked == true) {
         var fila = {
           idProducto: row.id,
-          image: "",
+          image: row.image,
           producto: row.product,
           precio: row.precioC,
           cantidad: 1,
@@ -6599,6 +6605,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/LoaderAction.vue */ "./resources/js/components/LoaderAction.vue");
+//
 //
 //
 //
@@ -91066,7 +91073,9 @@ var render = function () {
                                 _c("img", {
                                   staticClass: "wd-55",
                                   attrs: {
-                                    src: "http://via.placeholder.com/800x533",
+                                    src: d.image
+                                      ? "/" + d.image
+                                      : "http://via.placeholder.com/800x533",
                                     alt: _vm.details[index].producto,
                                   },
                                 }),
@@ -91369,7 +91378,7 @@ var render = function () {
                 staticClass: "btn btn-secondary bd-0",
                 on: { click: _vm.resetFields },
               },
-              [_vm._v("Cancelar")]
+              [_vm._v("\n        Cancelar\n      ")]
             ),
           ]),
         ],
@@ -96153,6 +96162,7 @@ var render = function () {
                         src: d.image
                           ? "/" + d.image
                           : "http://via.placeholder.com/800x533",
+                        loading: "lazy",
                         alt: d.descripcionProducto,
                       },
                     }),
