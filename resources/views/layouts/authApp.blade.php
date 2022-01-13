@@ -33,7 +33,7 @@
             @yield('auth')
         </div>
         <div class="signin-left"
-            style="background-image: url('/assets/img/blue-panel-bg-image.png'); background-repeat: no-repeat; background-size: cover">
+            style="background-image: url({{ asset('assets/img/ilustrators/panel-login.png') }}); background-repeat: no-repeat; background-size: cover">
             <div class="signin-box text-white">
                 <h2 class="slim-logo"><a href="{{ route('login') }}">El Valle<span>.</span></a></h2>
                 <p class="">We are excited to launch our new company and product. After being featured

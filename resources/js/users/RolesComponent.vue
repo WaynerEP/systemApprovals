@@ -22,11 +22,11 @@
                 <i class="fa fa-pencil"></i>
               </div>
             </button>
-            <button class="btn btn-oblong btn-outline-teal btn-icon">
+            <!-- <button class="btn btn-oblong btn-outline-teal btn-icon">
               <div class="tx-20">
                 <i class="fa fa-eye"></i>
               </div>
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
             data-toggle="modal"
             data-target="#exampleModal"
           >
-            <img src="/assets/img/4.png" class="img-fluid" alt="Nuevo Rol" />
+            <img src="/assets/img/ilustrators/bg-role.png" class="img-fluid" alt="Nuevo Rol" />
             <p class="section-label text-center">
               Agregar <i class="fa fa-plus"></i>
             </p>

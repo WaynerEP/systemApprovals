@@ -5,14 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\distritosController;
 use App\Http\Controllers\cargosController;
-use App\Http\Controllers\Compras\PedidoController;
-use App\Http\Controllers\Compras\SolicitudesController;
-use App\Http\Controllers\Compras\ProformasController;
 use App\Models\Organizacion;
 use App\Models\Area;
 use App\Models\DetallePedidos;
 use App\Models\Proveedor;
-use App\Models\Pedido;
 use Illuminate\Support\Facades\DB;
 
 
@@ -105,15 +101,6 @@ Route::get('/products/proforma', function () {
     return response()->json($data);
 });
 
-//tiporecursos api
-Route::apiResource('/pedidos', PedidoController::class);
-
-//solicitudes api
-Route::apiResource('/solicitud', SolicitudesController::class);
-
-//proformas api
-Route::apiResource('/proformas', ProformasController::class);
-
 
 //numero de pedido se incrementa + 1
 Route::get('/aprobaciones/detail/{idAprobaciones}', function ($id) {
@@ -165,7 +152,7 @@ Route::get('/orders/list/{id}/{status}', function ($id, $status) {
     return response()->json($data);
 });
 
-//devuelve los datos el usuario
+//devuelve los datos el usuario para editarlo
 Route::get('/user-profile/{user_id}', function ($user_id) {
     $user_info = DB::select('Exec spUserProfile ?', array($user_id));
     return response()->json($user_info);

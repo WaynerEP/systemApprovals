@@ -245,7 +245,7 @@ export default {
         this.isSearch = true;
       }
       const res = await axios.get(
-        "/api/solicitud?page=" +
+        "/solicitud?page=" +
           page +
           "&paginate=" +
           this.paginate +

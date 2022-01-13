@@ -37,6 +37,7 @@ class PedidoController extends Controller
     }
 
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -62,5 +63,15 @@ class PedidoController extends Controller
             ]);
         }
         return "Pedido registrado con éxito!.";
+    }
+
+
+    public function destroy($id)
+    {
+        // el estado 3 significa que ha sido anulado
+        $pedido = Pedido::find($id);
+        $pedido->estado = "3";
+        $pedido->save();
+        return "Pedido anulado con éxito!.";
     }
 }

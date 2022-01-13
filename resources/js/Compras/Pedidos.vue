@@ -344,7 +344,7 @@ export default {
     savePedidos() {
       if (this.details.length == 0) {
         $.toast({
-          content: "Agregue un productos o servicio.",
+          content: "Agregue un producto o servicio.",
         });
         return;
       }
@@ -354,7 +354,7 @@ export default {
         this.pedido.detalle = this.details;
         this.pedido.total = this.total;
         axios
-          .post("/api/pedidos", this.pedido)
+          .post("/pedidos", this.pedido)
           .then((res) => {
             this.$awn.success(res.data);
             this.isLoading = false;
