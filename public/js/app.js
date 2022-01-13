@@ -5246,6 +5246,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return;
         }
 
+<<<<<<< HEAD
         var data = new FormData();
         data.append("fileImage", this.product.image);
         data.append("descriptionProduct", this.product.descriptionProduct);
@@ -5269,6 +5270,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
           _this3.$awn.success(res.data);
 
+=======
+        var _fields = new FormData();
+
+        _fields.append("fileImage", this.product.image);
+
+        _fields.append("descriptionProduct", this.product.descriptionProduct);
+
+        _fields.append("type", this.product.type);
+
+        _fields.append("measure", this.product.measure);
+
+        _fields.append("price", this.product.price);
+
+        _fields.append("stock", this.product.stock);
+
+        _fields.append("status", this.product.status);
+
+        _fields.append("status", this.product.status);
+
+        _fields.append("_method", "put");
+
+        axios.post("/products/" + this.selected_id, _fields).then(function (res) {
+          // this.getCategories();
+          // this.getProducts(0);
+          // $("#exampleModal").modal("hide");
+          // this.$awn.success(res.data);
+>>>>>>> 7913177a1c874d0fd0bdd89be44fe903c07ff2bb
           console.log(res.data);
           _this3.isLoading = false;
         })["catch"](function (e) {

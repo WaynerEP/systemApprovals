@@ -535,6 +535,7 @@ export default {
           return;
         }
 
+<<<<<<< HEAD
         let data = new FormData();
         data.append("fileImage", this.product.image);
         data.append("descriptionProduct", this.product.descriptionProduct);
@@ -551,6 +552,21 @@ export default {
 
         axios
           .post("/products/" + this.selected_id, data, config)
+=======
+        let fields = new FormData();
+        fields.append("fileImage", this.product.image);
+        fields.append("descriptionProduct", this.product.descriptionProduct);
+        fields.append("type", this.product.type);
+        fields.append("measure", this.product.measure);
+        fields.append("price", this.product.price);
+        fields.append("stock", this.product.stock);
+        fields.append("status", this.product.status);
+        fields.append("status", this.product.status);
+        fields.append("_method", "put");
+
+        axios
+          .post("/products/" + this.selected_id, fields)
+>>>>>>> 7913177a1c874d0fd0bdd89be44fe903c07ff2bb
           .then((res) => {
             this.getCategories();
             this.getProducts(0);

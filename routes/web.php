@@ -104,18 +104,9 @@ Route::middleware('auth')->group(function () {
     Route::view('/compras-request/list', 'Solicitudes.Index')
         ->name('purchase-request.list');
 
-
     // ruta ordenes
     Route::view('/orders/list', 'Orders.List')->name('orders');
 
-    // Route::get('/purchases/orders/create', function () {
-    //     return view('Orders.create');
-    // });
-
-    // ruta aprobaciones
-    // Route::get('/approvals', function () {
-    //     return view('Aprobaciones.Index');
-    // })->name('approvals');
 
     //Rutas para el perfil del usuario
     Route::view('/user-profile', 'Profile.user-profile')
@@ -148,6 +139,10 @@ Route::resource('personas', PersonaController::class)->middleware('auth');
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
 //ruta post para guardar la solicitud y hacer el envio de correos
+<<<<<<< HEAD
+=======
+// Route::resource('/solicitud/enviar', SolicitudesControllerController::class);
+>>>>>>> 7913177a1c874d0fd0bdd89be44fe903c07ff2bb
 
 // Route::resource('/solicitud/enviar', SolicitudesController::class);
 
@@ -177,10 +172,9 @@ Route::resource('/update-profile', UserProfileController::class)->middleware('au
 
 Route::post('/update-password', [UserProfileController::class, 'updatePassword'])->middleware('auth');
 
-//no usable
-// Route::view('/email', 'Orders.Email');
-
 // Route::get('/file', function () {
 //     Storage::disk("google")->put("test.pdf", "Hello, I'm wayner");
 //     return "Exito";
 // });
+
+Route::view('/email','Orders.email');
