@@ -51,7 +51,7 @@ class ProductController extends Controller
         ]);
         
         if ($request->hasFile('fileImage')) {
-            $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
+            $customFileName = uniqid() . '.png';
 
             Storage::putFileAs('/public/products/', $request->file('fileImage'), $customFileName);
         } 
@@ -113,7 +113,7 @@ class ProductController extends Controller
         ]);
         
         if ($request->hasFile('fileImage')) {
-            $customFileName = uniqid() . '.' .$request->file('fileImage')->extension();
+            $customFileName = uniqid() . '.png' ;
 
             Storage::putFileAs('/public/products/', $request->file('fileImage'), $customFileName);
         } 

@@ -38,7 +38,7 @@
             </div><!-- dropdown -->
             <div class="dropdown dropdown-c">
                 <a href="#" class="logged-user" data-toggle="dropdown">
-                    <img src="{{ Auth::user()->avatar ? Auth::user()->avatar : '/storage/avatars/user.png' }}"
+                    <img src="/{{ Auth::user()->avatar ? Auth::user()->avatar : '/storage/avatars/user.png' }}"
                         alt="">
                     <span>{{ Auth::user()->name }}</span>
                     <i class="fa fa-angle-down"></i>

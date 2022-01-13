@@ -2264,6 +2264,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2294,6 +2300,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    anularPedido: function anularPedido(idPedido) {
+      var _this = this;
+
+      var onOk = function onOk() {
+        axios["delete"]("/pedidos/" + idPedido).then(function (res) {
+          _this.$awn.info(res.data);
+
+          _this.loadAsyncData();
+        })["catch"](function (e) {
+          _this.existsErrors(e);
+        });
+      };
+
+      this.$awn.confirm("Estás seguro de anular el pedido?", onOk);
+    },
     showDetailsPedido: function showDetailsPedido(val) {
       this.$refs.detalle.details = [];
       this.$refs.detalle.fetchData(val);
@@ -2311,7 +2332,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     loadAsyncData: function loadAsyncData() {
       var _arguments = arguments,
-          _this = this;
+          _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var page, res;
@@ -2321,22 +2342,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
 
-                if (_this.search) {
-                  _this.isSearch = true;
+                if (_this2.search) {
+                  _this2.isSearch = true;
                 }
 
                 _context.next = 4;
-                return axios.get("/api/pedidos?page=" + page + "&paginate=" + _this.paginate + "&inicio=" + _this.date1 + "&fin=" + _this.date2 + "&search=" + _this.search);
+                return axios.get("/pedidos?page=" + page + "&paginate=" + _this2.paginate + "&inicio=" + _this2.date1 + "&fin=" + _this2.date2 + "&search=" + _this2.search);
 
               case 4:
                 res = _context.sent;
-                _this.pedidos = res.data;
+                _this2.pedidos = res.data;
 
                 if (res.data) {
-                  _this.isNoEmpty = false;
+                  _this2.isNoEmpty = false;
                 }
 
-                _this.isSearch = false;
+                _this2.isSearch = false;
 
               case 8:
               case "end":
@@ -2649,7 +2670,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 4;
-                return axios.get("/api/solicitud?page=" + page + "&paginate=" + _this.paginate + "&search=" + _this.search + "&inicio=" + _this.date1 + "&fin=" + _this.date2 + "&search=" + _this.search);
+                return axios.get("/solicitud?page=" + page + "&paginate=" + _this.paginate + "&search=" + _this.search + "&inicio=" + _this.date1 + "&fin=" + _this.date2 + "&search=" + _this.search);
 
               case 4:
                 res = _context.sent;
@@ -2836,7 +2857,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 top = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 3;
                 _context.next = 3;
-                return axios.get("/api/proformas?top=" + top);
+                return axios.get("/proformas?top=" + top);
 
               case 3:
                 res = _context.sent;
@@ -3259,7 +3280,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.details.length == 0) {
         $.toast({
-          content: "Agregue un productos o servicio."
+          content: "Agregue un producto o servicio."
         });
         return;
       }
@@ -3268,7 +3289,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.isLoading = true;
         _this2.pedido.detalle = _this2.details;
         _this2.pedido.total = _this2.total;
-        axios.post("/api/pedidos", _this2.pedido).then(function (res) {
+        axios.post("/pedidos", _this2.pedido).then(function (res) {
           _this2.$awn.success(res.data);
 
           _this2.isLoading = false;
@@ -3769,7 +3790,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             "content-type": "multipart/form-data"
           }
         };
-        axios.post("/api/proformas", fields, config).then(function (res) {
+        axios.post("/proformas", fields, config).then(function (res) {
           _this4.isLoading = false;
 
           _this4.$awn.success(res.data);
@@ -3840,6 +3861,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -4332,7 +4357,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this3.solicitud.monto = _this3.total;
         _this3.solicitud.empleado = _this3.empleado[0].code_empleado;
 
-        _this3.$awn.async(axios.post("/api/solicitud", _this3.solicitud), function (res) {
+        _this3.$awn.async(axios.post("/solicitud", _this3.solicitud), function (res) {
           console.log(res.data);
 
           _this3.$awn.success(res.data);
@@ -5046,6 +5071,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -5214,8 +5240,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return;
         }
 
-        var fields = new FormData(); // fields.append("fileImage", this.product.image);
-
+        var fields = new FormData();
+        fields.append("fileImage", this.product.image);
         fields.append("descriptionProduct", this.product.descriptionProduct);
         fields.append("type", this.product.type);
         fields.append("measure", this.product.measure);
@@ -5223,7 +5249,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         fields.append("stock", this.product.stock);
         fields.append("status", this.product.status); // Una vez agregado lo enviamos al backend
 
-        axios.post("/products/", fields).then(function (res) {
+        axios.post("/products", fields).then(function (res) {
           $("#exampleModal").modal("hide");
 
           _this3.getCategories();
@@ -5246,32 +5272,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return;
         }
 
-        var _fields = new FormData();
+        var data = new FormData();
+        data.append("fileImage", this.product.image);
+        data.append("descriptionProduct", this.product.descriptionProduct);
+        data.append("type", this.product.type);
+        data.append("measure", this.product.measure);
+        data.append("price", this.product.price);
+        data.append("stock", this.product.stock);
+        data.append("status", this.product.status);
+        data.append("_method", "put");
+        var config = {
+          headers: {
+            "content-type": "multipart/form-data"
+          }
+        };
+        axios.post("/products/" + this.selected_id, data, config).then(function (res) {
+          _this3.getCategories();
 
-        _fields.append("fileImage", this.product.image);
+          _this3.getProducts(0);
 
-        _fields.append("descriptionProduct", this.product.descriptionProduct);
+          $("#exampleModal").modal("hide");
 
-        _fields.append("type", this.product.type);
+          _this3.$awn.success(res.data);
 
-        _fields.append("measure", this.product.measure);
-
-        _fields.append("price", this.product.price);
-
-        _fields.append("stock", this.product.stock);
-
-        _fields.append("status", this.product.status);
-
-        _fields.append("status", this.product.status);
-
-        _fields.append("_method", "put");
-
-        axios.post("/products/" + this.selected_id, _fields).then(function (res) {
-          // this.getCategories();
-          // this.getProducts(0);
-          // $("#exampleModal").modal("hide");
-          // this.$awn.success(res.data);
-          console.log(res.data);
           _this3.isLoading = false;
         })["catch"](function (e) {
           _this3.existsErrors(e);
@@ -5309,8 +5332,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this4.$awn.info(res.data);
         })["catch"](function (e) {
           _this4.$awn.alert("Algo salió mal!.");
-
-          console.log(e);
         });
       };
 
@@ -5344,8 +5365,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // Aquí vamos a agregar las imagénes
     changeImageProduct: function changeImageProduct(val) {
-      console.log(val);
-
       if (val.length > 0) {
         this.product.image = val[0].file;
       } else {
@@ -5924,7 +5943,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     submit: function submit() {
-      document.getElementById("logout-form").submit();
+      document.getElementById("form-logut").submit();
     }
   }
 });
@@ -6580,6 +6599,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/LoaderAction.vue */ "./resources/js/components/LoaderAction.vue");
+//
+//
 //
 //
 //
@@ -7656,6 +7677,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -89995,6 +90018,12 @@ var render = function () {
                                   { staticClass: "badge bg-info tx-white" },
                                   [_vm._v("Procesada con proformas")]
                                 )
+                              : pedido.estado == 3
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge bg-danger tx-white" },
+                                  [_vm._v("Pedido anulado")]
+                                )
                               : _c(
                                   "span",
                                   { staticClass: "badge bg-warning tx-white" },
@@ -90007,10 +90036,21 @@ var render = function () {
                               ? _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-outline-info btn-sm",
+                                    staticClass:
+                                      "btn btn-outline-danger btn-sm",
                                     attrs: { type: "button" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.anularPedido(pedido.idPedido)
+                                      },
+                                    },
                                   },
-                                  [_c("i", { staticClass: "icon ion-compose" })]
+                                  [
+                                    _c("i", {
+                                      staticClass: "icon ion-compose",
+                                    }),
+                                    _vm._v(" Anular\n              "),
+                                  ]
                                 )
                               : _vm._e(),
                             _vm._v(" "),
@@ -92430,7 +92470,9 @@ var render = function () {
                                   _c("img", {
                                     staticClass: "wd-55",
                                     attrs: {
-                                      src: "http://via.placeholder.com/800x533",
+                                      src: d.image
+                                        ? "/" + d.image
+                                        : "http://via.placeholder.com/800x533",
                                       alt: d.descripcionProducto,
                                     },
                                   }),
@@ -93581,11 +93623,12 @@ var render = function () {
                     _c("div", { staticClass: "tx-center" }, [
                       _c("a", { attrs: { href: "#!" } }, [
                         _c("img", {
-                          staticClass: "card-img wd-120 ht-120",
+                          staticClass: "wd-120 ht-120",
                           attrs: {
                             src: pro.image
                               ? pro.image
                               : "http://via.placeholder.com/200x200",
+                            loading: "lazy",
                             alt: "product",
                           },
                         }),
@@ -93797,7 +93840,8 @@ var render = function () {
                           ref: "filePondComponente",
                           attrs: {
                             styleLayout: "compact circle",
-                            fileTypes: "image/png, image/jpeg, image/gif",
+                            fileTypes:
+                              "image/png, image/jpeg, image/gif, image/webp",
                             myFiles: _vm.myFiles,
                             classes: "wd-150 ht-150",
                           },
@@ -95264,7 +95308,7 @@ var render = function () {
       "form",
       {
         staticStyle: { display: "none" },
-        attrs: { id: "logout-form", action: "logout", method: "POST" },
+        attrs: { id: "form-logut", action: "logout", method: "POST" },
       },
       [
         _c("input", {
@@ -96106,7 +96150,9 @@ var render = function () {
                     _c("img", {
                       staticClass: "wd-55",
                       attrs: {
-                        src: "http://via.placeholder.com/800x533",
+                        src: d.image
+                          ? "/" + d.image
+                          : "http://via.placeholder.com/800x533",
                         alt: d.descripcionProducto,
                       },
                     }),
@@ -97034,8 +97080,6 @@ var render = function () {
                       },
                       [_vm._m(0, true)]
                     ),
-                    _vm._v(" "),
-                    _vm._m(1, true),
                   ]),
                 ]),
               ]
@@ -97074,10 +97118,13 @@ var render = function () {
               [
                 _c("img", {
                   staticClass: "img-fluid",
-                  attrs: { src: "/assets/img/4.png", alt: "Nuevo Rol" },
+                  attrs: {
+                    src: "/assets/img/ilustrators/bg-role.png",
+                    alt: "Nuevo Rol",
+                  },
                 }),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(1),
               ]
             ),
           ]),
@@ -97388,20 +97435,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-oblong btn-outline-teal btn-icon" },
-      [
-        _c("div", { staticClass: "tx-20" }, [
-          _c("i", { staticClass: "fa fa-eye" }),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("p", { staticClass: "section-label text-center" }, [
       _vm._v("\n            Agregar "),
       _c("i", { staticClass: "fa fa-plus" }),
@@ -97508,7 +97541,7 @@ var render = function () {
                                     staticClass: "wd-40 rounded-circle",
                                     attrs: {
                                       src: u.avatar
-                                        ? u.avatar
+                                        ? "/" + u.avatar
                                         : "/storage/avatars/user.png",
                                       loading: "lazy",
                                       alt: "Image",

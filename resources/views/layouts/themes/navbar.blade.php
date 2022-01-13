@@ -46,14 +46,14 @@
                             <label class="section-label">Pedidos</label>
                             <ul>
                                 <li><a href="{{ route('pedidos.list') }}">Listar Pedidos</a></li>
-                                <li><a href="{{ route('pedidos.new') }}">Armar Nuevo Pedido</a></li>
+                                <li><a href="{{ route('pedidos.new') }}">Generar Nuevo Pedido</a></li>
                             </ul>
                         </div><!-- col -->
                         <div class="col-lg mg-t-30 mg-lg-t-0">
                             <label class="section-label">Proformas</label>
                             <ul>
-                                <li><a href="{{ route('proformas.list') }}">Listar Proformas</a></li>
-                                <li><a href="{{ route('proformas.new') }}">Nuevo registro</a></li>
+                                <li><a href="{{ route('proformas.list') }}">Listar proformas</a></li>
+                                <li><a href="{{ route('proformas.new') }}">Registrar proformas</a></li>
                             </ul>
                         </div><!-- col -->
                         <div class="col-lg mg-t-30 mg-lg-t-0">

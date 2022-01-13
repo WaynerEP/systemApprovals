@@ -115,7 +115,7 @@
       </div>
       <!-- form-layout-footer -->
     </form>
-    <form id="logout-form" action="logout" method="POST" style="display: none">
+    <form id="form-logut" action="logout" method="POST" style="display: none">
       <input type="hidden" name="_token" :value="csrf" />
     </form>
   </div>
@@ -171,7 +171,7 @@ export default {
     },
 
     submit: function () {
-      document.getElementById("logout-form").submit();
+      document.getElementById("form-logut").submit();
     },
   },
 };
