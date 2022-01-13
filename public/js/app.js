@@ -4197,6 +4197,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4702,6 +4706,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -6594,6 +6599,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_LoaderAction_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/LoaderAction.vue */ "./resources/js/components/LoaderAction.vue");
+//
+//
 //
 //
 //
@@ -92463,7 +92470,9 @@ var render = function () {
                                   _c("img", {
                                     staticClass: "wd-55",
                                     attrs: {
-                                      src: "http://via.placeholder.com/800x533",
+                                      src: d.image
+                                        ? "/" + d.image
+                                        : "http://via.placeholder.com/800x533",
                                       alt: d.descripcionProducto,
                                     },
                                   }),
@@ -93614,11 +93623,12 @@ var render = function () {
                     _c("div", { staticClass: "tx-center" }, [
                       _c("a", { attrs: { href: "#!" } }, [
                         _c("img", {
-                          staticClass: "card-img wd-120 ht-120",
+                          staticClass: "wd-120 ht-120",
                           attrs: {
                             src: pro.image
                               ? pro.image
                               : "http://via.placeholder.com/200x200",
+                            loading: "lazy",
                             alt: "product",
                           },
                         }),
@@ -93830,7 +93840,8 @@ var render = function () {
                           ref: "filePondComponente",
                           attrs: {
                             styleLayout: "compact circle",
-                            fileTypes: "image/png, image/jpeg, image/gif",
+                            fileTypes:
+                              "image/png, image/jpeg, image/gif, image/webp",
                             myFiles: _vm.myFiles,
                             classes: "wd-150 ht-150",
                           },
@@ -96139,7 +96150,9 @@ var render = function () {
                     _c("img", {
                       staticClass: "wd-55",
                       attrs: {
-                        src: "http://via.placeholder.com/800x533",
+                        src: d.image
+                          ? "/" + d.image
+                          : "http://via.placeholder.com/800x533",
                         alt: d.descripcionProducto,
                       },
                     }),

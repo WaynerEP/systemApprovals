@@ -60,13 +60,13 @@
                         <i class="icon ion-man tx-gray-400"></i>
                         <i class="icon ion-man tx-gray-400"></i>
                     </div>
-                    <label>Femenino ({{ $datos[0]->porcentajes }}%)</label>
+                    <label>Femenino ({{ number_format($datos[0]->porcentajes, 1) }}%)</label>
                     <div class="progress mg-b-10">
                         <div class="progress-bar bg-primary progress-bar-xs" style="width: {{ $datos[0]->porcentajes }}%;"
                             role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
 
-                    <label>Masculino ({{ $datos[3]->porcentajes }}%)</label>
+                    <label>Masculino ({{ number_format($datos[3]->porcentajes, 1) }}%)</label>
                     <div class="progress">
                         <div class="progress-bar bg-danger progress-bar-xs" style="width: {{ $datos[3]->porcentajes }}%;"
                             role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
@@ -93,13 +93,13 @@
                         <i class="icon ion-cube tx-gray-400"></i>
                         <i class="icon ion-cube tx-gray-400"></i>
                     </div>
-                    <label>Productos ({{ $datos[4]->porcentajes }}%)</label>
+                    <label>Productos ({{ number_format($datos[4]->porcentajes, 1) }}%)</label>
                     <div class="progress mg-b-10">
                         <div class="progress-bar bg-success progress-bar-xs" style="width: {{ $datos[4]->porcentajes }}%;"
                             role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
 
-                    <label>Servicios ({{ $datos[5]->porcentajes }}%)</label>
+                    <label>Servicios ({{ number_format($datos[5]->porcentajes, 1) }}%)</label>
                     <div class="progress">
                         <div class="progress-bar bg-warning progress-bar-xs"
                             style="width: {{ $datos[5]->porcentajes }}%;" role="progressbar" aria-valuenow="15"
@@ -127,13 +127,13 @@
                         <i class="icon ion-location tx-gray-400"></i>
                         <i class="icon ion-location tx-gray-400"></i>
                     </div>
-                    <label>Local ({{ $datos[2]->porcentajes }}%)</label>
+                    <label>Local ({{ number_format($datos[2]->porcentajes, 1) }}%)</label>
                     <div class="progress mg-b-10">
                         <div class="progress-bar bg-purple progress-bar-xs" style="width: {{ $datos[2]->porcentajes }}%;"
                             role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                     </div><!-- progress -->
 
-                    <label>Internacional ({{ $datos[1]->porcentajes }}%)</label>
+                    <label>Internacional ({{ number_format($datos[1]->porcentajes, 1) }}%)</label>
                     <div class="progress">
                         <div class="progress-bar bg-pink progress-bar-xs" style="width: {{ $datos[1]->porcentajes }}%;"
                             role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

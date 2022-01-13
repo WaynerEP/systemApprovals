@@ -16,7 +16,9 @@
           <tr v-for="d in details" :key="d.idProducto">
             <td>
               <img
-                src="http://via.placeholder.com/800x533"
+                :src="
+                  d.image ? '/' + d.image : 'http://via.placeholder.com/800x533'
+                "
                 class="wd-55"
                 :alt="d.descripcionProducto"
               />

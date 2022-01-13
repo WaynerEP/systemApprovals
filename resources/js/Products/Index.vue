@@ -38,7 +38,8 @@
                   :src="
                     pro.image ? pro.image : 'http://via.placeholder.com/200x200'
                   "
-                  class="card-img wd-120 ht-120"
+                  loading="lazy"
+                  class="wd-120 ht-120"
                   alt="product"
                 />
               </a>
@@ -144,7 +145,7 @@
             <div class="col-3 a-10">
               <file-pond
                 styleLayout="compact circle"
-                fileTypes="image/png, image/jpeg, image/gif"
+                fileTypes="image/png, image/jpeg, image/gif, image/webp"
                 :myFiles="myFiles"
                 @changeFile="changeImageProduct"
                 classes="wd-150 ht-150"
