@@ -504,7 +504,7 @@ export default {
           return;
         }
         let fields = new FormData();
-        // fields.append("fileImage", this.product.image);
+        fields.append("fileImage", this.product.image);
         fields.append("descriptionProduct", this.product.descriptionProduct);
         fields.append("type", this.product.type);
         fields.append("measure", this.product.measure);
@@ -535,21 +535,6 @@ export default {
           return;
         }
 
-<<<<<<< HEAD
-        let fields = new FormData();
-        fields.append("fileImage", this.product.image);
-        fields.append("descriptionProduct", this.product.descriptionProduct);
-        fields.append("type", this.product.type);
-        fields.append("measure", this.product.measure);
-        fields.append("price", this.product.price);
-        fields.append("stock", this.product.stock);
-        fields.append("status", this.product.status);
-        fields.append("status", this.product.status);
-        fields.append("_method", "put");
-
-        axios
-          .post("/products/" + this.selected_id, fields)
-=======
         let data = new FormData();
         data.append("fileImage", this.product.image);
         data.append("descriptionProduct", this.product.descriptionProduct);
@@ -566,12 +551,11 @@ export default {
 
         axios
           .post("/products/" + this.selected_id, data, config)
->>>>>>> 541e7128c335f6960be30406a142ee888d6cebbf
           .then((res) => {
-            // this.getCategories();
-            // this.getProducts(0);
-            // $("#exampleModal").modal("hide");
-            // this.$awn.success(res.data);
+            this.getCategories();
+            this.getProducts(0);
+            $("#exampleModal").modal("hide");
+            this.$awn.success(res.data);
             console.log(res.data);
             this.isLoading = false;
           })
