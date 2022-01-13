@@ -139,10 +139,6 @@ Route::resource('personas', PersonaController::class)->middleware('auth');
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
 //ruta post para guardar la solicitud y hacer el envio de correos
-<<<<<<< HEAD
-=======
-// Route::resource('/solicitud/enviar', SolicitudesControllerController::class);
->>>>>>> 7913177a1c874d0fd0bdd89be44fe903c07ff2bb
 
 // Route::resource('/solicitud/enviar', SolicitudesController::class);
 
