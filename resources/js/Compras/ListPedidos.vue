@@ -94,6 +94,11 @@
                   v-else-if="pedido.estado == 1"
                   >Procesada con proformas</span
                 >
+                <span
+                  class="badge bg-danger tx-white"
+                  v-else-if="pedido.estado == 3"
+                  >Pedido anulado</span
+                >
                 <span class="badge bg-warning tx-white" v-else
                   >No procesada</span
                 >
@@ -102,9 +107,10 @@
                 <button
                   type="button"
                   v-if="pedido.estado == 0"
-                  class="btn btn-outline-info btn-sm"
+                  @click="anularPedido(pedido.idPedido)"
+                  class="btn btn-outline-danger btn-sm"
                 >
-                  <i class="icon ion-compose"></i>
+                  <i class="icon ion-compose"></i> Anular
                 </button>
                 <button
                   type="button"
@@ -207,6 +213,22 @@ export default {
   },
 
   methods: {
+    anularPedido(idPedido) {
+      let onOk = () => {
+        axios
+          .delete("/pedidos/" + idPedido)
+          .then((res) => {
+            this.$awn.info(res.data);
+            this.loadAsyncData();
+          })
+          .catch((e) => {
+            this.existsErrors(e);
+          });
+      };
+
+      this.$awn.confirm("Estás seguro de anular el pedido?", onOk);
+    },
+
     showDetailsPedido(val) {
       this.$refs.detalle.details = [];
       this.$refs.detalle.fetchData(val);
@@ -230,7 +252,7 @@ export default {
         this.isSearch = true;
       }
       const res = await axios.get(
-        "/api/pedidos?page=" +
+        "/pedidos?page=" +
           page +
           "&paginate=" +
           this.paginate +

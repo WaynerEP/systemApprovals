@@ -111,7 +111,7 @@ export default {
     },
 
     async loadAsyncData(top = 3) {
-      const res = await axios.get("/api/proformas?top=" + top);
+      const res = await axios.get("/proformas?top=" + top);
       this.detailsProformas = res.data;
       if (res.data) {
         this.isNoEmpty = false;

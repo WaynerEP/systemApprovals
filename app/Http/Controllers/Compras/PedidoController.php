@@ -37,16 +37,18 @@ class PedidoController extends Controller
     }
 
 
+
     public function store(Request $request)
     {
         $request->validate([
             'total' => 'required',
             'detalle' => 'required',
         ]);
-
+        $date = Carbon::now()->subDays(5);
         $data = Pedido::create([
             'monto' => $request->total,
-            'notas' => $request->notas
+            'notas' => $request->notas,
+            'fechaPedido' => $date,
         ]);
 
         $id = $data->idPedido;
@@ -62,5 +64,15 @@ class PedidoController extends Controller
             ]);
         }
         return "Pedido registrado con éxito!.";
+    }
+
+
+    public function destroy($id)
+    {
+        // el estado 3 significa que ha sido anulado
+        $pedido = Pedido::find($id);
+        $pedido->estado = "3";
+        $pedido->save();
+        return "Pedido anulado con éxito!.";
     }
 }

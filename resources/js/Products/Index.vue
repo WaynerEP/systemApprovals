@@ -117,6 +117,7 @@
           :key="cat.id"
           @click="getProducts(cat.id)"
           v-show="cat.amountProduct > 0"
+          style="cursor: pointer"
         >
           <span>{{ cat.description }}</span>
           <span>{{ cat.amountProduct }}</span>

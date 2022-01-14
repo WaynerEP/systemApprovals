@@ -15,9 +15,6 @@ use App\Http\Controllers\Profile\UserProfileController;
 
 use App\Http\Controllers\Products\ProductController;
 
-// use App\Models\User;
-// use GuzzleHttp\Middleware;
-
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -127,31 +124,30 @@ Route::get('/roles/permissions', [RolesController::class, 'getPermissions']); //
 Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit')->middleware('auth');
 
 //routes para personas
-Route::resource('personas', PersonaController::class)->middleware('auth');
+Route::resource('/personas', PersonaController::class)->middleware('auth');
 
-
-//Routes para pedidos
-// Route::resource('pedidos', PedidoController::class)->middleware('auth');
-
-//Routes para proformas
-// Route::resource('/pedidos/proformas', ProformasController::class)->middleware('auth');
-//ruta para mostrar las proformas
+//show proforma
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
-//ruta post para guardar la solicitud y hacer el envio de correos
 
-// Route::resource('/solicitud/enviar', SolicitudesController::class);
+//tiporecursos api
+Route::resource('/pedidos', PedidoController::class)->except('create', 'show', 'edit','update')->middleware('auth');
 
+//solicitudes api
+Route::resource('/solicitud', SolicitudesController::class)->except('create', 'show', 'edit','update')->middleware('auth');
+
+//proformas api
+Route::resource('/proformas', ProformasController::class)->except('create', 'show', 'edit','update')->middleware('auth');
 
 // Aquí estará la data que cree a proveedores
 Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit')->middleware('auth');
 //Proveedores
 
 //ruta productos
-Route::view('/productos', 'Productos.index')->name('productos');
+Route::view('/productos', 'Productos.index')->name('productos')->middleware('auth');
 
 // ruta para productos
-Route::resource('/products', ProductController::class)->except('create', 'show', 'edit','storeType','updateType','destroyType')->middleware('auth');
+Route::resource('/products', ProductController::class)->except('create', 'show', 'edit', 'storeType', 'updateType', 'destroyType')->middleware('auth');
 
 // rutas para agregar, editar y elimnar categorias
 Route::post('/categorie', [ProductController::class, 'storeType'])->middleware('auth');
@@ -160,8 +156,8 @@ Route::delete('/categorie/{categorie}', [ProductController::class, 'destroyType'
 //
 
 //orders
-Route::get('orders/{idEmpleado}/{idPedido}', [orderController::class, 'index'])->name('order');
-Route::post('/response-request', [orderController::class, 'store'])->name('response-request');
+Route::get('orders/{idEmpleado}/{idPedido}', [orderController::class, 'index'])->name('order')->middleware('auth');
+Route::post('/response-request', [orderController::class, 'store'])->middleware('auth')->name('response-request');
 
 //update profile
 Route::resource('/update-profile', UserProfileController::class)->middleware('auth');
@@ -173,4 +169,4 @@ Route::post('/update-password', [UserProfileController::class, 'updatePassword']
 //     return "Exito";
 // });
 
-Route::view('/email','Orders.email');
+// Route::view('/email','Orders.email');

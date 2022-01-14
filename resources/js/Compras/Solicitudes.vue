@@ -132,7 +132,11 @@
                 <tr v-for="d in details" :key="d.idProducto">
                   <td>
                     <img
-                      src="http://via.placeholder.com/800x533"
+                      :src="
+                        d.image
+                          ? '/' + d.image
+                          : 'http://via.placeholder.com/800x533'
+                      "
                       class="wd-55"
                       :alt="d.descripcionProducto"
                     />
@@ -479,7 +483,7 @@ export default {
         this.solicitud.detallePedido = this.details;
         this.solicitud.monto = this.total;
         this.solicitud.empleado = this.empleado[0].code_empleado;
-        this.$awn.async(axios.post("/api/solicitud", this.solicitud), (res) => {
+        this.$awn.async(axios.post("/solicitud", this.solicitud), (res) => {
           console.log(res.data);
           this.$awn.success(res.data);
         });

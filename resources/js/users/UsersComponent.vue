@@ -31,7 +31,9 @@
               <tr v-for="u in users" :key="u.id">
                 <td class="valign-middle pd-l-20">
                   <img
-                    :src="u.avatar ? u.avatar : '/storage/avatars/user.png'"
+                    :src="
+                      u.avatar ? '/' + u.avatar : '/storage/avatars/user.png'
+                    "
                     loading="lazy"
                     class="wd-40 rounded-circle"
                     alt="Image"
