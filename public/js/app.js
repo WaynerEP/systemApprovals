@@ -57466,12 +57466,9 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Can't find stylesheet to import.\n   ╷\n17 │ @import \"~vue-select/src/scss/vue-select.scss\";\r\n   │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n  resources\\sass\\app.scss 17:9  root stylesheet\n    at processResult (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\webpack\\lib\\NormalModule.js:751:19)\n    at C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\webpack\\lib\\NormalModule.js:853:5\n    at C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\loader-runner\\lib\\LoaderRunner.js:399:11\n    at C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\loader-runner\\lib\\LoaderRunner.js:251:18\n    at context.callback (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\loader-runner\\lib\\LoaderRunner.js:124:13)\n    at C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass-loader\\dist\\index.js:54:7\n    at Function.call$2 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:96930:16)\n    at render_closure1.call$2 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:82802:12)\n    at _RootZone.runBinary$3$3 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:28524:18)\n    at _FutureListener.handleError$1 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:27046:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:27353:49)\n    at Object._Future__propagateToListeners (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:12220:77)\n    at _Future._completeError$2 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:27199:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:26858:12)\n    at Object._asyncRethrow (C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:12023:17)\n    at C:\\Users\\espin\\Desktop\\PROYECTO JERARQUIA\\jeraquiaAprobacion\\node_modules\\sass\\sass.dart.js:15877:20");
 
 /***/ }),
 
@@ -106314,7 +106311,6 @@ module.exports = JSON.parse('{"rows_per_page":"Rijen per pagina","out_of_pages":
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
 /******/ 			"css/main": 0,
-/******/ 			"css/app": 0,
 /******/ 			"css/style": 0,
 /******/ 			"css/icons": 0,
 /******/ 			"css/components": 0,
@@ -106368,14 +106364,14 @@ module.exports = JSON.parse('{"rows_per_page":"Rijen per pagina","out_of_pages":
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/style.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/components.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/main.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/theme-2.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/lib/font-awesome/css/font-awesome.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/lib/Ionicons/css/ionicons.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/components.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/main.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/css/theme-2.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/lib/font-awesome/css/font-awesome.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/main","css/style","css/icons","css/components","css/theme-2"], () => (__webpack_require__("./public/assets/lib/Ionicons/css/ionicons.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
