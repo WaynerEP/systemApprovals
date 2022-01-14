@@ -6250,6 +6250,141 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6265,12 +6400,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      countries: ["Perú"],
       providers: [],
       providersNew: [],
       proveedor: {
+        status: "1",
         provider: "",
         businessName: "",
-        status: "1"
+        address: "",
+        city: "",
+        phone: "",
+        codePostal: "",
+        email: "",
+        country: "",
+        ruc: ""
       },
       errors: [],
       selected_id: "",
@@ -6280,6 +6423,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    // Trae todos los proveedores si excepción
     getProviders: function getProviders() {
       var _this = this;
 
@@ -6308,11 +6452,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    openModal: function openModal() {
-      this.resetForm();
-      this.getProvidersNew();
-    },
-    getProvidersNew: function getProvidersNew() {
+    // Trae solo los proveedores nuevos
+    getDelegate: function getDelegate() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -6340,51 +6481,127 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    store: function store() {
+    getProvider: function getProvider(ruc) {
       var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(ruc.length < 11)) {
+                  _context3.next = 5;
+                  break;
+                }
+
+                _this3.resetForm();
+
+                _this3.$awn.alert("Ingrese el total de digitos completo");
+
+                _context3.next = 11;
+                break;
+
+              case 5:
+                // let
+                _this3.$awn.info("Buscando...");
+
+                _context3.next = 8;
+                return axios.get("https://dniruc.apisperu.com/api/v1/ruc/".concat(ruc, "?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtwZXJlemVzcGlAZ21haWwuY29tIn0.e0H9C9yn95TQXyLjocE4bbW11RbxAmiLEbGRTwWQaeI"));
+
+              case 8:
+                res = _context3.sent;
+
+                if (res.data.success == false) {
+                  _this3.resetForm();
+
+                  _this3.$awn.warning("No se encontraron resultados :(");
+                } else {
+                  _this3.isNoEmpty = false;
+
+                  if (res.data.direccion == "" || res.data.capital == "" || res.data.ubigeo == "") {
+                    _this3.resetForm();
+
+                    _this3.$awn.warning("Al proveedor le faltan datos importantes :(");
+                  } else {
+                    _this3.$awn.success("Es proveedor cuenta los datos importantes :D");
+
+                    _this3.proveedor.businessName = res.data.razonSocial;
+                    _this3.proveedor.address = res.data.direccion;
+                    _this3.proveedor.city = res.data.capital;
+                    _this3.proveedor.codePostal = res.data.ubigeo;
+                  }
+
+                  console.log(_this3.proveedor);
+                }
+
+                console.log(res.data); // console.log(res.data);
+                // console.log(this.providers);
+
+              case 11:
+                console.log(); // const res = await axios.get("");
+                // console.log(res.data);
+                // if (res) {
+                //   this.isNoEmpty = false;
+                // }
+
+              case 12:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    openModal: function openModal() {
+      this.resetForm();
+      this.getDelegate();
+    },
+    store: function store() {
+      var _this4 = this;
 
       // Save Element
       if (this.isActionNew) {
-        this.isLoading = true; // console.log(this.provider);
-
+        this.isLoading = true;
         axios.post("/providers/", this.proveedor).then(function (res) {
           $("#exampleModal").modal("hide");
 
-          _this3.getProviders();
+          _this4.getProviders();
 
-          _this3.$awn.success(res.data);
+          _this4.$awn.success(res.data);
 
-          _this3.isLoading = false;
+          _this4.isLoading = false;
         })["catch"](function (e) {
-          _this3.existsErrors(e);
+          _this4.existsErrors(e);
         });
-      } else {
-        this.isLoading = true;
-        axios.put("/providers/" + this.selected_id, this.proveedor).then(function (res) {
-          _this3.getProviders();
+      } // else {
+      //   this.isLoading = true;
+      //   axios
+      //     .put("/providers/" + this.selected_id, this.proveedor)
+      //     .then((res) => {
+      //       this.getProviders();
+      //       $("#exampleModal").modal("hide");
+      //       this.$awn.success(res.data);
+      //       this.isLoading = false;
+      //     })
+      //     .catch((e) => {
+      //       this.existsErrors(e);
+      //     });
+      // }
 
-          $("#exampleModal").modal("hide");
-
-          _this3.$awn.success(res.data);
-
-          _this3.isLoading = false;
-        })["catch"](function (e) {
-          _this3.existsErrors(e);
-        });
-      }
     },
     deleteProvider: function deleteProvider(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       var onOk = function onOk() {
         axios["delete"]("/providers/" + id).then(function (res) {
-          _this4.getProviders();
+          _this5.getProviders();
 
           console.log(res);
 
-          _this4.$awn.info(res.data);
+          _this5.$awn.info(res.data);
         })["catch"](function (e) {
-          _this4.$awn.alert("Algo salió mal!.");
+          _this5.$awn.alert("Algo salió mal!.");
 
           console.log(e);
         });
@@ -6415,9 +6632,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     resetForm: function resetForm() {
       this.isLoading = false;
       this.isActionNew = true;
-      this.proveedor.provider = "";
       this.proveedor.businessName = "";
-      this.proveedor.status = "1";
+      this.proveedor.provider = "";
+      this.proveedor.address = "";
+      this.proveedor.city = "";
+      this.proveedor.codePostal = "";
       this.errors = [];
       $("#inputProvider").prop("disabled", false);
     }
@@ -95651,6 +95870,7 @@ var render = function () {
       }),
       _vm._v(" "),
       _c("modal-section", {
+        attrs: { maxWidth: "lg" },
         on: {
           submitted: _vm.store,
           close: function ($event) {
@@ -95679,169 +95899,623 @@ var render = function () {
             key: "body",
             fn: function () {
               return [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-control-label",
-                      attrs: { for: "inputProvider" },
-                    },
-                    [_vm._v("Persona/Proveedor")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _c("div", { staticClass: "form-layout mb-2" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-3 form-group" }, [
+                      _c(
+                        "label",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.proveedor.provider,
-                          expression: "proveedor.provider",
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputRuc" },
                         },
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.errors && _vm.errors.provider,
-                      },
-                      attrs: { id: "inputProvider" },
-                      on: {
-                        change: function ($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function (o) {
-                              return o.selected
-                            })
-                            .map(function (o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.proveedor,
-                            "provider",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _vm.isActionNew
-                        ? [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Seleccione..."),
-                            ]),
-                            _vm._v(" "),
-                            _vm._l(_vm.providersNew, function (pro) {
-                              return _c(
-                                "option",
-                                { key: pro.dni, domProps: { value: pro.dni } },
-                                [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(pro.names) +
-                                      "\n            "
-                                  ),
-                                ]
+                        [
+                          _vm._v("RUC "),
+                          _c("span", { staticClass: "tx-danger" }, [
+                            _vm._v("*"),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "input-group-prepend" }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.proveedor.ruc,
+                              expression: "proveedor.ruc",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors && _vm.errors.ruc },
+                          attrs: {
+                            type: "text",
+                            id: "inputRuc",
+                            placeholder: "RUC",
+                            maxlength: "11",
+                            onkeypress:
+                              "return event.charCode >= 48 && event.charCode <= 57",
+                          },
+                          domProps: { value: _vm.proveedor.ruc },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.proveedor,
+                                "ruc",
+                                $event.target.value
                               )
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn input-group-text bg-secondary",
+                            on: {
+                              click: function ($event) {
+                                return _vm.getProvider(_vm.proveedor.ruc)
+                              },
+                            },
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "icon ion-search tx-16 lh-0 op-6 tx-white",
                             }),
                           ]
-                        : _vm._l(_vm.providers, function (pro) {
+                        ),
+                        _vm._v(" "),
+                        _vm.errors && _vm.errors.ruc
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.errors.ruc[0]) +
+                                  "\n              "
+                              ),
+                            ])
+                          : _vm._e(),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6 form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputBusinessName" },
+                        },
+                        [_vm._v("Razón Social")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.proveedor.businessName,
+                            expression: "proveedor.businessName",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid": _vm.errors && _vm.errors.businessName,
+                        },
+                        attrs: {
+                          type: "text",
+                          id: "inputBusinessName",
+                          placeholder: "Razón Social",
+                          readonly: "",
+                        },
+                        domProps: { value: _vm.proveedor.businessName },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.proveedor,
+                              "businessName",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.businessName
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.businessName[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3 form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputCountry" },
+                        },
+                        [
+                          _vm._v("País "),
+                          _c("span", { staticClass: "tx-danger" }, [
+                            _vm._v("*"),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.proveedor.country,
+                              expression: "proveedor.country",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.errors && _vm.errors.country,
+                          },
+                          attrs: { id: "inputCountry" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.proveedor,
+                                "country",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Seleccione..."),
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.countries, function (p) {
                             return _c(
                               "option",
-                              {
-                                key: pro.dni,
-                                attrs: { disabled: "" },
-                                domProps: { value: pro.dni },
-                              },
+                              { key: p, domProps: { value: p } },
                               [
                                 _vm._v(
-                                  "\n              " +
-                                    _vm._s(pro.names) +
-                                    "\n            "
+                                  "\n                " +
+                                    _vm._s(p) +
+                                    "\n              "
                                 ),
                               ]
                             )
                           }),
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _vm.errors && _vm.errors.provider
-                    ? _c(
-                        "div",
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.country
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.country[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3 form-group" }, [
+                      _c(
+                        "label",
                         {
-                          staticClass: "invalid-feedback d-block",
-                          attrs: { role: "alert" },
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputCity" },
+                        },
+                        [_vm._v("Ciudad")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.proveedor.city,
+                            expression: "proveedor.city",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors && _vm.errors.city },
+                        attrs: {
+                          type: "text",
+                          id: "inputCity",
+                          placeholder: "Ciudad",
+                          readonly: "",
+                        },
+                        domProps: { value: _vm.proveedor.city },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.proveedor, "city", $event.target.value)
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.city
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.city[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3 form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputCodePostal" },
+                        },
+                        [_vm._v("Código Postal")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.proveedor.codePostal,
+                            expression: "proveedor.codePostal",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid": _vm.errors && _vm.errors.codePostal,
+                        },
+                        attrs: {
+                          type: "text",
+                          id: "inputCodePostal",
+                          placeholder: "Código Postal",
+                          readonly: "",
+                        },
+                        domProps: { value: _vm.proveedor.codePostal },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.proveedor,
+                              "codePostal",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.codePostal
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.codePostal[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6 form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputAddress" },
+                        },
+                        [_vm._v("Dirección")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.proveedor.address,
+                            expression: "proveedor.address",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid": _vm.errors && _vm.errors.address,
+                        },
+                        attrs: {
+                          type: "text",
+                          id: "inputAddress",
+                          placeholder: "Dirección",
+                          readonly: "",
+                        },
+                        domProps: { value: _vm.proveedor.address },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.proveedor,
+                              "address",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.address
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.address[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-2" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputPhone" },
                         },
                         [
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(_vm.errors.provider[0]) +
-                              "\n        "
-                          ),
+                          _vm._v("Télefono "),
+                          _c("span", { staticClass: "tx-danger" }, [
+                            _vm._v("*"),
+                          ]),
                         ]
-                      )
-                    : _vm._e(),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-control-label",
-                      attrs: { for: "inputBusinessName" },
-                    },
-                    [_vm._v("Razón Social")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.proveedor.businessName,
-                        expression: "proveedor.businessName",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "is-invalid": _vm.errors && _vm.errors.businessName,
-                    },
-                    attrs: {
-                      type: "text",
-                      id: "inputBusinessName",
-                      placeholder: "Razón Social",
-                    },
-                    domProps: { value: _vm.proveedor.businessName },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.proveedor,
-                          "businessName",
-                          $event.target.value
-                        )
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _vm.errors && _vm.errors.businessName
-                    ? _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          "\n          " +
-                            _vm._s(_vm.errors.businessName[0]) +
-                            "\n        "
-                        ),
-                      ])
-                    : _vm._e(),
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.proveedor.phone,
+                            expression: "proveedor.phone",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors && _vm.errors.phone },
+                        attrs: {
+                          type: "text",
+                          id: "inputPhone",
+                          placeholder: "Télefono",
+                          maxlength: "9",
+                        },
+                        domProps: { value: _vm.proveedor.phone },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.proveedor,
+                              "phone",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.phone
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.phone[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-5" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputEmail" },
+                        },
+                        [
+                          _vm._v("\n              Correo Electrónico "),
+                          _c("span", { staticClass: "tx-danger" }, [
+                            _vm._v("*"),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.proveedor.email,
+                            expression: "proveedor.email",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors && _vm.errors.email },
+                        attrs: {
+                          type: "text",
+                          id: "inputEmail",
+                          placeholder: "Correo Electrónico",
+                        },
+                        domProps: { value: _vm.proveedor.email },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.proveedor,
+                              "email",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.email
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.errors.email[0]) +
+                                "\n            "
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-5" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "inputProvider" },
+                        },
+                        [
+                          _vm._v("Representante "),
+                          _c("span", { staticClass: "tx-danger" }, [
+                            _vm._v("*"),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.proveedor.provider,
+                              expression: "proveedor.provider",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.errors && _vm.errors.provider,
+                          },
+                          attrs: { id: "inputProvider" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.proveedor,
+                                "provider",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _vm.isActionNew
+                            ? [
+                                _c("option", { attrs: { value: "" } }, [
+                                  _vm._v("Seleccione..."),
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.providersNew, function (pro) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: pro.dni,
+                                      domProps: { value: pro.dni },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(pro.names) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  )
+                                }),
+                              ]
+                            : _vm._l(_vm.providers, function (pro) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: pro.dni,
+                                    attrs: { disabled: "" },
+                                    domProps: { value: pro.dni },
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(pro.names) +
+                                        "\n                "
+                                    ),
+                                  ]
+                                )
+                              }),
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.provider
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "invalid-feedback d-block",
+                              attrs: { role: "alert" },
+                            },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(_vm.errors.provider[0]) +
+                                  "\n            "
+                              ),
+                            ]
+                          )
+                        : _vm._e(),
+                    ]),
+                  ]),
                 ]),
                 _vm._v(" "),
                 _c("small", [
+                  _c("b", [_vm._v("Nota:")]),
                   _vm._v(
-                    "\n        Nota: Ingrese la razón social de la empresa y su representante de la\n        misma.\n      "
+                    " Ingrese el RUC, el país donde labora la empresa y su\n        teléfono.\n      "
                   ),
                 ]),
               ]
@@ -110451,7 +111125,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\Users\\\\espin\\\\Desktop\\\\PROYECTO JERARQUIA\\\\jeraquiaAprobacion","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp\\\\htdocs\\\\systemApprovals"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\xampp\\\\htdocs\\\\systemApprovals","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ }),
 

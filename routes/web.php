@@ -129,6 +129,7 @@ Route::resource('/personas', PersonaController::class)->middleware('auth');
 //show proforma
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
+
 //tiporecursos api
 Route::resource('/pedidos', PedidoController::class)->except('create', 'show', 'edit','update')->middleware('auth');
 
