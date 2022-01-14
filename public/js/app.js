@@ -6384,7 +6384,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -6400,7 +6399,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      countries: ["Perú"],
       providers: [],
       providersNew: [],
       proveedor: {
@@ -6419,7 +6417,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selected_id: "",
       isLoading: false,
       isNoEmpty: true,
-      isActionNew: true
+      isActionNew: true,
+      countries: [{
+        id: 1,
+        name: "Argentina"
+      }, {
+        id: 2,
+        name: "Bolivia"
+      }, {
+        id: 3,
+        name: "Brasil"
+      }, {
+        id: 4,
+        name: "Chile"
+      }, {
+        id: 5,
+        name: "Colombia"
+      }, {
+        id: 6,
+        name: "Ecuador"
+      }, {
+        id: 7,
+        name: "España"
+      }, {
+        id: 8,
+        name: "Estados Unidos"
+      }, {
+        id: 9,
+        name: "México"
+      }, {
+        id: 10,
+        name: "Paraguay"
+      }, {
+        id: 11,
+        name: "Perú"
+      }, {
+        id: 12,
+        name: "Uruguay"
+      }, {
+        id: 13,
+        name: "Venezuela"
+      }]
     };
   },
   methods: {
@@ -6485,67 +6523,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var res;
+        var token;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (!(ruc.length < 11)) {
-                  _context3.next = 5;
-                  break;
-                }
+                if (ruc.length < 11) {
+                  _this3.$awn.alert("Ingrese el ruc completo.", {
+                    durations: {
+                      success: 2000
+                    }
+                  });
 
-                _this3.resetForm();
-
-                _this3.$awn.alert("Ingrese el total de digitos completo");
-
-                _context3.next = 11;
-                break;
-
-              case 5:
-                // let
-                _this3.$awn.info("Buscando...");
-
-                _context3.next = 8;
-                return axios.get("https://dniruc.apisperu.com/api/v1/ruc/".concat(ruc, "?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtwZXJlemVzcGlAZ21haWwuY29tIn0.e0H9C9yn95TQXyLjocE4bbW11RbxAmiLEbGRTwWQaeI"));
-
-              case 8:
-                res = _context3.sent;
-
-                if (res.data.success == false) {
                   _this3.resetForm();
-
-                  _this3.$awn.warning("No se encontraron resultados :(");
                 } else {
-                  _this3.isNoEmpty = false;
+                  // let
+                  token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtwZXJlemVzcGlAZ21haWwuY29tIn0.e0H9C9yn95TQXyLjocE4bbW11RbxAmiLEbGRTwWQaeI";
 
-                  if (res.data.direccion == "" || res.data.capital == "" || res.data.ubigeo == "") {
-                    _this3.resetForm();
+                  _this3.$awn.async(axios.get("https://dniruc.apisperu.com/api/v1/ruc/".concat(ruc, "?token=").concat(token)), function (res) {
+                    if (res.data.direccion || res.data.capital || res.data.ubigeo) {
+                      _this3.$awn.success("La acción ha sido exitosa.");
 
-                    _this3.$awn.warning("Al proveedor le faltan datos importantes :(");
-                  } else {
-                    _this3.$awn.success("Es proveedor cuenta los datos importantes :D");
+                      _this3.proveedor.businessName = res.data.razonSocial;
+                      _this3.proveedor.address = res.data.direccion;
+                      _this3.proveedor.city = res.data.capital;
+                      _this3.proveedor.codePostal = res.data.ubigeo;
+                    } else {
+                      _this3.resetForm();
 
-                    _this3.proveedor.businessName = res.data.razonSocial;
-                    _this3.proveedor.address = res.data.direccion;
-                    _this3.proveedor.city = res.data.capital;
-                    _this3.proveedor.codePostal = res.data.ubigeo;
-                  }
-
-                  console.log(_this3.proveedor);
+                      _this3.$awn.warning("Datos obtenidos imcompletos.");
+                    }
+                  }, function (err) {
+                    return _this3.$awn.alert("La API respondi\xF3 con el c\xF3digo: ".concat(err.response.status));
+                  });
                 }
 
-                console.log(res.data); // console.log(res.data);
-                // console.log(this.providers);
-
-              case 11:
-                console.log(); // const res = await axios.get("");
-                // console.log(res.data);
-                // if (res) {
-                //   this.isNoEmpty = false;
-                // }
-
-              case 12:
+              case 1:
               case "end":
                 return _context3.stop();
             }
@@ -6565,12 +6578,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.isLoading = true;
         axios.post("/providers/", this.proveedor).then(function (res) {
           $("#exampleModal").modal("hide");
-
-          _this4.getProviders();
+          _this4.isLoading = false;
 
           _this4.$awn.success(res.data);
 
-          _this4.isLoading = false;
+          _this4.getProviders();
         })["catch"](function (e) {
           _this4.existsErrors(e);
         });
@@ -6617,7 +6629,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.proveedor.provider = data.dni;
       this.proveedor.businessName = data.businessName;
       this.selected_id = data.keyPro;
-      $("#inputProvider").prop("disabled", true);
       $("#exampleModal").modal("show");
     },
     existsErrors: function existsErrors(e) {
@@ -6637,6 +6648,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.proveedor.address = "";
       this.proveedor.city = "";
       this.proveedor.codePostal = "";
+      this.proveedor.phone = "";
+      this.proveedor.email = "";
+      this.proveedor.ruc = "";
+      this.proveedor.country = "";
       this.errors = [];
       $("#inputProvider").prop("disabled", false);
     }
@@ -96097,11 +96112,11 @@ var render = function () {
                           _vm._l(_vm.countries, function (p) {
                             return _c(
                               "option",
-                              { key: p, domProps: { value: p } },
+                              { key: p.id, domProps: { value: p.name } },
                               [
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(p) +
+                                    _vm._s(p.name) +
                                     "\n              "
                                 ),
                               ]
@@ -96476,7 +96491,6 @@ var render = function () {
                                   "option",
                                   {
                                     key: pro.dni,
-                                    attrs: { disabled: "" },
                                     domProps: { value: pro.dni },
                                   },
                                   [
