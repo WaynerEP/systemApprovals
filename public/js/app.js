@@ -5078,6 +5078,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -93775,6 +93776,7 @@ var render = function () {
                 key: cat.id,
                 staticClass: "nav-link",
                 class: _vm.isActive == cat.id ? "active" : "",
+                staticStyle: { cursor: "pointer" },
                 on: {
                   click: function ($event) {
                     return _vm.getProducts(cat.id)

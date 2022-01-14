@@ -25,6 +25,6 @@ class Proveedor extends Model
 
     public function ciudadano()
     {
-        return $this->hasOne(Persona::class, 'dniCiudadano', 'dniRepresentante')->get('dniCiudadano', 'nombres', 'apellidos');
+        return $this->hasOne(Persona::class, 'dniCiudadano', 'dniRepresentante');
     }
 }
