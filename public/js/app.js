@@ -6586,21 +6586,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         })["catch"](function (e) {
           _this4.existsErrors(e);
         });
-      } // else {
-      //   this.isLoading = true;
-      //   axios
-      //     .put("/providers/" + this.selected_id, this.proveedor)
-      //     .then((res) => {
-      //       this.getProviders();
-      //       $("#exampleModal").modal("hide");
-      //       this.$awn.success(res.data);
-      //       this.isLoading = false;
-      //     })
-      //     .catch((e) => {
-      //       this.existsErrors(e);
-      //     });
-      // }
+      } else {
+        this.isLoading = true;
+        axios.put("/providers/" + this.selected_id, this.proveedor).then(function (res) {
+          _this4.getProviders();
 
+          $("#exampleModal").modal("hide");
+
+          _this4.$awn.success(res.data);
+
+          _this4.isLoading = false;
+        })["catch"](function (e) {
+          _this4.existsErrors(e);
+        });
+      }
     },
     deleteProvider: function deleteProvider(id) {
       var _this5 = this;
@@ -6626,8 +6625,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isActionNew = false; //Aquí
 
       this.isLoading = false;
-      this.proveedor.provider = data.dni;
+      this.proveedor.ruc = data.ruc;
       this.proveedor.businessName = data.businessName;
+      this.proveedor.country = data.country;
+      this.proveedor.city = data.city;
+      this.proveedor.phone = data.phone;
+      this.proveedor.provider = data.dni;
+      this.proveedor.email = data.email;
+      this.proveedor.codePostal = data.codePostal;
+      this.proveedor.address = data.address;
       this.selected_id = data.keyPro;
       $("#exampleModal").modal("show");
     },

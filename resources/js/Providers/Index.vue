@@ -445,22 +445,22 @@ export default {
           .catch((e) => {
             this.existsErrors(e);
           });
+      } else {
+        this.isLoading = true;
+        axios
+          .put("/providers/" + this.selected_id, this.proveedor)
+          .then((res) => {
+            this.getProviders();
+            $("#exampleModal").modal("hide");
+            this.$awn.success(res.data);
+            this.isLoading = false;
+          })
+          .catch((e) => {
+            this.existsErrors(e);
+          });
       }
-      // else {
-      //   this.isLoading = true;
-      //   axios
-      //     .put("/providers/" + this.selected_id, this.proveedor)
-      //     .then((res) => {
-      //       this.getProviders();
-      //       $("#exampleModal").modal("hide");
-      //       this.$awn.success(res.data);
-      //       this.isLoading = false;
-      //     })
-      //     .catch((e) => {
-      //       this.existsErrors(e);
-      //     });
-      // }
     },
+
     deleteProvider(id) {
       let onOk = () => {
         axios
@@ -483,8 +483,15 @@ export default {
       this.errors = [];
       this.isActionNew = false; //Aquí
       this.isLoading = false;
-      this.proveedor.provider = data.dni;
+      this.proveedor.ruc = data.ruc;
       this.proveedor.businessName = data.businessName;
+      this.proveedor.country = data.country;
+      this.proveedor.city = data.city;
+      this.proveedor.phone = data.phone;
+      this.proveedor.provider = data.dni;
+      this.proveedor.email = data.email;
+      this.proveedor.codePostal = data.codePostal;
+      this.proveedor.address = data.address;
       this.selected_id = data.keyPro;
       $("#exampleModal").modal("show");
     },

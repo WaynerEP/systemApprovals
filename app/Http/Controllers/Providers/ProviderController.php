@@ -106,7 +106,7 @@ class ProviderController extends Controller
             'codePostal' => 'required',
             'email' => 'required',
             'country' => 'required',
-            'ruc' => 'required',
+            'ruc' => 'required|min:11|min:11',
         ]);
 
         Proveedor::find($id)->update([
@@ -120,7 +120,7 @@ class ProviderController extends Controller
             'ruc' => $request['ruc']
         ]);
 
-        return response('Proveedor actualizado exitosamente!.', 200);
+        return response('Proveedor actualizado!.', 200);
     }
 
     /**
@@ -134,6 +134,6 @@ class ProviderController extends Controller
         //
         Proveedor::find($id)->delete();
 
-        return response('Proveedor removido exitosamente!.', 200);
+        return response('Proveedor removido!.', 200);
     }
 }
