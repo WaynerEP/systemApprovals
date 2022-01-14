@@ -1,7 +1,7 @@
 <template>
   <div class="table-responsive">
-    <table class="table table-invoice table-sm">
-      <thead class="thead-colored bg-primary">
+    <table class="table table-invoice table-sm rounded-5">
+      <thead class="thead-colored bg-info">
         <tr>
           <th></th>
           <th class="wd-30p">Concepto</th>
@@ -16,7 +16,10 @@
           <tr v-for="d in details" :key="d.idProducto">
             <td>
               <img
-                src="http://via.placeholder.com/800x533"
+                :src="
+                  d.image ? '/' + d.image : 'http://via.placeholder.com/800x533'
+                "
+                loading="lazy"
                 class="wd-55"
                 :alt="d.descripcionProducto"
               />
@@ -40,7 +43,7 @@
         </template>
         <tr v-else>
           <td class="text-center valign-middle tx-bold tx-12" colspan="6">
-            Seleccione un pedido!!
+            <Loader class="tx-info" />
           </td>
         </tr>
         <tr>
@@ -69,12 +72,19 @@
   </div>
 </template>
 <script>
+import Loader from "../components/LoaderAction.vue";
+
 export default {
+  components: {
+    Loader,
+  },
+
   data() {
     return {
       details: [],
       igv: 0.18,
       descuento: 0,
+      isLoading: true,
     };
   },
 
@@ -106,11 +116,11 @@ export default {
 
   methods: {
     fetchData(val) {
-      $("#exampleModal2").modal("show");
       this.$awn.async(axios.get("/api/pedidos/detalle/" + val), (resp) => {
         this.details = resp.data;
         this.$awn.success(`Se han cargado ${resp.data.length} registros`);
       });
+      $("#exampleModal2").modal("show");
     },
   },
 };

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Persona;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
 {
@@ -28,14 +27,14 @@ class UserProfileController extends Controller
             $customFileName = uniqid() . '_' . auth()->user()->id . '.' . $request->file('image')->extension();
             $imageNameOld = auth()->user()->avatar;
 
-            Storage::putFileAs('/public/avatars/', $request->file('image'), $customFileName);
+            Storage::putFileAs('public/avatars/', $request->file('image'), $customFileName);
 
             $imageNameOld = auth()->user()->avatar;
             $user = auth()->user();
-            $user->avatar = '/storage/avatars/' . $customFileName;
+            $user->avatar = 'storage/avatars/' . $customFileName;
             $user->save();
 
-            if ($customFileName != null) {
+            if ($customFileName) {
                 if (file_exists($imageNameOld)) {
                     unlink($imageNameOld);
                 }

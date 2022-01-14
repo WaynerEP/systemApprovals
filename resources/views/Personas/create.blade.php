@@ -15,9 +15,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <form class="card px-5 pt-4 mx-5" method="POST" action="{{ route('personas.store') }}">
+                <form method="POST" action="{{ route('personas.store') }}">
                     @csrf
-                    <div class="card-body px-5">
+                    <div class="card-body">
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Número (RUC, DNI, Etc.)</label>
@@ -25,11 +25,12 @@
                                     <input type="number" size="8" min="0" minlength="8" maxlength="8"
                                         class="form-control @error('dni') is-invalid @enderror" name="dni"
                                         value="{{ old('dni') }}"
+                                        id="dni"
                                         oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                        autofocus />
+                                        autofocus required />
 
                                     <div class="ml-2">
-                                        <button type="button" class="btn btn-primary btn-sm">
+                                        <button type="button" id="btn-extraer" class="btn btn-primary btn-sm">
                                             <i class="fas fa-search"></i> Extraer?
                                         </button>
                                     </div>
@@ -43,7 +44,7 @@
                             <div class="col-1"></div>
                             <div class="form-group col-md-7">
                                 <label>Tipo de identificación</label>
-                                <select class="custom-select">
+                                <select class="custom-select" required>
                                     <option>RUC - Registro único de contribuyente</option>
                                     <option selected>
                                         DNI - Documento nacional de identidad
@@ -58,7 +59,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmailName">Nombres</label>
                                 <input type="text" class="form-control @error('nombres') is-invalid @enderror"
-                                    name="nombres" id="inputEmailName" value="{{ old('nombres') }}" placeholder="" />
+                                    name="nombres" id="nombres" id="inputEmailName" value="{{ old('nombres') }}" placeholder=""
+                                    required />
                                 @error('nombres')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -68,8 +70,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmailLastName">Apellidos</label>
                                 <input type="text" class="form-control @error('apellidos') is-invalid @enderror"
-                                    name="apellidos" id="inputEmailLastName" placeholder=""
-                                    value="{{ old('apellidos') }}" />
+                                    name="apellidos" id="apellidos" id="inputEmailLastName" placeholder="" value="{{ old('apellidos') }}"
+                                    required />
                                 @error('apellidos')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -83,7 +85,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Nacimiento</label>
                                 <input type="date" class="form-control @error('nacimiento') is-invalid @enderror" id="date1"
-                                    name="nacimiento" value="{{ old('nacimiento') }}" placeholder="" />
+                                    name="nacimiento" value="{{ old('nacimiento') }}" placeholder="" required />
                                 @error('nacimiento')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -116,7 +118,7 @@
                             <div class="form-group col-md-4">
                                 <label for="inputDepa">Departamento</label>
                                 <select class="custom-select @error('departamento') is-invalid @enderror" id="departamentos"
-                                    name="departamento">
+                                    name="departamento" required>
                                     <option value="">Seleccione</option>
                                     @foreach ($departamentos as $d)
                                         <option value="{{ $d->codDepartamento }}">{{ $d->departamento }}</option>
@@ -131,7 +133,7 @@
                             <div class="form-group col-md-4">
                                 <label for="provincias">Provincias</label>
                                 <select class="custom-select @error('provincia') is-invalid @enderror" id="provincias"
-                                    name="provincia">
+                                    name="provincia" required>
                                     <option value="">Seleccione</option>
                                 </select>
                                 @error('provincia')
@@ -143,7 +145,7 @@
                             <div class="form-group col-md-4">
                                 <label for="distritos">Distrito</label>
                                 <select class="custom-select @error('distrito') is-invalid @enderror" id="distritos"
-                                    name="distrito">
+                                    name="distrito" required>
                                     <option value="">Seleccione</option>
                                 </select>
                                 @error('distrito')
@@ -158,7 +160,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputAddress">Dirección</label>
                                 <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"
-                                    value="{{ old('direccion') }}"></textarea>
+                                    value="{{ old('direccion') }}" required></textarea>
                                 @error('direccion')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -168,7 +170,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputReferencia">Referencia</label>
                                 <textarea class="form-control @error('referencia') is-invalid @enderror" name="referencia"
-                                    value="{{ old('referencia') }}"></textarea>
+                                    value="{{ old('referencia') }}" required></textarea>
                                 @error('referencia')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -180,7 +182,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputLevel">Nivel de Estudios</label>
-                                <select class="custom-select @error('nivel') is-invalid @enderror" name="nivel">
+                                <select class="custom-select @error('nivel') is-invalid @enderror" name="nivel" required>
                                     <option value="">Seleccione</option>
                                     @foreach ($estudios as $d)
                                         <option value="{{ $d->idNivel }}">{{ $d->nivel }}</option>
@@ -195,7 +197,7 @@
                             <div class="form-group col-md-6">
                                 <label for="email">Correo electrónico</label>
                                 <input type="email" class="form-control @error('correo') is-invalid @enderror" id="email"
-                                    name="correo" value="{{ old('correo') }}" placeholder="" />
+                                    name="correo" value="{{ old('correo') }}" placeholder="" required />
                                 @error('correo')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -207,7 +209,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputPhone1">Teléfono 1</label>
                                 <input type="number" class="form-control @error('telefono') is-invalid @enderror"
-                                    id="inputPhone1" name="telefono1" value="{{ old('telefono') }}" placeholder="" />
+                                    id="inputPhone1" name="telefono1" value="{{ old('telefono') }}" placeholder=""
+                                    required />
                                 @error('telefono')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -217,7 +220,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputPhone2">Teléfono 2</label>
                                 <input type="text" class="form-control @error('telefono2') is-invalid @enderror"
-                                    id="inputPhone2" name="telefono2" value="{{ old('telefono2') }}" placeholder="" />
+                                    id="inputPhone2" name="telefono2" value="{{ old('telefono2') }}" placeholder=""
+                                    required />
                                 @error('telefono2')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}

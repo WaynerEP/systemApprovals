@@ -3,20 +3,40 @@
 namespace App\Http\Controllers\Compras;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SolicitudCompra;
 use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\DetallePedidos;
-use App\Models\ProformaProveedor;
-use App\Models\Solicitud;
-use App\Models\SolicitudProformas;
-use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use DB;
-
 
 class PedidoController extends Controller
 {
+
+    public function index()
+    {
+        $paginate = request('paginate', 8);
+        $search = request('search');
+
+        if (request('inicio') && request('fin')) {
+            $date1 = Carbon::parse(request('inicio'))->format('Y-m-d') . ' 00:00:00.0000000';
+            $date2 = Carbon::parse(request('fin'))->format('Y-m-d') . ' 23:59:59.0000000';
+            $data = DetallePedidos::join('pedidos as p', 'p.idPedido', '=', 'detallePedidos.idPedido')
+                ->select(DB::raw('count(detallePedidos.idPedido) as pedido_count, p.idPedido, p.fechaPedido, p.monto, p.estado'))
+                ->groupBy('p.idPedido', 'p.fechaPedido', 'p.monto', 'p.estado')
+                ->whereBetween('p.fechaPedido', [$date1, $date2])
+                ->where('p.idPedido', 'like', "%$search%")
+                ->paginate($paginate);
+        } else {
+            $data = DetallePedidos::join('pedidos as p', 'p.idPedido', '=', 'detallePedidos.idPedido')
+                ->select(DB::raw('count(detallePedidos.idPedido) as pedido_count, p.idPedido, p.fechaPedido, p.monto, p.estado'))
+                ->where('p.idPedido', 'like', "%$search%")
+                ->groupBy('p.idPedido', 'p.fechaPedido', 'p.monto', 'p.estado')
+                ->paginate($paginate);
+        }
+        return response()->json($data);
+    }
+
+
 
     public function store(Request $request)
     {
@@ -24,10 +44,11 @@ class PedidoController extends Controller
             'total' => 'required',
             'detalle' => 'required',
         ]);
-
+        $date = Carbon::now()->subDays(5);
         $data = Pedido::create([
             'monto' => $request->total,
-            'notas' => $request->notas
+            'notas' => $request->notas,
+            'fechaPedido' => $date,
         ]);
 
         $id = $data->idPedido;
@@ -45,89 +66,13 @@ class PedidoController extends Controller
         return "Pedido registrado con éxito!.";
     }
 
-    public function show($id)
+
+    public function destroy($id)
     {
-        //
-    }
-
-
-    public function storeProformas(Request $request)
-    {
-        $request->validate([
-            'detalleProforma' => 'required',
-        ]);
-        $idPedido = ltrim($request->idPedido, '0');
-        $idProveedores = $request->idProveedor;
-        $montos = $request->montos;
-        $date = date('Y-m-d');
-
-        if ($request->hasFile('detalleProforma')) {
-            foreach ($request->file('detalleProforma')  as $index => $file) {
-                //guardamos en storage
-                $file_name = $file->getClientOriginalName();
-                Storage::putFileAs("/public/proformas/Pedido " . $idPedido . '/', $file, $file_name);
-                //guardamos en Base de datos
-                ProformaProveedor::create([
-                    'idPedido' => $idPedido,
-                    'idProveedor' => $idProveedores[$index],
-                    'archivo' => $file_name,
-                    'montoProforma' => $montos[$index],
-                ]);
-            }
-            return "La acción ha sido exitosa!";
-        } else {
-            return "La acción ha fallado!";
-        }
-    }
-
-    public function storeSolicitud(Request $request)
-    {
-        $monto = $request->monto;
-        $detailProforma = $request->detalleProformas;
-        $detailPedido = $request->detallePedido;
-        $pedido = $request->pedido;
-        $idPedido = $request->idPedido;
-        $nota = $request->notas;
-        //guardamos la solicitud
-        try {
-            DB::beginTransaction();
-            // insertamos nueva solicitud
-            DB::insert("insert into solicitudes(idPedido, nota) values(?,?)", [$idPedido, $nota]);
-
-            //obtenemos el ultimo id
-            $solicitud = DB::select('select max(idSolicitud) as id from solicitudes');
-            $idSolicitud = $solicitud[0]->id;
-
-            //save solicitudes proformas
-            for ($i = 0; $i < count($detailProforma); $i++) {
-                DB::update("EXEC spRegisterSolicitudProformas ?,?", array($idSolicitud, $detailProforma[$i]['idProforma']));
-            }
-            # sending emails
-            $users = DB::select('Exec spUserSendEmail ?', array($monto));
-            foreach ($users as $index => $item) {
-                DB::insert("insert into aprobaciones(idSolicitud, codEmpleado) values(?,?)", [$idSolicitud, $users[$index]->codEmpleado]);
-                Mail::to($users[$index]->correo)->queue(new SolicitudCompra($users[0], $users[$index], $idSolicitud, $pedido, $detailPedido, $detailProforma));
-            }
-            # confirmation of changes
-            DB::commit();
-
-            return "La acción ha sido exitosa!.";
-        } catch (Throwable $e) {
-            DB::rollBack();
-            return false;
-        }
-    }
-
-
-
-
-
-    public function showProforma($idPedido, $value)
-    {
-        $file = Storage::get('/public/proformas/Pedido ' . $idPedido . '/' . $value);
-        $headers = [
-            'Content-type' => 'application/pdf',
-        ];
-        return response($file, 200, $headers);
+        // el estado 3 significa que ha sido anulado
+        $pedido = Pedido::find($id);
+        $pedido->estado = "3";
+        $pedido->save();
+        return "Pedido anulado con éxito!.";
     }
 }

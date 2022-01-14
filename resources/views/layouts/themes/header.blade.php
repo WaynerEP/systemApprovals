@@ -38,7 +38,7 @@
             </div><!-- dropdown -->
             <div class="dropdown dropdown-c">
                 <a href="#" class="logged-user" data-toggle="dropdown">
-                    <img src="{{ Auth::user()->avatar ? Auth::user()->avatar : '/storage/avatars/user.png' }}"
+                    <img src="/{{ Auth::user()->avatar ? Auth::user()->avatar : '/storage/avatars/user.png' }}"
                         alt="">
                     <span>{{ Auth::user()->name }}</span>
                     <i class="fa fa-angle-down"></i>
@@ -47,11 +47,10 @@
                     <nav class="nav">
                         <a href="{{ route('profile') }}" class="nav-link"><i class="icon ion-person"></i>
                             {{ __('Ver Perfil') }}</a>
-                        <a href="page-activity.html" class="nav-link"><i class="icon ion-ios-bolt"></i>
+                        {{-- <a href="page-activity.html" class="nav-link"><i class="icon ion-ios-bolt"></i>
                             {{ __('Actividades') }}</a>
                         <a href="page-settings.html" class="nav-link"><i class="icon ion-ios-gear"></i>
-                            {{ __('Configuración') }}</a>
-
+                            {{ __('Configuración') }}</a> --}}
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();" class="nav-link"><i
                                 class="icon ion-forward"></i> {{ __('Cerrar sesión') }}</a>

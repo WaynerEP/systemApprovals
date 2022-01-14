@@ -31,9 +31,11 @@
               <tr v-for="u in users" :key="u.id">
                 <td class="valign-middle pd-l-20">
                   <img
-                    :src="u.avatar ? u.avatar : '/storage/avatars/user.png'"
+                    :src="
+                      u.avatar ? '/' + u.avatar : '/storage/avatars/user.png'
+                    "
                     loading="lazy"
-                    class="wd-36 rounded-circle"
+                    class="wd-40 rounded-circle"
                     alt="Image"
                   />
                 </td>
@@ -408,9 +410,7 @@ export default {
       this.user.name = data.name;
       this.user.email = data.email;
       this.user.status = data.status;
-      data.roles[0]
-        ? (this.user.rol = data.roles[0].id)
-        : (this.user.rol = "");
+      data.roles[0] ? (this.user.rol = data.roles[0].id) : (this.user.rol = "");
       this.selected_id = data.id;
       $("#exampleModal").modal("show");
     },

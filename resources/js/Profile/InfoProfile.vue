@@ -19,9 +19,7 @@
       <!-- media-body -->
     </template>
     <template #footer>
-      <a href="" class="card-profile-direct"
-        >http://thmpxls.me/profile?id=katherine</a
-      >
+      <a href="" class="card-profile-direct">.</a>
       <div>
         <a href="">Editar Perfil</a>
         <a href="">Configuración de la cuenta</a>
@@ -75,13 +73,11 @@ export default {
         axios
           .post("/update-profile", fields, config)
           .then((res) => {
-            // this.$awn.success(res.data);
             console.log(res.data);
           })
           .catch((e) => {
             this.$awn.alert("La acción ha fallado!.");
           });
-      } else {
       }
     },
   },

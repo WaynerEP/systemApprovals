@@ -9,7 +9,6 @@ use App\Models\Organizacion;
 use App\Models\Area;
 use App\Models\DetallePedidos;
 use App\Models\Proveedor;
-use App\Models\Pedido;
 use Illuminate\Support\Facades\DB;
 
 
@@ -53,6 +52,7 @@ Route::get('/depas', [cargosController::class, 'getDepartamentoEmpresa']);
 Route::get('/depas/areas/{idDepa}', [cargosController::class, 'getAreasByDepartamento']);
 Route::get('/depas/areas/cargos/{idArea}', [cargosController::class, 'getCargos']);
 
+// Nos trae todos los proveedores que
 //Nos trae todos los proveedores que
 // tienen de estado 1
 Route::get('/dataProviders', function () {
@@ -101,8 +101,15 @@ Route::get('/products/proforma', function () {
     return response()->json($data);
 });
 
+
 //numero de pedido se incrementa + 1
-Route::get('/pedidos/number', function () {
+Route::get('/aprobaciones/detail/{idAprobaciones}', function ($id) {
+    return response()->json(DB::select('exec spDetailAprobaciones ?', array($id)));
+});
+
+
+//numero de pedido se incrementa + 1
+Route::get('/pedido/number', function () {
     return DB::table('pedidos')
         ->select(DB::raw('count(*) + 1 as max'))
         ->first();
@@ -116,7 +123,7 @@ Route::get('/solicitudes/number', function () {
 });
 
 //ruta para traer los pedidos recientes sin proformas
-Route::get('/proformas/pedidos', function () {
+Route::get('/proforma/pedidos', function () {
     return response()->json(DB::select('exec spPedidosNotProformas'));
 });
 
@@ -145,11 +152,10 @@ Route::get('/orders/list/{id}/{status}', function ($id, $status) {
     return response()->json($data);
 });
 
-//devuelve los datos el usuario
+//devuelve los datos el usuario para editarlo
 Route::get('/user-profile/{user_id}', function ($user_id) {
     $user_info = DB::select('Exec spUserProfile ?', array($user_id));
     return response()->json($user_info);
 });
 
 //
-

@@ -35,68 +35,56 @@
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>
-            {{-- <li class="nav-item with-sub {{ request()->is('compras-*') ? 'active' : '' }}">
-                <a class="nav-link" href="#">
-                    <i class="icon ion-ios-book-outline"></i>
-                    <span>Compras</span>
-                </a>
-                <div class="sub-item">
-                    <ul>
-                        <li><a href="{{ route('pedidos') }}">Pedidos</a></li>
-                        <li><a href="{{ route('proformas') }}">Proformas</a></li>
-                        <li class="sub-with-sub">
-                            <a href="#">Solicitudes de Compra</a>
-                            <ul>
-                              <li><a href="{{ route('purchase-request') }}">Listar Solicitudes</a></li>
-                              <li><a href="page-pricing2.html">Nueva Solicitud</a></li>
-                            </ul>
-                          </li>
-                    </ul>
-                </div><!-- dropdown-menu -->
-            </li> --}}
             <li class="nav-item with-sub mega-dropdown {{ request()->is('compras-*') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
                     <i class="icon ion-ios-book-outline"></i>
                     <span>Compras</span>
                 </a>
                 <div class="sub-item">
-                  <div class="row">
-                    <div class="col-lg mg-t-30 mg-lg-t-0">
-                      <label class="section-label">Pedidos</label>
-                      <ul>
-                        <li><a href="{{ route('pedidos.list') }}">Listar Pedidos</a></li>
-                        <li><a href="{{ route('pedidos.create') }}">Armar Nuevo Pedido</a></li>
-                      </ul>
-                    </div><!-- col -->
-                    <div class="col-lg mg-t-30 mg-lg-t-0">
-                      <label class="section-label">Proformas</label>
-                      <ul>
-                        <li><a href="{{ route('proformas.list') }}">Listar Proformas</a></li>
-                        <li><a href="{{ route('proformas.create') }}">Nuevo registro</a></li>
-                      </ul>
-                    </div><!-- col -->
-                    <div class="col-lg mg-t-30 mg-lg-t-0">
-                      <label class="section-label">Solicitudes</label>
-                      <ul>
-                        <li><a href="{{ route('purchase-request.list') }}">Listar Solicitudes de Compra</a></li>
-                        <li><a href="{{ route('purchase-request.create') }}">Nueva Solicitud de Compra</a></li>
-                      </ul>
-                    </div><!-- col -->
-                  
-                  </div><!-- row -->
+                    <div class="row">
+                        <div class="col-lg mg-t-30 mg-lg-t-0">
+                            <label class="section-label">Pedidos</label>
+                            <ul>
+                                <li><a href="{{ route('pedidos.list') }}">Listar Pedidos</a></li>
+                                <li><a href="{{ route('pedidos.new') }}">Generar Nuevo Pedido</a></li>
+                            </ul>
+                        </div><!-- col -->
+                        <div class="col-lg mg-t-30 mg-lg-t-0">
+                            <label class="section-label">Proformas</label>
+                            <ul>
+                                <li><a href="{{ route('proformas.list') }}">Listar proformas</a></li>
+                                <li><a href="{{ route('proformas.new') }}">Registrar proformas</a></li>
+                            </ul>
+                        </div><!-- col -->
+                        <div class="col-lg mg-t-30 mg-lg-t-0">
+                            <label class="section-label">Solicitudes</label>
+                            <ul>
+                                <li><a href="{{ route('purchase-request.list') }}">Listar Solicitudes de Compra</a>
+                                </li>
+                                <li><a href="{{ route('purchase-request.create') }}">Nueva Solicitud de Compra</a>
+                                </li>
+                            </ul>
+                        </div><!-- col -->
+
+                    </div><!-- row -->
                 </div><!-- dropdown-menu -->
-              </li>
+            </li>
+            <li class="nav-item with-sub">
+                <a class="nav-link" href="#">
+                    <i class="icon ion-ios-analytics-outline"></i>
+                    <span>Items</span>
+                </a>
+                <div class="sub-item">
+                    <ul>
+                        <li><a href="{{ route('productos') }}">Productos</a></li>
+                    </ul>
+                </div><!-- dropdown-menu -->
+            </li>
             <li class="nav-item {{ request()->is('orders/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('orders') }}">
                     <i class="icon ion-ios-chatboxes-outline"></i>
                     <span>Solicitudes</span>
                     <span class="square-8"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="widgets.html">
-                    <i class="icon ion-ios-analytics-outline"></i>
-                    <span>Widgets</span>
                 </a>
             </li>
         </ul>

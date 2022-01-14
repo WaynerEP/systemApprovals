@@ -4065,7 +4065,6 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
   }
-
   @-webkit-keyframes fadeinbackdrop {
     to {
       opacity: .6;

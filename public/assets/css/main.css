@@ -21040,10 +21040,10 @@ textarea.parsley-success:focus {
 /* ------------------------------------------ */
 .pagination-wrapper {
   height: 80px;
-  border: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 0 20px;
 }
 
