@@ -11,20 +11,17 @@ class Proveedor extends Model
     protected $table = "proveedores";
     protected $primaryKey = "idProveedor";
     protected $fillable = [
-        'dniRepresentante',
-        'razonSocial',
-        'estado',
-        'ciudad',
-        'codPostal',
-        'telefono',
-        'direccion',
-        'email',
+        'estado', 'dniRepresentante',
+        'razonSocial', 'direccion',
+        'ciudad', 'telefono',
+        'codPostal', 'email',
+        'pais', 'ruc',
     ];
-    public $timestamps = false;
 
+    public $timestamps = false;
 
     public function ciudadano()
     {
-        return $this->hasOne(Persona::class, 'dniCiudadano', 'dniRepresentante')->get('dniCiudadano', 'nombres', 'apellidos');
+        return $this->hasOne(Persona::class, 'dniCiudadano', 'dniRepresentante');
     }
 }

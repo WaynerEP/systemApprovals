@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Providers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Provider;
+use App\Models\Proveedor;
 
 class ProviderController extends Controller
 {
@@ -39,19 +39,31 @@ class ProviderController extends Controller
     {
         //
         $request->validate([
-            'businessName' => 'required|string|max:255|unique:proveedores,razonSocial',
-            'provider' => 'required'
+            'businessName' => 'required|string|max:80|unique:proveedores,razonSocial',
+            'provider' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'codePostal' => 'required',
+            'email' => 'required',
+            'country' => 'required',
+            'ruc' => 'required|min:11|max:11',
         ]);
 
-        Provider::create([
+        Proveedor::create([
+            'estado' => $request['status'],
             'dniRepresentante' => $request['provider'],
             'razonSocial' => $request['businessName'],
-            'estado' => $request['status']
+            'direccion' => $request['address'],
+            'ciudad' => $request['city'],
+            'telefono' => $request['phone'],
+            'codPostal' => $request['codePostal'],
+            'email' => $request['email'],
+            'pais' => $request['country'],
+            'ruc' => $request['ruc']
         ]);
 
-        return response('La acción ha sido exitosa!.', 200);
-
-        
+        return response('Proveedor creado exitosamente!.', 200);
     }
 
     /**
@@ -87,18 +99,28 @@ class ProviderController extends Controller
     {
         //
         $request->validate([
-            'businessName' => 'required|string|max:255|unique:proveedores,razonSocial,'.$id.',idProveedor'
-            // 'provider' => 'required',
-            // 'status' => 'required'
+            'businessName' => 'required|string|max:255|unique:proveedores,razonSocial,'.$id.',idProveedor',
+            'address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'codePostal' => 'required',
+            'email' => 'required',
+            'country' => 'required',
+            'ruc' => 'required',
         ]);
 
-        Provider::find($id)->update([
+        Proveedor::find($id)->update([
             'razonSocial' => $request['businessName'],
-            // 'email' => $request['email'],
-            // 'status' => $request['status']
+            'direccion' => $request['address'],
+            'ciudad' => $request['city'],
+            'telefono' => $request['phone'],
+            'codPostal' => $request['codePostal'],
+            'email' => $request['email'],
+            'pais' => $request['country'],
+            'ruc' => $request['ruc']
         ]);
 
-        return response('La acción ha sido exitosa!.', 200);
+        return response('Proveedor actualizado exitosamente!.', 200);
     }
 
     /**
@@ -110,11 +132,8 @@ class ProviderController extends Controller
     public function destroy($id)
     {
         //
-        Provider::find($id)->delete();
-        // $provider=Provider::find($id);
-        // $provider->estado = 0;
-        // $provider->save();
+        Proveedor::find($id)->delete();
 
-        return response('La acción ha sido exitosa!.', 200);
+        return response('Proveedor removido exitosamente!.', 200);
     }
 }
