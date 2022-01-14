@@ -116,8 +116,8 @@
                 :class="{ 'is-invalid': errors && errors.country }"
               >
                 <option value="">Seleccione...</option>
-                <option :value="p" v-for="p in countries" :key="p">
-                  {{ p }}
+                <option :value="p.name" v-for="p in countries" :key="p.id">
+                  {{ p.name }}
                 </option>
               </select>
               <div class="invalid-feedback" v-if="errors && errors.country">
@@ -231,7 +231,6 @@
                     :value="pro.dni"
                     v-for="pro in providers"
                     :key="pro.dni"
-                    disabled
                   >
                     {{ pro.names }}
                   </option>
@@ -294,7 +293,6 @@ export default {
 
   data() {
     return {
-      countries: ["Perú"],
       providers: [],
       providersNew: [],
       proveedor: {
@@ -315,6 +313,60 @@ export default {
       isLoading: false,
       isNoEmpty: true,
       isActionNew: true,
+      countries: [
+        {
+          id: 1,
+          name: "Argentina",
+        },
+        {
+          id: 2,
+          name: "Bolivia",
+        },
+        {
+          id: 3,
+          name: "Brasil",
+        },
+        {
+          id: 4,
+          name: "Chile",
+        },
+        {
+          id: 5,
+          name: "Colombia",
+        },
+        {
+          id: 6,
+          name: "Ecuador",
+        },
+        {
+          id: 7,
+          name: "España",
+        },
+        {
+          id: 8,
+          name: "Estados Unidos",
+        },
+        {
+          id: 9,
+          name: "México",
+        },
+        {
+          id: 10,
+          name: "Paraguay",
+        },
+        {
+          id: 11,
+          name: "Perú",
+        },
+        {
+          id: 12,
+          name: "Uruguay",
+        },
+        {
+          id: 13,
+          name: "Venezuela",
+        },
+      ],
     };
   },
 
@@ -341,45 +393,36 @@ export default {
 
     async getProvider(ruc) {
       if (ruc.length < 11) {
+        this.$awn.alert("Ingrese el ruc completo.", {
+          durations: { success: 2000 },
+        });
         this.resetForm();
-        this.$awn.alert("Ingrese el total de digitos completo");
       } else {
         // let
-        this.$awn.info("Buscando...");
-        const res = await axios.get(
-          `https://dniruc.apisperu.com/api/v1/ruc/${ruc}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtwZXJlemVzcGlAZ21haWwuY29tIn0.e0H9C9yn95TQXyLjocE4bbW11RbxAmiLEbGRTwWQaeI`
+        const token =
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtwZXJlemVzcGlAZ21haWwuY29tIn0.e0H9C9yn95TQXyLjocE4bbW11RbxAmiLEbGRTwWQaeI";
+        this.$awn.async(
+          axios.get(
+            `https://dniruc.apisperu.com/api/v1/ruc/${ruc}?token=${token}`
+          ),
+          (res) => {
+            if (res.data.direccion || res.data.capital || res.data.ubigeo) {
+              this.$awn.success("La acción ha sido exitosa.");
+              this.proveedor.businessName = res.data.razonSocial;
+              this.proveedor.address = res.data.direccion;
+              this.proveedor.city = res.data.capital;
+              this.proveedor.codePostal = res.data.ubigeo;
+            } else {
+              this.resetForm();
+              this.$awn.warning("Datos obtenidos imcompletos.");
+            }
+          },
+          (err) =>
+            this.$awn.alert(
+              `La API respondió con el código: ${err.response.status}`
+            )
         );
-        if (res.data.success == false) {
-          this.resetForm();
-          this.$awn.warning("No se encontraron resultados :(");
-        } else {
-          this.isNoEmpty = false;
-          if (
-            res.data.direccion == "" ||
-            res.data.capital == "" ||
-            res.data.ubigeo == ""
-          ) {
-            this.resetForm();
-            this.$awn.warning("Al proveedor le faltan datos importantes :(");
-          } else {
-            this.$awn.success("Es proveedor cuenta los datos importantes :D");
-            this.proveedor.businessName = res.data.razonSocial;
-            this.proveedor.address = res.data.direccion;
-            this.proveedor.city = res.data.capital;
-            this.proveedor.codePostal = res.data.ubigeo;
-          }
-          console.log(this.proveedor);
-        }
-        console.log(res.data);
-        // console.log(res.data);
-        // console.log(this.providers);
       }
-      console.log();
-      // const res = await axios.get("");
-      // console.log(res.data);
-      // if (res) {
-      //   this.isNoEmpty = false;
-      // }
     },
 
     openModal() {
@@ -395,9 +438,9 @@ export default {
           .post("/providers/", this.proveedor)
           .then((res) => {
             $("#exampleModal").modal("hide");
-            this.getProviders();
-            this.$awn.success(res.data);
             this.isLoading = false;
+            this.$awn.success(res.data);
+            this.getProviders();
           })
           .catch((e) => {
             this.existsErrors(e);
@@ -443,7 +486,6 @@ export default {
       this.proveedor.provider = data.dni;
       this.proveedor.businessName = data.businessName;
       this.selected_id = data.keyPro;
-      $("#inputProvider").prop("disabled", true);
       $("#exampleModal").modal("show");
     },
 
@@ -464,6 +506,10 @@ export default {
       this.proveedor.address = "";
       this.proveedor.city = "";
       this.proveedor.codePostal = "";
+      this.proveedor.phone = "";
+      this.proveedor.email = "";
+      this.proveedor.ruc = "";
+      this.proveedor.country = "";
       this.errors = [];
       $("#inputProvider").prop("disabled", false);
     },
