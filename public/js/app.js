@@ -4282,6 +4282,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    resetForm: function resetForm() {
+      this.step = 0;
+      this.fetchOptions();
+      this.getPedidos();
+      this.solicitud.idPedido = "";
+      this.solicitud.pedido = "";
+      this.solicitud.detalleProformas = [];
+      this.solicitud.detallePedido = [];
+      this.solicitud.monto = [];
+      this.solicitud.notas = "";
+      this.solicitud.empleado = "";
+      this.details = [];
+      this.detalleProformas = [];
+      this.products = [];
+    },
     formatDatePedido: function formatDatePedido(value) {
       moment__WEBPACK_IMPORTED_MODULE_8___default().locale("es");
       return moment__WEBPACK_IMPORTED_MODULE_8___default()(value).format("LLLL");
@@ -4364,9 +4379,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this3.solicitud.empleado = _this3.empleado[0].code_empleado;
 
         _this3.$awn.async(axios.post("/solicitud", _this3.solicitud), function (res) {
-          console.log(res.data);
-
           _this3.$awn.success(res.data);
+
+          _this3.resetForm();
         });
       };
 
@@ -6541,6 +6556,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImtwZXJlemVzcGlAZ21haWwuY29tIn0.e0H9C9yn95TQXyLjocE4bbW11RbxAmiLEbGRTwWQaeI";
 
                   _this3.$awn.async(axios.get("https://dniruc.apisperu.com/api/v1/ruc/".concat(ruc, "?token=").concat(token)), function (res) {
+                    console.log(res.data);
+
                     if (res.data.direccion || res.data.capital || res.data.ubigeo) {
                       _this3.$awn.success("La acción ha sido exitosa.");
 
@@ -91835,8 +91852,23 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("file-pond-demo", {
+                      ref: "fileComponente",
+                      attrs: { maxFiles: 1, fileTypes: "application/pdf" },
+                      on: { changeFile: _vm.addFilesToProformas },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _vm._m(2),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -91896,21 +91928,6 @@ var render = function () {
                     2
                   ),
                 ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("file-pond-demo", {
-                      ref: "fileComponente",
-                      attrs: { maxFiles: 1, fileTypes: "application/pdf" },
-                      on: { changeFile: _vm.addFilesToProformas },
-                    }),
-                  ],
-                  1
-                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _vm._m(4),
@@ -92411,7 +92428,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "form-control-label" }, [
-      _vm._v("Proveedor: "),
+      _vm._v("Adjuntar Proforma: "),
       _c("span", { staticClass: "tx-danger" }, [_vm._v("*")]),
     ])
   },
@@ -92420,7 +92437,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "form-control-label" }, [
-      _vm._v("Adjuntar Proforma: "),
+      _vm._v("Proveedor: "),
       _c("span", { staticClass: "tx-danger" }, [_vm._v("*")]),
     ])
   },
@@ -93579,7 +93596,7 @@ var render = function () {
           {
             key: "title",
             fn: function () {
-              return [_vm._v(" Motivo de Descición ")]
+              return [_vm._v(" Motivo de Desición ")]
             },
             proxy: true,
           },
@@ -96687,7 +96704,7 @@ var render = function () {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("label", { staticClass: "tx-12" }, [
-                      _vm._v(_vm._s(d.fechaAprobacion)),
+                      _vm._v(_vm._s(d.fechaRespuesta)),
                     ]),
                     _vm._v(" "),
                     d.estado == "A"

@@ -6,11 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Mehedi\AmpMail\Mimes\Amp;
 
 class SolicitudCompra extends Mailable
 {
-    use Queueable, SerializesModels, Amp;
+    use Queueable, SerializesModels;
 
     public $subject = "Nueva Solicitud de Compra - Urgente";
     public $user;
@@ -25,10 +24,10 @@ class SolicitudCompra extends Mailable
      *
      * @return void
      */
-    public function __construct($user, $dest,$idSolicitud, $pedido, $detailOrder, $detailProforma)
+    public function __construct($user, $to,$idSolicitud, $pedido, $detailOrder, $detailProforma)
     {
         $this->user = $user;
-        $this->dest = $dest;
+        $this->dest = $to;
         $this->idSolicitud = $idSolicitud;
         $this->pedido = $pedido;
         $this->detailOrder = $detailOrder;

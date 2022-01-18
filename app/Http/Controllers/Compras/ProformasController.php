@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Compras;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProformaProveedor;
-use App\Models\Pedido;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use Carbon\Carbon;
 
 class ProformasController extends Controller
 {
@@ -51,23 +51,24 @@ class ProformasController extends Controller
         $idProveedores = $request->idProveedor;
         $montos = $request->montos;
 
+
         if ($request->hasFile('detalleProforma')) {
             foreach ($request->file('detalleProforma')  as $index => $file) {
-                //guardamos en storage
+                $date = Carbon::now()->subDays(5);
                 $file_name = $file->getClientOriginalName();
                 $file_size = number_format($file->getSize() / 1000, 2) . 'kb';
                 Storage::putFileAs("/public/proformas/Pedido " . $idPedido . '/', $file, $file_name);
-                //guardamos en Base de datos
                 ProformaProveedor::create([
                     'idPedido' => $idPedido,
                     'idProveedor' => $idProveedores[$index],
                     'archivo' => $file_name,
                     'sizeFile' => $file_size,
                     'montoProforma' => $montos[$index],
+                    //no deber ir
+                    'fRegistro' => $date,
                 ]);
             }
             return "La acción ha sido exitosa.";
-
         } else {
             return "La acción ha fallado!";
         }

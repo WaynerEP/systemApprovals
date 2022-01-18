@@ -6,7 +6,7 @@
           <h6 class="slim-card-title tx-primary ht-35">{{ d.cargo }}</h6>
           <div class="row">
             <div class="col">
-              <label class="tx-12">{{ d.fechaAprobacion }}</label>
+              <label class="tx-12">{{ d.fechaRespuesta }}</label>
               <p v-if="d.estado == 'A'">APROBADO</p>
               <p v-else-if="d.estado == 'R'">RECHAZADO</p>
               <p v-else>PENDIENTE</p>

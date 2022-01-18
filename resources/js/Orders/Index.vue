@@ -88,7 +88,7 @@
     <!-- table-responsive -->
     <!-- modal-formulario de evio   -->
     <modal-section maxWidth="lg" @submitted="store">
-      <template #title> Motivo de Descición </template>
+      <template #title> Motivo de Desición </template>
       <template #body>
         <div class="form-group">
           <label class="form-control-label mb-2" for="inputAutocomplete"

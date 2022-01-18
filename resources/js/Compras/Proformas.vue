@@ -43,6 +43,18 @@
               <!-- col-4 -->
               <div class="form-group">
                 <label class="form-control-label"
+                  >Adjuntar Proforma: <span class="tx-danger">*</span></label
+                >
+                <file-pond-demo
+                  :maxFiles="1"
+                  fileTypes="application/pdf"
+                  @changeFile="addFilesToProformas"
+                  ref="fileComponente"
+                ></file-pond-demo>
+              </div>
+              <!-- col-4 -->
+              <div class="form-group">
+                <label class="form-control-label"
                   >Proveedor: <span class="tx-danger">*</span></label
                 >
                 <select
@@ -59,18 +71,6 @@
                     {{ p.businessName }}
                   </option>
                 </select>
-              </div>
-              <!-- col-4 -->
-              <div class="form-group">
-                <label class="form-control-label"
-                  >Adjuntar Proforma: <span class="tx-danger">*</span></label
-                >
-                <file-pond-demo
-                  :maxFiles="1"
-                  fileTypes="application/pdf"
-                  @changeFile="addFilesToProformas"
-                  ref="fileComponente"
-                ></file-pond-demo>
               </div>
               <!-- col-4 -->
               <div class="form-group">
