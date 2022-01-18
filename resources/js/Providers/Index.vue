@@ -406,6 +406,7 @@ export default {
             `https://dniruc.apisperu.com/api/v1/ruc/${ruc}?token=${token}`
           ),
           (res) => {
+            console.log(res.data);
             if (res.data.direccion || res.data.capital || res.data.ubigeo) {
               this.$awn.success("La acción ha sido exitosa.");
               this.proveedor.businessName = res.data.razonSocial;

@@ -419,6 +419,21 @@ export default {
   },
 
   methods: {
+    resetForm() {
+      this.step = 0;
+      this.fetchOptions();
+      this.getPedidos();
+      this.solicitud.idPedido = "";
+      this.solicitud.pedido = "";
+      this.solicitud.detalleProformas = [];
+      this.solicitud.detallePedido = [];
+      this.solicitud.monto = [];
+      this.solicitud.notas = "";
+      this.solicitud.empleado = "";
+      this.details = [];
+      this.detalleProformas = [];
+      this.products = [];
+    },
     formatDatePedido(value) {
       moment.locale("es");
       return moment(value).format("LLLL");
@@ -484,8 +499,8 @@ export default {
         this.solicitud.monto = this.total;
         this.solicitud.empleado = this.empleado[0].code_empleado;
         this.$awn.async(axios.post("/solicitud", this.solicitud), (res) => {
-          console.log(res.data);
           this.$awn.success(res.data);
+          this.resetForm();
         });
       };
       this.$awn.confirm("Estás seguro de guardar el pedido?", onOk);

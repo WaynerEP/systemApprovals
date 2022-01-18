@@ -16,6 +16,7 @@ class ProformaProveedor extends Model
         'archivo',
         'sizeFile',
         'montoProforma',
+        'fRegistro',
     ];
     public $timestamps = false;
 }

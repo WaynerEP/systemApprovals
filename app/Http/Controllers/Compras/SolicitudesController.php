@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SolicitudCompra;
-use App\Models\Aprobaciones;
 use App\Models\Solicitud;
+use Carbon\Carbon;
 use DB;
 
 class SolicitudesController extends Controller
@@ -68,7 +68,9 @@ class SolicitudesController extends Controller
         try {
             DB::beginTransaction();
             // insertamos nueva solicitud
-            DB::insert("insert into solicitudes(idPedido, nota,codEmpleado) values(?,?,?)", [$idPedido, $nota, $empleado]);
+            $date = Carbon::now()->subDays(5); //fecha no debe ir
+
+            DB::insert("insert into solicitudes(idPedido, nota,codEmpleado,fechaSolicitud) values(?,?,?,?)", [$idPedido, $nota, $empleado,$date]);
 
             //obtenemos el ultimo id
             $solicitud = DB::select('select max(idSolicitud) as id from solicitudes');
