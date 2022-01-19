@@ -29,6 +29,7 @@ Route::get('/login-google', [\App\Http\Controllers\Auth\LoginController::class, 
 
 Route::get('/google-callback', [App\Http\Controllers\Auth\LoginController::class, 'authWithGoogle']);
 
+
 // Management Users
 Route::middleware('auth')->group(function () {
 

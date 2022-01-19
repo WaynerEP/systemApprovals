@@ -5462,7 +5462,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       };
 
-      this.$awn.confirm("¿Estás seguro de eliminar?, recuerda que se eliminarán todos los productos de está categoria", onOk);
+      this.$awn.confirm("¿Estás seguro de eliminar?, recuerda que se eliminarán todos elementos unidos a está categoria", onOk);
     }
   }
 });

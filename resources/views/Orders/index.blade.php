@@ -38,8 +38,8 @@
                         <div class="row mt-5">
                             <div class="col-md-12 form-group">
                                 <label class="form-control-label">Mensaje: <span class="tx-danger">*</span></label>
-                                <textarea class="form-control" value="{{ old('mensaje') }}" name="mensaje"
-                                    @error('mensaje') is-invalid @enderror" cols="30" rows="4"
+                                <textarea class="form-control @error('mensaje') is-invalid @enderror" value="{{ old('mensaje') }}" name="mensaje"
+                                     cols="30" rows="4"
                                     placeholder="Ingrese su mensaje" required></textarea>
                                 @error('mensaje')
                                     <div class="invalid-feedback d-block" role="alert">

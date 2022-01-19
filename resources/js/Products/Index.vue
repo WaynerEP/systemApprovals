@@ -702,7 +702,7 @@ export default {
       };
 
       this.$awn.confirm(
-        "¿Estás seguro de eliminar?, recuerda que se eliminarán todos los productos de está categoria",
+        "¿Estás seguro de eliminar?, recuerda que se eliminarán todos elementos unidos a está categoria",
         onOk
       );
     },
