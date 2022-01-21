@@ -5,7 +5,13 @@
         @csrf
         <h2 class="slim-logo"><a href="index.html">El valle<span>.</span></a></h2>
         <h4 class="signin-title-secondary">{{ __('Inicia sesión para continuar.') }}</h4>
+        <input type="hidden" name="status" value="1">
 
+        @error('status')
+            <div class="invalid-feedback" role="alert">
+                {{ $message }}
+            </div>
+        @enderror
         <div class="form-group">
             <input id="email" type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" name="email"
                 placeholder="Email" tabindex="1" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -32,7 +38,6 @@
                 </a>
             @endif
         </div>
-
         <button type="submit" class="btn btn-primary btn-block btn-signin rounded-5"><i class="fa fa-sign-in"></i>
             {{ __('Login') }}</button>
 
@@ -42,7 +47,7 @@
             sesión usando Google <div class="ml-2"><i class="fa fa-google-plus"></i></div></a>
 
         @if (session('errorAuthGoogle'))
-            <error-login></error-login>
+            <message-notification message="{{ session('errorAuthGoogle') }}" type="error"></message-notification>
         @endif
     </form>
 @endsection

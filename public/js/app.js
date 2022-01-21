@@ -6405,6 +6405,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7347,7 +7355,7 @@ __webpack_require__.r(__webpack_exports__);
     if (this.type == "success") {
       this.$awn.success(this.message);
     } else {
-      this.$awn.info(this.message);
+      this.$awn.warning(this.message);
     }
   },
   props: ["message", "type"]
@@ -96045,61 +96053,84 @@ var render = function () {
           "div",
           { key: pros.keyPro, staticClass: "col-md-4 mt-4 mg-md-t-0" },
           [
-            _c("div", { staticClass: "card bg-primary tx-white bd-0" }, [
-              _c("div", {
-                staticClass: "card-header",
-                staticStyle: {
-                  "background-image":
-                    "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ15wheMNG9n-yZ2CSzTD0Gu0KR0oAsmi3iQ&usqp=CAU')",
-                  height: "160px",
+            _c("div", { staticClass: "card tx-white bd-0" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "card-header",
+                  staticStyle: {
+                    "background-image":
+                      "url('https://drive.google.com/uc?export=view&id=14EXaIqnNHB6nmWCopirXFxdNjGcwPzve')",
+                    height: "200px",
+                  },
                 },
-              }),
+                [
+                  _c("p", { staticClass: "card-text tx-18 d-block" }, [
+                    _vm._v(_vm._s(pros.businessName)),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "d-block tx-11",
+                      staticStyle: { "text-transform": "uppercase" },
+                    },
+                    [_vm._v(_vm._s(pros.country) + " - " + _vm._s(pros.city))]
+                  ),
+                ]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "p",
-                  { staticClass: "card-subtitle tx-normal tx-white-8 mg-b-15" },
-                  [
-                    _vm._v(
-                      "\n          Representante: " +
-                        _vm._s(pros.names) +
-                        "\n        "
-                    ),
-                  ]
-                ),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v("Razón Social: " + _vm._s(pros.businessName)),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "card-link tx-white-7 hover-white",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function ($event) {
-                        return _vm.editProvider(pros)
+              _c(
+                "div",
+                { staticClass: "card-body", staticStyle: { height: "165px" } },
+                [
+                  _c(
+                    "p",
+                    { staticClass: "card-subtitle tx-normal tx-dark mg-b-15" },
+                    [
+                      _c("b", [_vm._v("Representante: ")]),
+                      _vm._v(_vm._s(pros.names) + "\n        "),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    { staticClass: "card-subtitle tx-normal tx-dark mg-b-15" },
+                    [
+                      _c("b", [_vm._v("Ubicación: ")]),
+                      _vm._v(_vm._s(pros.address) + "\n        "),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "card-link tx-warning hover-warning",
+                      attrs: { href: "#!" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.editProvider(pros)
+                        },
                       },
                     },
-                  },
-                  [_vm._v("Editar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "card-link tx-white-7 hover-white",
-                    attrs: { href: "#", disabled: pros.status == 0 },
-                    on: {
-                      click: function ($event) {
-                        return _vm.deleteProvider(pros.keyPro)
+                    [_c("b", [_vm._v("Editar")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "card-link tx-warning hover-warning",
+                      attrs: { href: "#!", disabled: pros.status == 0 },
+                      on: {
+                        click: function ($event) {
+                          return _vm.deleteProvider(pros.keyPro)
+                        },
                       },
                     },
-                  },
-                  [_vm._v("Eliminar")]
-                ),
-              ]),
+                    [_c("b", [_vm._v("Eliminar")])]
+                  ),
+                ]
+              ),
             ]),
           ]
         )

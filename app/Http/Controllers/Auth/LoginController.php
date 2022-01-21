@@ -55,19 +55,22 @@ class LoginController extends Controller
 
             $user = User::where('email', $googleUser->email)->first();
             if ($user) {
-
-                if ($user->avatar == null) {
-                    $user->avatar = $googleUser->avatar;
+                if ($user->status == '1') {
+                    if ($user->avatar == null) {
+                        $user->avatar = $googleUser->avatar;
+                        $user->save();
+                    }
+                    $user->google_id = $googleUser->id;
+                    $user->google_token = $googleUser->token;
                     $user->save();
-                }
-                $user->google_id = $googleUser->id;
-                $user->google_token = $googleUser->token;
-                $user->save();
 
-                Auth::login($user);
-                return redirect('home');
+                    Auth::login($user);
+                    return redirect('home');
+                } else {
+                    return redirect('/')->with('errorAuthGoogle', 'El usuario se encuentra inhabilitado.');
+                }
             } else {
-                return redirect('/')->with('errorAuthGoogle', 'error!');;
+                return redirect('/')->with('errorAuthGoogle', 'No se encontró el usuario.');
             }
         } catch (Throwable  $e) {
             return redirect('/');

@@ -17,35 +17,43 @@
       v-for="pros in providers"
       :key="pros.keyPro"
     >
-      <div class="card bg-primary tx-white bd-0">
+      <div class="card tx-white bd-0">
         <div
           class="card-header"
           style="
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ15wheMNG9n-yZ2CSzTD0Gu0KR0oAsmi3iQ&usqp=CAU');
-            height: 160px;
+            background-image: url('https://drive.google.com/uc?export=view&id=14EXaIqnNHB6nmWCopirXFxdNjGcwPzve');
+            height: 200px;
           "
-        ></div>
-        <div class="card-body">
-          <p class="card-subtitle tx-normal tx-white-8 mg-b-15">
-            Representante: {{ pros.names }}
-          </p>
-          <p class="card-text">Razón Social: {{ pros.businessName }}</p>
-          <a
-            href="#"
-            class="card-link tx-white-7 hover-white"
-            @click="editProvider(pros)"
-            >Editar</a
-          >
-          <a
-            href="#"
-            class="card-link tx-white-7 hover-white"
-            :disabled="pros.status == 0"
-            @click="deleteProvider(pros.keyPro)"
-            >Eliminar</a
+        >
+          <p class="card-text tx-18 d-block">{{ pros.businessName }}</p>
+          <span class="d-block tx-11" style="text-transform: uppercase"
+            >{{ pros.country }} - {{ pros.city }}</span
           >
         </div>
+        <div class="card-body" style="height: 165px">
+          <p class="card-subtitle tx-normal tx-dark mg-b-15">
+            <b>Representante: </b>{{ pros.names }}
+          </p>
+          <p class="card-subtitle tx-normal tx-dark mg-b-15">
+            <b>Ubicación: </b>{{ pros.address }}
+          </p>
+          <a
+            href="#!"
+            class="card-link tx-warning hover-warning"
+            @click="editProvider(pros)"
+          >
+            <b>Editar</b>
+          </a>
+          <a
+            href="#!"
+            class="card-link tx-warning hover-warning"
+            :disabled="pros.status == 0"
+            @click="deleteProvider(pros.keyPro)"
+          >
+            <b>Eliminar</b>
+          </a>
+        </div>
       </div>
-      <!-- card -->
     </div>
     <!-- col -->
     <modal-section maxWidth="lg" @submitted="store" @close="resetForm()">
