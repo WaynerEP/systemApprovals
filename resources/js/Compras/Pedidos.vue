@@ -60,7 +60,7 @@
                 <img
                   :src="
                     d.image
-                      ? '/' + d.image
+                      ? '/storage' + d.image
                       : 'http://via.placeholder.com/800x533'
                   "
                   class="wd-55"

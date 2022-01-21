@@ -51,7 +51,6 @@ class LoginController extends Controller
     public function authWithGoogle()
     {
         try {
-
             $googleUser = Socialite::driver('google')->stateless()->user();
 
             $user = User::where('email', $googleUser->email)->first();
@@ -61,7 +60,6 @@ class LoginController extends Controller
                     $user->avatar = $googleUser->avatar;
                     $user->save();
                 }
-
                 $user->google_id = $googleUser->id;
                 $user->google_token = $googleUser->token;
                 $user->save();
@@ -69,7 +67,7 @@ class LoginController extends Controller
                 Auth::login($user);
                 return redirect('home');
             } else {
-                return redirect('/')->with('errorAuthGoogle', 'Usuario no encontrado!');;
+                return redirect('/')->with('errorAuthGoogle', 'error!');;
             }
         } catch (Throwable  $e) {
             return redirect('/');

@@ -51,7 +51,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmailName">Nombres</label>
                                 <input type="text" class="form-control @error('nombres') is-invalid @enderror"
-                                    name="nombres" id="inputEmailName" value="{{ $data[0]->nombres }}" placeholder="" required />
+                                    name="nombres" id="inputEmailName" value="{{ $data[0]->nombres }}" placeholder=""
+                                    required />
                                 @error('nombres')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -110,8 +111,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputDepa">Departamento</label>
-                                <select class="custom-select @error('departamento') is-invalid @enderror" id="departamentos" required
-                                    name="departamento">
+                                <select class="custom-select @error('departamento') is-invalid @enderror" id="departamentos"
+                                    required name="departamento">
                                     <option value="">Seleccione</option>
                                     @foreach ($departamentos as $d)
                                         <option {{ $d->codDepartamento == $data[0]->codDepartamento ? 'selected' : '' }}
@@ -164,7 +165,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputReferencia">Referencia</label>
                                 <input type="text" class="form-control @error('referencia') is-invalid @enderror"
-                                    name="referencia" value="{{ $data[0]->referencia }}" required />
+                                    name="referencia" value="{{ $data[0]->referencia }}" />
                                 @error('referencia')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -204,7 +205,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputPhone1">Teléfono 1</label>
                                 <input type="text" class="form-control @error('telefono') is-invalid @enderror"
-                                    id="inputPhone1" name="telefono" value="{{ $data[0]->telefono1 }}" placeholder="" required />
+                                    id="inputPhone1" name="telefono" value="{{ $data[0]->telefono1 }}" placeholder=""
+                                    required />
                                 @error('telefono')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -214,7 +216,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputPhone2">Teléfono 2</label>
                                 <input type="text" class="form-control @error('telefono2') is-invalid @enderror"
-                                    id="inputPhone2" name="telefono2" value="{{ $data[0]->telefono2 }}" placeholder="" required />
+                                    id="inputPhone2" name="telefono2" value="{{ $data[0]->telefono2 }}" placeholder="" />
                                 @error('telefono2')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -255,6 +257,7 @@
                 })
             }
 
+            cargarAllData();
 
             function addValuesDistritos(array, id) {
                 distritos.innerHTML = `<option value="">Seleccione</option>`;
@@ -291,7 +294,6 @@
                 cargar_distritos(idProv, idDist);
             }
 
-            cargarAllData();
         })
     </script>
 @endsection

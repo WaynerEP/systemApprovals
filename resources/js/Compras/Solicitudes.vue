@@ -27,14 +27,17 @@
             >
             <div class="col-sm-9">
               <div class="d-flex">
-                <select readonly class="form-control form-control-sm mr-2">
+                <select
+                  readonly
+                  class="form-control form-control-sm mr-2 bg-white"
+                >
                   <option>Usuario</option>
                 </select>
                 <input
                   type="text"
                   readonly
                   :value="empleado[0].cargo"
-                  class="form-control form-control-sm"
+                  class="form-control form-control-sm bg-white"
                 />
               </div>
             </div>
@@ -46,7 +49,7 @@
                 type="text"
                 :value="empleado[0].name"
                 readonly
-                class="form-control form-control-sm"
+                class="form-control form-control-sm bg-white"
                 id=""
               />
             </div>
@@ -54,7 +57,7 @@
           <div class="mg-t-8 row">
             <label for="" class="col-sm-3 form-control-label">Sucursal</label>
             <div class="col-sm-9">
-              <select readonly class="form-control form-control-sm">
+              <select readonly class="form-control form-control-sm bg-white">
                 <option>Principal</option>
               </select>
             </div>
@@ -134,7 +137,7 @@
                     <img
                       :src="
                         d.image
-                          ? '/' + d.image
+                          ? '/storage' + d.image
                           : 'http://via.placeholder.com/800x533'
                       "
                       class="wd-55"
@@ -436,7 +439,7 @@ export default {
     },
     formatDatePedido(value) {
       moment.locale("es");
-      return moment(value).format("LLLL");
+      return moment(value).format("LL");
     },
 
     formatDateProforma(value) {
@@ -500,7 +503,8 @@ export default {
         this.solicitud.empleado = this.empleado[0].code_empleado;
         this.$awn.async(axios.post("/solicitud", this.solicitud), (res) => {
           this.$awn.success(res.data);
-          this.resetForm();
+          console.log(res.data);
+          // this.resetForm();
         });
       };
       this.$awn.confirm("Estás seguro de guardar el pedido?", onOk);

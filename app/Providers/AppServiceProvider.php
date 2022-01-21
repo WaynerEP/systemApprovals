@@ -24,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        // $_SERVER['SERVER_NAME'] = config('app.mail_domain') ?? '127.0.0.1';
     }
 }

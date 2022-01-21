@@ -1,4 +1,3 @@
-
 window.addEventListener('load', function () {
     var departamento = document.getElementById('departamentos');
     var provincias = document.getElementById('provincias');
@@ -17,6 +16,8 @@ window.addEventListener('load', function () {
                     name.value = res.data.nombres;
                     lastName.value = res.data.apellidoPaterno + ' ' + res.data.apellidoMaterno;
                 }
+            }).catch(e => {
+                console.log(e);
             });
         }
     });

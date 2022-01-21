@@ -6,7 +6,9 @@
           <h6 class="slim-card-title tx-primary ht-35">{{ d.cargo }}</h6>
           <div class="row">
             <div class="col">
-              <label class="tx-12">{{ d.fechaRespuesta }}</label>
+              <label class="tx-12">{{
+                d.fechaRespuesta ? d.fechaRespuesta : "En espera"
+              }}</label>
               <p v-if="d.estado == 'A'">APROBADO</p>
               <p v-else-if="d.estado == 'R'">RECHAZADO</p>
               <p v-else>PENDIENTE</p>
@@ -24,7 +26,9 @@
               }"
             ></div>
           </div>
-          <p class="tx-12 mg-b-0">Comentario: {{ d.motivoDesicion }}</p>
+          <p class="tx-12 mg-b-0">
+            Comentario: {{ d.motivoDesicion ? d.motivoDesicion : "En espera" }}
+          </p>
         </div>
         <!-- card -->
       </div>

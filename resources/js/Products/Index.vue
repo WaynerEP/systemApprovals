@@ -36,7 +36,7 @@
               <a href="#!">
                 <img
                   :src="
-                    pro.image ? pro.image : 'http://via.placeholder.com/200x200'
+                    pro.image ? '/storage'+pro.image : 'http://via.placeholder.com/200x200'
                   "
                   loading="lazy"
                   class="wd-120 ht-120"

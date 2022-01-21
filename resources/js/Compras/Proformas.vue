@@ -13,7 +13,10 @@
     <div class="form-layout">
       <div class="row mg-b-25">
         <div class="col-lg-4">
-          <div class="form-layout form-layout-2">
+          <form
+            @submit.prevent="addProformaToDetails"
+            class="form-layout form-layout-2"
+          >
             <div class="no-gutters">
               <div class="form-group">
                 <label class="form-control-label"
@@ -26,6 +29,7 @@
                     v-model="idPedido"
                     class="form-control bg-white"
                     placeholder="Seleccione..."
+                    required
                   />
                   <span class="input-group-btn">
                     <button
@@ -58,6 +62,7 @@
                   >Proveedor: <span class="tx-danger">*</span></label
                 >
                 <select
+                  required
                   class="form-control"
                   v-model="proveedor"
                   @change="setProveedor"
@@ -78,10 +83,11 @@
                   >Monto de la Proforma: <span class="tx-danger">*</span></label
                 >
                 <input
-                  type="number"
+                  type="text"
                   v-model="pedido.monto"
                   class="form-control"
                   placeholder="0.00"
+                  required
                 />
               </div>
               <!-- col-8 -->
@@ -89,18 +95,21 @@
             <!-- row -->
             <div class="form-layout-footer bd pd-20 bd-t-0 mb-3 text-center">
               <button
+                type="submit"
                 class="btn btn-info btn-sm bd-0 valign-middle"
-                @click="addProformaToDetails"
               >
                 Agregar <i class="icon ion-arrow-down-a ml-1"></i>
               </button>
             </div>
             <!-- form-group -->
-          </div>
+          </form>
         </div>
 
         <div class="col-lg-8">
-          <label-section>Detalle de los pedidos seleccionados</label-section>
+          <label-section
+            ><i class="icon ion-clipboard tx-14"></i> Detalle de las proformas
+            seleccionados</label-section
+          >
           <div class="signup-separator"></div>
           <table-invoice>
             <template #thead>
@@ -138,7 +147,7 @@
               </template>
               <tr v-else>
                 <td class="text-center valign-middle tx-bold tx-12" colspan="5">
-                  Seleccione un pedido!!
+                  Agregue una proforma!
                 </td>
               </tr>
             </template>
@@ -318,7 +327,7 @@ export default {
 
     formatDateAsString(value) {
       moment.locale("es");
-      return moment(value).format("LLLL");
+      return moment(value).format("LL");
     },
 
     addPedidoDetail(values) {

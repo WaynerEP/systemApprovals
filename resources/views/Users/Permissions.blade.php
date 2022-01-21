@@ -13,5 +13,4 @@
             <permissions-component></permissions-component>
         </div>
     </div>
-
 @endsection

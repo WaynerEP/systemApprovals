@@ -1,14 +1,12 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Solicitud de Compra</title>
     <style type="text/css">
-        #outlook a {
-            padding: 0
-        }
-
         body {
             width: 100% !important;
             -webkit-text-size-adjust: 100%;
@@ -21,19 +19,6 @@
         label {
             display: inline-block;
             margin-bottom: .5rem
-        }
-
-        .ExternalClass {
-            width: 100%
-        }
-
-        .ExternalClass,
-        .ExternalClass div,
-        .ExternalClass font,
-        .ExternalClass p,
-        .ExternalClass span,
-        .ExternalClass td {
-            line-height: 100%
         }
 
         .backgroundTable {
@@ -58,41 +43,32 @@
             text-align: center !important
         }
 
-        .mg-t-20 {
-            margin-top: 20px
-        }
-
         .mg-b-20 {
             margin-bottom: 20px
         }
 
-        .form-group {
-            margin-bottom: 1rem
-        }
-
-
         .btn-primary {
             text-align: center;
-            padding: 0.594rem 0.75rem;
+            padding: .594rem .75rem;
             font-size: .875rem;
             line-height: 1.5;
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
-            color: #ffffff;
+            color: #fff;
             background-color: #0954d3;
             background-image: none;
-            border: 0 solid #0954d3;
+            border: 0 solid #0954d3
         }
 
         .text-logo {
             color: #c4cdd2;
             margin: 0;
-            margin-bottom: 0;
             letter-spacing: -2px;
+            margin-bottom: 0;
             font-size: 33px;
             font-weight: 700;
-            font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+            font-family: Roboto, "Helvetica Neue", Arial, sans-serif
         }
 
     </style>
@@ -115,10 +91,10 @@
                                             <tr>
                                                 <td
                                                     style="padding-bottom:10px;display:flex;align-items:center;justify-content:space-between">
-                                                    <h2 class="text-logo">
-                                                        🏢 El valle<span>.</span> </h2>
-                                                    <a href="{{ route('home') }}" target="_blank"
-                                                        class="btn-primary">Mi cuenta ⎆</a>
+                                                    <img src="/assets/img/logo.png" width="30%" alt="">
+                                                    <a
+                                                        href="http://127.0.0.1:8000/home" target="_blank"
+                                                        class="btn btn-primary">Mi cuenta ⎆</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -134,12 +110,11 @@
                                             <tr>
                                                 <td align="left"
                                                     style="font-size:14px;color:#666;font-weight:400;line-height:24px;padding-top:10px">
-                                                    <p align="center">Hey!, Sr(a). {{ $dest->empleado }}, se le ha
+                                                    <p align="center">Hey!, Sr(a). , se le ha
                                                         enviado una nueva solicitud de compra que requiere de su
                                                         inmediata revisión.</p>
-                                                    <div class="text-center mg-b-20"><a
-                                                            href="{{ route('order', [$idSolicitud, $dest->codEmpleado]) }}"
-                                                            target="_blank" class="btn btn-primary">Enviar Respuesta</a>
+                                                    <div class="text-center mg-b-20"><a href="" target="_blank"
+                                                            class="btn btn-primary">Enviar Respuesta</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -148,17 +123,14 @@
                                 </td>
                             </tr>
 
-
+                            >
                         </tbody>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
-    </td>
-    </tr>
-    </tbody>
-    </table>
+
 </body>
 
 </html>

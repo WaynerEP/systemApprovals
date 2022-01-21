@@ -12,14 +12,8 @@
         <p class="mg-b-20 mg-sm-b-40">Puede ver, editar y crear un contacto. <a href="{{ route('personas.create') }}"><i
                     class="fa fa-plus"></i>
                 Agregar</a></p>
-        @if (Session::has('message'))
-
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <strong>Well done!</strong> {!! Session::get('message') !!}.
-            </div>
+        @if (session('message'))
+            <message-notification message="{{ session('message') }}" type="success"></message-notification>
         @endif
 
         <div class="table-wrapper">
@@ -84,7 +78,6 @@
                     lengthMenu: 'Mostrar _MENU_ ',
                 }
             });
-
             // Select2
             $('.dataTables_length select').select2({
                 minimumResultsForSearch: Infinity

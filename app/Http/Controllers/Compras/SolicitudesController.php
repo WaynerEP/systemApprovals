@@ -63,32 +63,33 @@ class SolicitudesController extends Controller
         $pedido = $request->pedido;
         $idPedido = $request->idPedido;
         $nota = $request->notas;
-        $empleado = $request->empleado;
+        $codEmpleado = auth()->user()->code_empleado;
         //guardamos la solicitud
         try {
             DB::beginTransaction();
             // insertamos nueva solicitud
-            $date = Carbon::now()->subDays(5); //fecha no debe ir
-
-            DB::insert("insert into solicitudes(idPedido, nota,codEmpleado,fechaSolicitud) values(?,?,?,?)", [$idPedido, $nota, $empleado,$date]);
-
-            //obtenemos el ultimo id
-            $solicitud = DB::select('select max(idSolicitud) as id from solicitudes');
-            $idSolicitud = $solicitud[0]->id;
-
-            //save solicitudes proformas
-            for ($i = 0; $i < count($detailProforma); $i++) {
-                DB::update("EXEC spRegisterSolicitudProformas ?,?", array($idSolicitud, $detailProforma[$i]['idProforma']));
-            }
+            // $idSolicitud = DB::table('solicitudes')->insertGetId(
+            //     ['idPedido' => $idPedido, 'nota' => $nota, 'codEmpleado' => $codEmpleado]
+            // );
+            // save solicitudes proformas
+            // for ($i = 0; $i < count($detailProforma); $i++) {
+            //     DB::update("EXEC spRegisterSolicitudProformas ?,?", array($idSolicitud, $detailProforma[$i]['idProforma']));
+            // }
             # sending emails
             $users = DB::select('Exec spUserSendEmail ?', array($monto));
-            foreach ($users as $index => $item) {
-                DB::insert("insert into aprobaciones(idSolicitud, codEmpleado) values(?,?)", [$idSolicitud, $users[$index]->codEmpleado]);
-                Mail::to($users[$index]->correo)->queue(new SolicitudCompra($users[0], $users[$index], $idSolicitud, $pedido, $detailPedido, $detailProforma));
+            foreach ($users as $index => $el) {
+                if ($users[$index]->codEmpleado == $codEmpleado) {
+                    $dato = $users[$index];
+                    break;
+                }
             }
-            # confirmation of changes
+            $idSolicitud = 2;
+            foreach ($users as $index => $item) {
+                // DB::insert("insert into aprobaciones(idSolicitud, codEmpleado) values(?,?)", [$idSolicitud, $users[$index]->codEmpleado]);
+                Mail::to($users[$index]->correo)->queue(new SolicitudCompra($dato, $users[$index], $idSolicitud, $pedido, $detailPedido, $detailProforma));
+            }
+            // # confirmation of changes
             DB::commit();
-
             return "La acción ha sido exitosa!.";
         } catch (Throwable $e) {
             DB::rollBack();

@@ -16,7 +16,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 //Obtiene la informacion de la empresa el valle
 Route::get('/info-el-valle', function () {
     return Organizacion::first();

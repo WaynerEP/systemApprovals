@@ -39,7 +39,6 @@
             <a href="" class="nav-link">PROVEEDORES</a>
         </nav>
     </div>
-
     <div class="row no-gutters dashboard-chart-one">
         <div class="col-md-4 col-lg">
             <div class="card card-total">
@@ -156,13 +155,14 @@
             </div><!-- card -->
         </div><!-- col-4 -->
     </div>
-
 @endsection
 
-<script>
-    window.addEventListener('load', function() {
-        $.toast({
-            content: 'Bienvenido al sistema. 🤚'
-        })
-    });
-</script>
+@section('scripts')
+    <script>
+        window.addEventListener('load', function() {
+            $.toast({
+                content: 'Bienvenido al sistema. 🤚'
+            })
+        });
+    </script>
+@endsection

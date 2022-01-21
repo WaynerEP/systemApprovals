@@ -21,7 +21,7 @@
                         <!-- loop starts here -->
                         <a href="" class="dropdown-link">
                             <div class="media">
-                                <img src="http://via.placeholder.com/500x500" alt="">
+                                <img src="http://via.placeholder.com/500x500" alt="" loading="lazy">
                                 <div class="media-body">
                                     <p><strong>Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
                                     <span>October 03, 2017 8:45am</span>
@@ -39,7 +39,7 @@
             <div class="dropdown dropdown-c">
                 <a href="#" class="logged-user" data-toggle="dropdown">
                     <img src="/{{ Auth::user()->avatar ? Auth::user()->avatar : '/storage/avatars/user.png' }}"
-                        alt="">
+                        loading="lazy" alt="">
                     <span>{{ Auth::user()->name }}</span>
                     <i class="fa fa-angle-down"></i>
                 </a>

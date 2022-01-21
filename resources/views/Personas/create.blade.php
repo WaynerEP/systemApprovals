@@ -24,8 +24,7 @@
                                 <div class="input-group justify-content-center">
                                     <input type="number" size="8" min="0" minlength="8" maxlength="8"
                                         class="form-control @error('dni') is-invalid @enderror" name="dni"
-                                        value="{{ old('dni') }}"
-                                        id="dni"
+                                        value="{{ old('dni') }}" id="dni"
                                         oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         autofocus required />
 
@@ -59,8 +58,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmailName">Nombres</label>
                                 <input type="text" class="form-control @error('nombres') is-invalid @enderror"
-                                    name="nombres" id="nombres" id="inputEmailName" value="{{ old('nombres') }}" placeholder=""
-                                    required />
+                                    name="nombres" id="nombres" id="inputEmailName" value="{{ old('nombres') }}"
+                                    placeholder="" required />
                                 @error('nombres')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -70,8 +69,8 @@
                             <div class="form-group col-md-6">
                                 <label for="inputEmailLastName">Apellidos</label>
                                 <input type="text" class="form-control @error('apellidos') is-invalid @enderror"
-                                    name="apellidos" id="apellidos" id="inputEmailLastName" placeholder="" value="{{ old('apellidos') }}"
-                                    required />
+                                    name="apellidos" id="apellidos" id="inputEmailLastName" placeholder=""
+                                    value="{{ old('apellidos') }}" required />
                                 @error('apellidos')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -170,7 +169,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputReferencia">Referencia</label>
                                 <textarea class="form-control @error('referencia') is-invalid @enderror" name="referencia"
-                                    value="{{ old('referencia') }}" required></textarea>
+                                    value="{{ old('referencia') }}"></textarea>
                                 @error('referencia')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
@@ -220,8 +219,7 @@
                             <div class="form-group col-md-6">
                                 <label for="inputPhone2">Teléfono 2</label>
                                 <input type="text" class="form-control @error('telefono2') is-invalid @enderror"
-                                    id="inputPhone2" name="telefono2" value="{{ old('telefono2') }}" placeholder=""
-                                    required />
+                                    id="inputPhone2" name="telefono2" value="{{ old('telefono2') }}" placeholder="" />
                                 @error('telefono2')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}

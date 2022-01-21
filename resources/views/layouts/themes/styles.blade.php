@@ -7,4 +7,4 @@
 <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 <link href="{{ asset('css/theme-2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/toaster.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/css/dialog-drag.css') }}" rel="stylesheet" />
+{{-- <link href="{{ asset('assets/css/dialog-drag.css') }}" rel="stylesheet" /> --}}

@@ -169,4 +169,4 @@ Route::post('/update-password', [UserProfileController::class, 'updatePassword']
 //     return "Exito";
 // });
 
-// Route::view('/email','Orders.email');
+Route::view('/email','Orders.email2');

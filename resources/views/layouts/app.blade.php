@@ -23,7 +23,7 @@
     @include('layouts.themes.styles')
 </head>
 
-<body class="">
+<body>
     <!-- Preloader -->
     <div id="preloader-area">
         <div class="lds-ripple">

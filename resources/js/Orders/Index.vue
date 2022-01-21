@@ -86,7 +86,6 @@
       </button>
     </div>
     <!-- table-responsive -->
-    <!-- modal-formulario de evio   -->
     <modal-section maxWidth="lg" @submitted="store">
       <template #title> Motivo de Desición </template>
       <template #body>
@@ -145,7 +144,6 @@
         </button>
       </template>
     </modal-section>
-    <!-- <button @click="allRequestsByUser">ver</button> -->
   </div>
 </template>
 <script>
@@ -199,11 +197,6 @@ export default {
       if (datos.data) {
         this.isNoEmpty = false;
       }
-    },
-
-    allRequestsByUser() {
-      this.isNoEmpty = true;
-      this.fetchData("all");
     },
 
     onChangeAprobar(e) {

@@ -1,7 +1,9 @@
 @extends('layouts.App')
 
 @section('title')
-    Nueva Solicitud
+    Listado de Solicitudes
+    <a href="{{ route('purchase-request.create') }}" class="ml-3 messages-compose text-warning"><i
+            class="icon ion-compose"></i></a>
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>

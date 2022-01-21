@@ -17,7 +17,7 @@
             <td>
               <img
                 :src="
-                  d.image ? '/' + d.image : 'http://via.placeholder.com/800x533'
+                  d.image ? '/storage' + d.image : 'http://via.placeholder.com/800x533'
                 "
                 loading="lazy"
                 class="wd-55"

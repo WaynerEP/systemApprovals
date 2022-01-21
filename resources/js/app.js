@@ -15,6 +15,9 @@ Vue.use(VueAWN, options)
 //pagination vue laravel
 Vue.component('pagination', require('laravel-vue-pagination'));
 
+Vue.component('error-login', require('./components/ErrorLogin.vue').default);
+Vue.component('message-notification', require('./components/NotificationMessage.vue').default);
+
 // Management Users
 Vue.component('users-component', require('./users/UsersComponent.vue').default);
 
@@ -29,9 +32,6 @@ Vue.component('providers-component', require('./Providers/Index.vue').default);
 
 //Management Products
 Vue.component('products-component', require('./Products/Index.vue').default);
-//Personas
-// Vue.component('people-component', require('./Personas/Index.vue').default);
-// Vue.component('people-create-component', require('./Personas/Create.vue').default);
 
 // Solicitudes
 Vue.component('solicitud-component', require('./Compras/Solicitudes.vue').default);
@@ -50,13 +50,6 @@ Vue.component('list-solicitudes', require('./Orders/Index.vue').default);
 
 // Solicitudes
 Vue.component('user-profile', require('./Profile/User-Profile.vue').default);
-
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 const app = new Vue({
     el: '#app',

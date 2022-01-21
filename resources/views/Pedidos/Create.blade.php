@@ -4,6 +4,7 @@
 @endsection
 @section('navigation')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('pedidos.list') }}">Listar</a></li>
     <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
 @endsection
 @section('content')

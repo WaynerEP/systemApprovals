@@ -51,10 +51,8 @@ class ProformasController extends Controller
         $idProveedores = $request->idProveedor;
         $montos = $request->montos;
 
-
         if ($request->hasFile('detalleProforma')) {
             foreach ($request->file('detalleProforma')  as $index => $file) {
-                $date = Carbon::now()->subDays(5);
                 $file_name = $file->getClientOriginalName();
                 $file_size = number_format($file->getSize() / 1000, 2) . 'kb';
                 Storage::putFileAs("/public/proformas/Pedido " . $idPedido . '/', $file, $file_name);
@@ -64,8 +62,6 @@ class ProformasController extends Controller
                     'archivo' => $file_name,
                     'sizeFile' => $file_size,
                     'montoProforma' => $montos[$index],
-                    //no deber ir
-                    'fRegistro' => $date,
                 ]);
             }
             return "La acción ha sido exitosa.";
