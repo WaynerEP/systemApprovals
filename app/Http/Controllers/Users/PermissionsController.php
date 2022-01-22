@@ -8,12 +8,11 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        $data = Permission::all();
+        $paginate = request('paginate', 10);
+        $data = Permission::orderBy('id', 'desc')->paginate($paginate);;
         return response()->json($data);
     }
 

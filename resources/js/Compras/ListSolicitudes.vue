@@ -84,7 +84,7 @@
               <td>{{ formatDateAsString(s.fechaSolicitud) }}</td>
               <td>
                 <span class="badge bg-info tx-white" v-if="s.estado == 1"
-                  >Procesada</span
+                  >Enviada a Logística</span
                 >
                 <span class="badge bg-warning tx-white" v-else>En proceso</span>
               </td>

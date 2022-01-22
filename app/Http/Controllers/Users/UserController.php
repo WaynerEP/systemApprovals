@@ -15,8 +15,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = User::with('roles')->get();
-        return $data;
+        $paginate = request('paginate', 10);
+        $data = User::with('roles')->paginate($paginate);
+        return response()->json($data);
     }
 
     public function store(Request $request)

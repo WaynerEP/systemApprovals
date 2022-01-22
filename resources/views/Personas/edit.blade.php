@@ -247,7 +247,6 @@
             var departamento = document.getElementById('departamentos');
             var provincias = document.getElementById('provincias');
             var distritos = document.getElementById('distritos');
-
             function addValuesProvincias(array, id) {
                 provincias.innerHTML = `<option value="">Seleccione</option>`;
                 array.forEach((element) => {
@@ -256,7 +255,6 @@
                         `<option ${selected} value="${element.codProvincia}">${element.provincia}</option>`;
                 })
             }
-
             cargarAllData();
 
             function addValuesDistritos(array, id) {
@@ -267,7 +265,6 @@
                         `<option ${selected} value="${element.codDistrito}">${element.distrito}</>`;
                 })
             }
-
             async function cargar_provincias(idDepa, idProvincia = 0) {
                 const res = await axios.get(`/api/provincias/${idDepa}`);
                 provincias.innerHTML = '';

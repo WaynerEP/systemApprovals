@@ -2,10 +2,10 @@
     <div class="container">
         <div class="slim-header-left">
             <h2 class="slim-logo"><a href="{{ route('home') }}">el valle<span>.</span></a></h2>
-            <div class="search-box">
+            {{-- <div class="search-box">
                 <input type="text" class="form-control" placeholder="Buscar...">
                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
-            </div><!-- search-box -->
+            </div><!-- search-box --> --}}
         </div><!-- slim-header-left -->
         <div class="slim-header-right">
             <div class="dropdown dropdown-b">

@@ -1,11 +1,10 @@
-<!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('assets/js/slim.js') }}"></script>
-<script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('assets/lib/datatables-responsive/js/dataTables.responsive.js') }}"></script>
-<script src="{{ asset('assets/lib/select2/js/select2.min.js') }}"></script>
-<script src="{{ asset('js/toaster.js') }}"></script>
-<script src="{{ asset('assets/lib/jquery-ui/js/jquery-ui.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/dataTables.js') }}"></script>
+<script src="{{ asset('js/dataTablesResponsive.js') }}"></script>
+<script src="{{ asset('js/select2.min.js') }}"></script>
+<script src="{{ asset('js/toaster.min.js') }}"></script>
+<script src="{{ asset('js/jquery-ui.js') }}"></script>
 <script>
     $(function() {
         'use strict';

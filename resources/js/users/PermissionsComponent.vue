@@ -24,8 +24,8 @@
             <th>ACCIONES</th>
           </template>
           <template #tbody>
-            <template v-if="permissions.length > 0">
-              <tr v-for="u in permissions" :key="u.id">
+            <template v-if="permissions.total > 0">
+              <tr v-for="u in permissions.data" :key="u.id">
                 <td>{{ u.id }}</td>
                 <td>
                   {{ u.name }}
@@ -50,6 +50,25 @@
             </template>
           </template>
         </table-component>
+        <div
+          class="
+            pagination-wrapper
+            flex-md-row flex-column
+            justify-content-between
+            align-items-center
+          "
+        >
+          <span class="section-label-sm mg-t-20 mg-md-t-0"
+            >Mostrando {{ permissions.current_page }} a {{ permissions.to }} de
+            {{ permissions.total }} entradas</span
+          >
+          <div class="d-flex justify-content-between">
+            <pagination
+              :data="permissions"
+              @pagination-change-page="getPermissions"
+            ></pagination>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -123,7 +142,8 @@ export default {
 
   data() {
     return {
-      permissions: [],
+      permissions: {},
+      paginate: "10",
       permission: {
         permiso: "",
       },
@@ -136,8 +156,10 @@ export default {
   },
 
   methods: {
-    async getPermissions() {
-      const res = await axios.get("/permissions/list");
+    async getPermissions(page = 1) {
+      const res = await axios.get(
+        "/permissions/list?page=" + page + "&paginate=" + this.paginate
+      );
       this.permissions = res.data;
       if (res) {
         this.isNoEmpty = false;

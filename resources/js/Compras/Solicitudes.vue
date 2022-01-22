@@ -363,7 +363,7 @@ export default {
     InputDate,
   },
   mounted() {
-    this.fetchOptions();
+    this.getPedidoNumber();
     this.getPedidos();
   },
 
@@ -424,7 +424,7 @@ export default {
   methods: {
     resetForm() {
       this.step = 0;
-      this.fetchOptions();
+      this.getPedidoNumber();
       this.getPedidos();
       this.solicitud.idPedido = "";
       this.solicitud.pedido = "";
@@ -459,7 +459,7 @@ export default {
       }
     },
 
-    fetchOptions() {
+    getPedidoNumber() {
       var el = this;
       // AJAX request
       axios.get("/api/solicitudes/number").then((res) => {

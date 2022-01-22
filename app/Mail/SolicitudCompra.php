@@ -11,7 +11,7 @@ class SolicitudCompra extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $subject = "Nueva Solicitud de Compra - Urgente";
+    public $subject = "📄 [Urgente] Nueva Solicitud de Compra";
     public $user;
     public $dest;
     public $idSolicitud;

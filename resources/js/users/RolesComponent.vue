@@ -47,7 +47,7 @@
             data-toggle="modal"
             data-target="#exampleModal"
           >
-            <img src="/assets/img/ilustrators/bg-role.png" class="img-fluid" alt="Nuevo Rol" />
+            <img src="/img/ilustrators/bg-role.png" class="img-fluid" alt="Nuevo Rol" />
             <p class="section-label text-center">
               Agregar <i class="fa fa-plus"></i>
             </p>

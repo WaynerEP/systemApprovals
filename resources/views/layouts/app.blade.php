@@ -17,7 +17,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Preloader -->
-    <script src="{{ asset('js/loader.js') }}"></script>
+    <script src="{{ asset('js/loader.min.js') }}"></script>
     <link href="{{ asset('css/loader.css') }}" rel="stylesheet">
     <!-- styles app -->
     @include('layouts.themes.styles')

@@ -12,11 +12,7 @@ use DB;
 
 class SolicitudesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         $paginate = request('paginate', 8);
@@ -36,14 +32,10 @@ class SolicitudesController extends Controller
                 ->paginate($paginate);
         }
 
-        return response()->json($data);
+        return response()->json($data, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //

@@ -30,8 +30,7 @@ Route::get('/login-google', [\App\Http\Controllers\Auth\LoginController::class, 
 Route::get('/google-callback', [App\Http\Controllers\Auth\LoginController::class, 'authWithGoogle']);
 
 // Management Users
-Route::middleware('auth')->group(function () {
-
+Route::group(['middleware' => ['auth', 'role:Administrador']], function () {
     // rutas administracion de usuarios
     Route::get('management/users', function () {
         return view('Users.User');
@@ -44,7 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::get('management/permissions', function () {
         return view('Users.Permissions');
     })->name('permissions');
+});
 
+Route::middleware('auth')->group(function () {
 
     // ruta personas
     Route::get('contacts/people/create', function () {
@@ -61,17 +62,10 @@ Route::middleware('auth')->group(function () {
         return view('Proveedores.Index');
     })->name('providers');
 
-
     //ruta productos
     Route::get('/items/products', function () {
         return view('Items.Products');
     })->name('items');
-
-    // //ruta categorias
-    // Route::get('/items/categories', function () {
-    //     return view('Items.Categories');
-    // })->name('categories');
-
 
     // Rutas para pedidos
     Route::view('/compras-pedidos', 'Pedidos.Create')
@@ -104,7 +98,6 @@ Route::middleware('auth')->group(function () {
     // ruta ordenes
     Route::view('/orders/list', 'Orders.List')->name('orders');
 
-
     //Rutas para el perfil del usuario
     Route::view('/user-profile', 'Profile.user-profile')
         ->name('profile');
@@ -115,13 +108,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('/users/list', UserController::class)->except('create', 'show', 'edit')->middleware('auth');
-Route::get('/users/roles', [UserController::class, 'getRoles']); //api then
+Route::get('/users/roles', [UserController::class, 'getRoles'])->middleware(['auth', 'role:Administrador']); //api then
 
 Route::resource('/roles/list', RolesController::class)->except('create', 'show', 'edit')->middleware('auth');
 
-Route::get('/roles/permissions', [RolesController::class, 'getPermissions']); //api then
+Route::get('/roles/permissions', [RolesController::class, 'getPermissions'])->middleware(['auth', 'role:Administrador']); //api then
 
-Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit')->middleware('auth');
+Route::resource('/permissions/list', PermissionsController::class)->except('create', 'show', 'edit')->middleware(['auth', 'role:Administrador']);
 
 //routes para personas
 Route::resource('/personas', PersonaController::class)->middleware('auth');
@@ -129,15 +122,14 @@ Route::resource('/personas', PersonaController::class)->middleware('auth');
 //show proforma
 Route::get('/showProforma/{idPedido}/{value}', [ProformasController::class, 'showProforma']);
 
-
 //tiporecursos api
-Route::resource('/pedidos', PedidoController::class)->except('create', 'show', 'edit','update')->middleware('auth');
+Route::resource('/pedidos', PedidoController::class)->except('create', 'show', 'edit', 'update')->middleware('auth');
 
 //solicitudes api
-Route::resource('/solicitud', SolicitudesController::class)->except('create', 'show', 'edit','update')->middleware('auth');
+Route::resource('/solicitud', SolicitudesController::class)->except('create', 'show', 'edit', 'update')->middleware('auth');
 
 //proformas api
-Route::resource('/proformas', ProformasController::class)->except('create', 'show', 'edit','update')->middleware('auth');
+Route::resource('/proformas', ProformasController::class)->except('create', 'show', 'edit', 'update')->middleware('auth');
 
 // Aquí estará la data que cree a proveedores
 Route::resource('/providers', ProviderController::class)->except('create', 'show', 'edit')->middleware('auth');
@@ -169,4 +161,6 @@ Route::post('/update-password', [UserProfileController::class, 'updatePassword']
 //     return "Exito";
 // });
 
-Route::view('/email','Orders.email2');
+// Route::view('/email','layouts.app-2');
+
+// Route::get('/send-message', [orderController::class, 'sendEmailToLogistics'])->name('sendSms')->middleware('auth');

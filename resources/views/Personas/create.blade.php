@@ -243,5 +243,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/createPerson.js') }}"></script>
+    <script src="{{ asset('js/createPerson.min.js') }}"></script>
 @endsection

@@ -27,8 +27,8 @@
             <th class="pd-y-5">Acciones</th>
           </template>
           <template #tbody>
-            <template v-if="users.length > 0">
-              <tr v-for="u in users" :key="u.id">
+            <template v-if="users.total > 0">
+              <tr v-for="u in users.data" :key="u.id">
                 <td class="valign-middle pd-l-20">
                   <img
                     :src="
@@ -86,6 +86,26 @@
             </template>
           </template>
         </table-component>
+
+        <div
+          class="
+            pagination-wrapper
+            flex-md-row flex-column
+            justify-content-between
+            align-items-center
+          "
+        >
+          <span class="section-label-sm mg-t-20 mg-md-t-0"
+            >Mostrando {{ users.current_page }} a {{ users.to }} de
+            {{ users.total }} entradas</span
+          >
+          <div class="d-flex justify-content-between">
+            <pagination
+              :data="users"
+              @pagination-change-page="getUsers"
+            ></pagination>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -298,7 +318,8 @@ export default {
 
   data() {
     return {
-      users: [],
+      users: {},
+      paginate: "4",
       roles: [],
       employees: [],
       user: {
@@ -319,8 +340,10 @@ export default {
   },
 
   methods: {
-    async getUsers() {
-      const res = await axios.get("/users/list");
+    async getUsers(page = 1) {
+      const res = await axios.get(
+        "/users/list?page=" + page + "&paginate=" + this.paginate
+      );
       this.users = res.data;
       if (res) {
         this.isNoEmpty = false;
