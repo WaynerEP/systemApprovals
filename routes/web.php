@@ -17,7 +17,7 @@ use App\Http\Controllers\Products\ProductController;
 
 Route::get('/', function () {
     return view('auth.login');
-})->middleware('auth');
+});
 
 Auth::routes();
 
