@@ -8,7 +8,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            @role('Administrador')
+            {{-- @role('Administrador') --}}
                 <li class="nav-item with-sub {{ request()->is('management/*') ? 'active' : '' }}">
                     <a class="nav-link" href="#">
                         <i class="icon ion-ios-gear-outline"></i>
@@ -22,7 +22,7 @@
                         </ul>
                     </div><!-- sub-item -->
                 </li>
-            @endrole
+            {{-- @endrole --}}
 
             <li class="nav-item with-sub {{ request()->is('contacts/*') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
