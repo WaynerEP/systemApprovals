@@ -6,9 +6,10 @@
     "/css/app.css": "/css/app.css",
     "/css/style.css": "/css/style.css",
     "/css/icons.css": "/css/icons.css",
-    "/css/wizard.css": "/css/wizard.css",
+    "/css/theme.css": "/css/theme.css",
     "/css/components.css": "/css/components.css",
     "/css/select2.css": "/css/select2.css",
     "/css/dataTables.css": "/css/dataTables.css",
-    "/css/spinkit.css": "/css/spinkit.css"
+    "/css/spinkit.css": "/css/spinkit.css",
+    "/css/wizard.css": "/css/wizard.css"
 }

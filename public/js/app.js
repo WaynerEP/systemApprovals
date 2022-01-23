@@ -13008,9 +13008,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css":
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css":
 /*!*********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css ***!
   \*********************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -13032,9 +13032,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * FilePondPluginImagePreview 4.6
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/filepond/dist/filepond.min.css":
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/filepond/dist/filepond.min.css":
 /*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/filepond/dist/filepond.min.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/filepond/dist/filepond.min.css ***!
   \***************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -13056,9 +13056,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, "/*!\n * FilePond 4.30.3\n * Licensed u
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/tb-skeleton/dist/skeleton.css":
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/tb-skeleton/dist/skeleton.css":
 /*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/tb-skeleton/dist/skeleton.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/tb-skeleton/dist/skeleton.css ***!
   \**************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -13080,9 +13080,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".c-skeleton__tb {\n  width: 0;\n  heig
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&":
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& ***!
   \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -59813,6 +59813,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./public/assets/lib/jquery.steps/css/jquery.steps.css":
+/*!*************************************************************!*\
+  !*** ./public/assets/lib/jquery.steps/css/jquery.steps.css ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./public/assets/lib/SpinKit/css/spinkit.css":
 /*!***************************************************!*\
   !*** ./public/assets/lib/SpinKit/css/spinkit.css ***!
@@ -59943,10 +59956,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./public/assets/lib/jquery.steps/css/jquery.steps.css":
-/*!*************************************************************!*\
-  !*** ./public/assets/lib/jquery.steps/css/jquery.steps.css ***!
-  \*************************************************************/
+/***/ "./public/assets/css/theme.css":
+/*!*************************************!*\
+  !*** ./public/assets/css/theme.css ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -84992,7 +85005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_filepond_plugin_image_preview_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./filepond-plugin-image-preview.min.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css");
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_filepond_plugin_image_preview_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./filepond-plugin-image-preview.min.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css");
 
             
 
@@ -85001,11 +85014,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_filepond_plugin_image_preview_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_filepond_plugin_image_preview_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_filepond_plugin_image_preview_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_filepond_plugin_image_preview_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -85022,7 +85035,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_filepond_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./filepond.min.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/filepond/dist/filepond.min.css");
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_filepond_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./filepond.min.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/filepond/dist/filepond.min.css");
 
             
 
@@ -85031,11 +85044,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_filepond_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_filepond_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_filepond_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_filepond_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -85052,7 +85065,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_skeleton_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./skeleton.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/tb-skeleton/dist/skeleton.css");
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_skeleton_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./skeleton.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/tb-skeleton/dist/skeleton.css");
 
             
 
@@ -85061,17 +85074,17 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_skeleton_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_skeleton_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_skeleton_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_skeleton_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&":
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& ***!
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -85082,7 +85095,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!../../vue-loader/lib/loaders/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!../../vue-loader/lib/index.js??vue-loader-options!./DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&");
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!../../vue-loader/lib/loaders/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!../../vue-loader/lib/index.js??vue-loader-options!./DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&");
 
             
 
@@ -85091,11 +85104,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -89319,7 +89332,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _style_loader_dist_cjs_js_css_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_19_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../style-loader/dist/cjs.js!../../css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!../../vue-loader/lib/loaders/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!../../vue-loader/lib/index.js??vue-loader-options!./DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-19[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&");
+/* harmony import */ var _style_loader_dist_cjs_js_css_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_20_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_DataTable_vue_vue_type_style_index_0_id_53282f60_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../style-loader/dist/cjs.js!../../css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!../../vue-loader/lib/loaders/stylePostLoader.js!../../postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!../../vue-loader/lib/index.js??vue-loader-options!./DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-20[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-materialize-datatable/src/DataTable.vue?vue&type=style&index=0&id=53282f60&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -111853,11 +111866,12 @@ module.exports = JSON.parse('{"rows_per_page":"Rijen per pagina","out_of_pages":
 /******/ 			"css/app": 0,
 /******/ 			"css/style": 0,
 /******/ 			"css/icons": 0,
-/******/ 			"css/wizard": 0,
+/******/ 			"css/theme": 0,
 /******/ 			"css/components": 0,
 /******/ 			"css/select2": 0,
 /******/ 			"css/dataTables": 0,
-/******/ 			"css/spinkit": 0
+/******/ 			"css/spinkit": 0,
+/******/ 			"css/wizard": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -111907,18 +111921,19 @@ module.exports = JSON.parse('{"rows_per_page":"Rijen per pagina","out_of_pages":
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/css/style.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/css/components.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/lib/jquery.steps/css/jquery.steps.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/lib/SpinKit/css/spinkit.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/lib/datatables/css/jquery.dataTables.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/lib/select2/css/select2.min.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/css/main.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/css/toaster.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/lib/font-awesome/css/font-awesome.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/wizard","css/components","css/select2","css/dataTables","css/spinkit"], () => (__webpack_require__("./public/assets/lib/Ionicons/css/ionicons.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/css/components.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/css/theme.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/lib/jquery.steps/css/jquery.steps.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/lib/SpinKit/css/spinkit.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/lib/datatables/css/jquery.dataTables.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/lib/select2/css/select2.min.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/css/main.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/css/toaster.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/lib/font-awesome/css/font-awesome.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/main","css/app","css/style","css/icons","css/theme","css/components","css/select2","css/dataTables","css/spinkit","css/wizard"], () => (__webpack_require__("./public/assets/lib/Ionicons/css/ionicons.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

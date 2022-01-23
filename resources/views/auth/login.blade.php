@@ -3,7 +3,7 @@
 @section('auth')
     <form class="signin-box rounded-5" method="POST" action="{{ route('login') }}" class="needs-validation">
         @csrf
-        <h2 class="slim-logo"><a href="index.html">El valle<span>.</span></a></h2>
+        <h2 class="slim-logo"><a href="{{ route('login') }}">El valle<span>.</span></a></h2>
         <h4 class="signin-title-secondary">{{ __('Inicia sesión para continuar.') }}</h4>
         <input type="hidden" name="status" value="1">
 
