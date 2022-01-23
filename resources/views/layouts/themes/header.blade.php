@@ -17,7 +17,7 @@
                     <div class="dropdown-menu-header">
                         <h6 class="dropdown-menu-title">Notifications</h6>
                     </div><!-- dropdown-menu-header -->
-                    <div class="dropdown-list">
+                    {{-- <div class="dropdown-list">
                         <!-- loop starts here -->
                         <a href="" class="dropdown-link">
                             <div class="media">
@@ -33,7 +33,7 @@
                             <a href="page-notifications.html"><i class="fa fa-angle-down"></i> Show All
                                 Notifications</a>
                         </div>
-                    </div><!-- dropdown-list -->
+                    </div><!-- dropdown-list --> --}}
                 </div><!-- dropdown-menu-right -->
             </div><!-- dropdown -->
             <div class="dropdown dropdown-c">

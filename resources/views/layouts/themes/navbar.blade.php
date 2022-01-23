@@ -32,7 +32,7 @@
                 <div class="sub-item">
                     <ul>
                         <li><a href="{{ url('/personas') }}">Personas</a></li>
-                        <li><a href="{{ route('employees') }}">Empleados</a></li>
+                        {{-- <li><a href="{{ route('employees') }}">Empleados</a></li> --}}
                         <li><a href="{{ route('providers') }}">Proveedores</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
