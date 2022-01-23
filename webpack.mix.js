@@ -11,7 +11,6 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('public/assets/lib/datatables/css/jquery.dataTables.css', 'public/css/dataTables.css')
     .postCss('public/assets/lib/select2/css/select2.min.css', 'public/css/select2.css')
     .postCss('public/assets/css/main.css', 'public/css')
-    .postCss('public/assets/css/theme-2.css', 'public/css/main.css')
     .postCss('public/assets/css/toaster.css', 'public/css/main.css')
     .postCss('public/assets/lib/font-awesome/css/font-awesome.css', 'public/css/icons.css')
     .postCss('public/assets/lib/Ionicons/css/ionicons.css', 'public/css/icons.css');
