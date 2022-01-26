@@ -15,7 +15,7 @@ class Empleado extends Model
         'idCargo',
         'observaciones',
         'sueldo',
-        'estado',
+        'estadoEmpleado',
     ];
     public $timestamps = false;
 

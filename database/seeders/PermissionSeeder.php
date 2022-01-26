@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
-class RoleSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $roles = DB::connection('baseantigua')->table('roles')->get();
-        foreach ($roles as $fila) {
-            $new = new Role();
+        $permissions = DB::connection('baseantigua')->table('permissions')->get();
+        foreach ($permissions as $fila) {
+            $new = new Permission();
             $new->id = $fila->id;
             $new->name = $fila->name;
             $new->guard_name = $fila->guard_name;

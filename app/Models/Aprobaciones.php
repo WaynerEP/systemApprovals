@@ -16,6 +16,7 @@ class Aprobaciones extends Model
         'motivoDesicion',
         'observaciones',
         'estado',
+        'fechaRespuesta',
     ];
     public $timestamps = false;
 

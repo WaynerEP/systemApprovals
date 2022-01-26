@@ -11,11 +11,16 @@ class Proveedor extends Model
     protected $table = "proveedores";
     protected $primaryKey = "idProveedor";
     protected $fillable = [
-        'estado', 'dniRepresentante',
-        'razonSocial', 'direccion',
-        'ciudad', 'telefono',
-        'codPostal', 'email',
-        'pais', 'ruc',
+        'estado', 
+        'dniRepresentante',
+        'razonSocial', 
+        'direccion',
+        'ciudad', 
+        'telefono',
+        'codPostal', 
+        'email',
+        'pais', 
+        'ruc',
     ];
 
     public $timestamps = false;

@@ -19,7 +19,7 @@ class ProformasController extends Controller
     public function index()
     {
         $top = request('top', 3);
-        $data = DB::select('Exec spGetListToProformas ?', array($top));
+        $data = DB::select('call spGetListToProformas(?)', array($top));
         $datos = $this->groupBy('date', $data);
         return response()->json($datos);
     }

@@ -44,13 +44,10 @@
                             <div class="form-group col-md-7">
                                 <label>Tipo de identificación</label>
                                 <select class="custom-select" required>
-                                    <option>RUC - Registro único de contribuyente</option>
                                     <option selected>
                                         DNI - Documento nacional de identidad
                                     </option>
-                                    <option>CE - Carnet de extranjería</option>
-                                    <option>PP - Pasaporte</option>
-                                    <option>PP - Pasaporte</option>
+
                                 </select>
                             </div>
                         </div>

@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
 
     // ruta para solicitudes
     Route::get('/compras-request', function () {
-        $data = DB::select('exec sp_EmpleadoArea ' . Auth::user()->id);
+        $data = DB::select('call sp_EmpleadoArea(' . Auth::user()->id . ')');
         return view('Solicitudes.Create', compact('data'));
     })->name('purchase-request.create');
 

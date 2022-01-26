@@ -24,6 +24,7 @@ class Persona extends Model
         'telefono2',
         'idNivel',
         'codDistrito',
+        'estado',
     ];
     public $timestamps = false;
 }

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Departamento extends Model
+class Estudio extends Model
 {
     use HasFactory;
-    protected $table = "departamentos";
-    protected $primarykey = "codDepartamento";
+    protected $table = "nivelstudios";
+    protected $primarykey = "idNivel";
     protected $fillable = [
-        'departamento',
+        'nivel',
     ];
     public $timestamps = false;
 }

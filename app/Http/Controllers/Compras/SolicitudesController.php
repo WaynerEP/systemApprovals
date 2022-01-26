@@ -9,10 +9,11 @@ use App\Mail\SolicitudCompra;
 use App\Models\Solicitud;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class SolicitudesController extends Controller
 {
-   
+
     public function index()
     {
         $paginate = request('paginate', 8);
@@ -35,7 +36,7 @@ class SolicitudesController extends Controller
         return response()->json($data, 200);
     }
 
-    
+
     public function create()
     {
         //
@@ -49,7 +50,8 @@ class SolicitudesController extends Controller
      */
     public function store(Request $request)
     {
-        $monto = $request->monto;
+        // $monto = $request->monto;
+        $monto = 80;
         $detailProforma = $request->detalleProformas;
         $detailPedido = $request->detallePedido;
         $pedido = $request->pedido;
@@ -59,16 +61,16 @@ class SolicitudesController extends Controller
         //guardamos la solicitud
         try {
             DB::beginTransaction();
-            // insertamos nueva solicitud
+            // # insertamos nueva solicitud
             // $idSolicitud = DB::table('solicitudes')->insertGetId(
             //     ['idPedido' => $idPedido, 'nota' => $nota, 'codEmpleado' => $codEmpleado]
             // );
-            // save solicitudes proformas
+            // # save solicitudes proformas
             // for ($i = 0; $i < count($detailProforma); $i++) {
             //     DB::update("EXEC spRegisterSolicitudProformas ?,?", array($idSolicitud, $detailProforma[$i]['idProforma']));
             // }
             # sending emails
-            $users = DB::select('Exec spUserSendEmail ?', array($monto));
+            $users = DB::select('call spUserSendEmail(?)', array($monto));
             foreach ($users as $index => $el) {
                 if ($users[$index]->codEmpleado == $codEmpleado) {
                     $dato = $users[$index];

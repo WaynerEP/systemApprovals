@@ -67,7 +67,7 @@ class PersonaController extends Controller
 
     public function edit($id)
     {
-        $data = DB::select(" exec sp_updatePerson '$id' ");
+        $data = DB::select("call sp_updatePerson('$id')");
         $depas = Departamento::all();
         $estudios = DB::table('nivelStudios')->get();
         return view('Personas.edit', ['data' => $data, 'departamentos' => $depas, 'estudios' => $estudios]);

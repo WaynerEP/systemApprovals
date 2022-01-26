@@ -91,6 +91,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'baseantigua' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_ANTIGUA', 'localhost'),
+            'port' => env('DB_PORT_ANTIGUA', '1433'),
+            'database' => env('DB_DATABASE_ANTIGUA', 'forge'),
+            'username' => env('DB_USERNAME_ANTIGUA', 'forge'),
+            'password' => env('DB_PASSWORD_ANTIGUA', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*

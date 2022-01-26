@@ -23,12 +23,12 @@ Route::get('/info-el-valle', function () {
 
 //empleados que no son usuarios
 Route::get('/users/employees', function () {
-    return DB::select('exec spEmployeesNotUsers');
+    return DB::select('call spEmployeesNotUsers()');
 });
 
 //Devuelve un datatable de todos los datos de personas
 Route::get('/dataPeople', function () {
-    $data = DB::select('exec citizens');
+    $data = DB::select('call citizens()');
     return datatables()->of($data)->addColumn('btn', 'Personas.actions')->rawColumns(['btn'])->toJson();
 });
 
@@ -55,7 +55,7 @@ Route::get('/depas/areas/cargos/{idArea}', [cargosController::class, 'getCargos'
 //Nos trae todos los proveedores que
 // tienen de estado 1
 Route::get('/dataProviders', function () {
-    $data = DB::select('exec listProviders');
+    $data = DB::select('call listProviders()');
     return response()->json($data);
 });
 
@@ -70,21 +70,21 @@ Route::get('/provider/{id}', function ($id) {
 // no son ni empleados ni
 // proveedores
 Route::get('/dataProvidersNew', function () {
-    $data = DB::select('exec listProvidersNew');
+    $data = DB::select('call listProvidersNew()');
     return response()->json($data);
 });
 
 // Trae todas las categorias de los
 // productos
 Route::get('/dataCategories', function () {
-    $data = DB::select('exec spListCategories');
+    $data = DB::select('call spListCategories()');
     return response()->json($data);
 });
 
 // Lista los productos por las distintas
 // categorias
 Route::get('/dataProducts/{id}', function ($id) {
-    $data = DB::select('exec spListProducts ' . $id);
+    $data = DB::select('call spListProducts(' . $id . ');');
     return response()->json($data);
 });
 
@@ -96,14 +96,14 @@ Route::get('/products', function () {
 
 // obtiene los productos para el pedido
 Route::get('/products/proforma', function () {
-    $data = DB::select('exec spListProductsToProforma');
+    $data = DB::select('call spListProductsToProforma()');
     return response()->json($data);
 });
 
 
 //numero de pedido se incrementa + 1
 Route::get('/aprobaciones/detail/{idAprobaciones}', function ($id) {
-    return response()->json(DB::select('exec spDetailAprobaciones ?', array($id)));
+    return response()->json(DB::select('call spDetailAprobaciones(?)', array($id)));
 });
 
 
@@ -123,12 +123,12 @@ Route::get('/solicitudes/number', function () {
 
 //ruta para traer los pedidos recientes sin proformas
 Route::get('/proforma/pedidos', function () {
-    return response()->json(DB::select('exec spPedidosNotProformas'));
+    return response()->json(DB::select('call spPedidosNotProformas()'));
 });
 
 //ruta para traer los pedidos recientes sin solicitudes y con proformas
 Route::get('/solicitudes/pedidos', function () {
-    return response()->json(DB::select('exec spPedidosNotSolicitudes'));
+    return response()->json(DB::select('call spPedidosNotSolicitudes()'));
 });
 
 //ruta para traer los pedidos recientes sin solicitudes y con proformas
@@ -142,18 +142,18 @@ Route::get('/pedidos/detalle/{idPedido}', function ($idPedido) {
 
 //ruta para traer los 3 mejores proformas
 Route::get('/pedidos/{idPedido}/proformas', function ($idPedido) {
-    return response()->json(DB::select('exec spProformasMenorPrecio ' . $idPedido));
+    return response()->json(DB::select('call spProformasMenorPrecio(' . $idPedido . ')'));
 });
-
 //devuelve las ordenes por aprobar de un empleado
+
 Route::get('/orders/list/{id}/{status}', function ($id, $status) {
-    $data = DB::select('Exec spOrdersListByEmpleado ?,?', array($id, $status));
+    $data = DB::select('call spOrdersListByEmpleado(?,?)', array($id, $status));
     return response()->json($data);
 });
 
 //devuelve los datos el usuario para editarlo
 Route::get('/user-profile/{user_id}', function ($user_id) {
-    $user_info = DB::select('Exec spUserProfile ?', array($user_id));
+    $user_info = DB::select('call spUserProfile(?)', array($user_id));
     return response()->json($user_info);
 });
 
